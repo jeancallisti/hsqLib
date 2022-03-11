@@ -1,0 +1,11 @@
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\bin\Debug\net5.0\HsqLib.deps.json
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\bin\Debug\net5.0\HsqLib.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\bin\Debug\net5.0\ref\HsqLib.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\bin\Debug\net5.0\HsqLib.pdb
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\HsqLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\HsqLib.AssemblyInfoInputs.cache
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\HsqLib.AssemblyInfo.cs
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\HsqLib.csproj.CoreCompileInputs.cache
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\HsqLib.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\ref\HsqLib.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Debug\net5.0\HsqLib.pdb

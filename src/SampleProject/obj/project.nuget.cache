@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "oVntRMSzwH8YggqLokeCnYwMso8fUZcDF0u6/3LSlBM+frT0aIK6uN1Sy/D8gnNDG3jRFsNP2d0kfDXN1hQ4bg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\SampleProject\\SampleProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ma-beg\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}

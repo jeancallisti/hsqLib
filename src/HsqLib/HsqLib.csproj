@@ -1,7 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Core functions and tests by ZWomp - Repackaged by Monsieur Ouxx - Based on work by bigs.fr, pierroelmito</Authors>
+    <Company>DuneRevival</Company>
+    <Description>C# library to handle .HSQ files as found in Cryo videogames from the 1990s such as dune, KGB, Lost Eden...
+
+Unit tests and Project sample can be found in the solution, in the Github repo. https://github.com/jeancallisti/hsqLib</Description>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://sourceforge.net/projects/dunerevival/</PackageProjectUrl>
+    <UserSecretsId>dfe5c131-b17f-49d0-8b2f-8a7326e0965f</UserSecretsId>
+    <RepositoryUrl>https://github.com/jeancallisti/hsqLib</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
 </Project>

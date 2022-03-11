@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "caea856d-e98c-4252-b931-a962b7b84f0c": {
+      "ProjectGuid": "caea856d-e98c-4252-b931-a962b7b84f0c",
+      "DisplayName": "SampleProject",
+      "ColorIndex": 0
+    },
+    "6ea64e3d-efb9-4c58-8990-847b666007ef": {
+      "ProjectGuid": "6ea64e3d-efb9-4c58-8990-847b666007ef",
+      "DisplayName": "HsqLib",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

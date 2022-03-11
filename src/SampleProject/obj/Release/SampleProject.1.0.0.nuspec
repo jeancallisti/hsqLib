@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SampleProject</id>
+    <version>1.0.0</version>
+    <authors>SampleProject</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="HsqLib" version="1.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\bin\Release\net5.0\SampleProject.runtimeconfig.json" target="lib\net5.0\SampleProject.runtimeconfig.json" />
+    <file src="C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\bin\Release\net5.0\SampleProject.dll" target="lib\net5.0\SampleProject.dll" />
+  </files>
+</package>

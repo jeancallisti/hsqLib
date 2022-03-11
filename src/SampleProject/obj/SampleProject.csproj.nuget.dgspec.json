@@ -25,7 +25,8 @@
           "net5.0"
         ],
         "sources": {
-          "https://feeds.dev.sectra.net/nuget": {}
+          "https://feeds.dev.sectra.net/nuget": {},
+          "https://nuget.pkg.github.com/jeancallisti/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -82,7 +83,8 @@
           "net5.0"
         ],
         "sources": {
-          "https://feeds.dev.sectra.net/nuget": {}
+          "https://feeds.dev.sectra.net/nuget": {},
+          "https://nuget.pkg.github.com/jeancallisti/index.json": {}
         },
         "frameworks": {
           "net5.0": {

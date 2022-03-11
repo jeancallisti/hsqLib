@@ -116,14 +116,14 @@ C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\UnitTests\obj\Debug\net5.0\ref
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\UnitTests\obj\Debug\net5.0\UnitTests.pdb
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\UnitTests\obj\Debug\net5.0\UnitTests.genruntimeconfig.cache
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\CoverletSourceRootsMapping
-C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\testhost.exe
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\testhost.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\testhost.exe
+C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\Microsoft.TestPlatform.PlatformAbstractions.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\NUnit3.TestAdapter.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\NUnit3.TestAdapter.pdb
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\nunit.engine.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\nunit.engine.api.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\nunit.engine.core.dll
-C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\Microsoft.TestPlatform.PlatformAbstractions.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\UnitTests.deps.json
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\UnitTests.runtimeconfig.json
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Debug\net5.0\UnitTests.runtimeconfig.dev.json

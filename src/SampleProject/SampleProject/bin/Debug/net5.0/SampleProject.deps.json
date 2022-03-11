@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "SampleProject/1.0.0": {
+        "dependencies": {
+          "HsqLib": "1.0.0"
+        },
+        "runtime": {
+          "SampleProject.dll": {}
+        }
+      },
+      "HsqLib/1.0.0": {
+        "runtime": {
+          "HsqLib.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SampleProject/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HsqLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

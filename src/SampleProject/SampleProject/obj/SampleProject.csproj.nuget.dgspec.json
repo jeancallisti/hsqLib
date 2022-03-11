@@ -1,0 +1,132 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\SampleProject\\SampleProject\\SampleProject.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib\\HsqLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib\\HsqLib.csproj",
+        "projectName": "HsqLib",
+        "projectPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib\\HsqLib.csproj",
+        "packagesPath": "C:\\Users\\ma-beg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ma-beg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://feeds.dev.sectra.net/nuget": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\SampleProject\\SampleProject\\SampleProject.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\SampleProject\\SampleProject\\SampleProject.csproj",
+        "projectName": "SampleProject",
+        "projectPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\SampleProject\\SampleProject\\SampleProject.csproj",
+        "packagesPath": "C:\\Users\\ma-beg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\SampleProject\\SampleProject\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ma-beg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://feeds.dev.sectra.net/nuget": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib\\HsqLib.csproj": {
+                "projectPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib\\HsqLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.13, 5.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

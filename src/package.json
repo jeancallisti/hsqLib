@@ -1,5 +1,5 @@
 {
-  "name": "@dunerevival/hsqlib",
+  "name": "@jeancallisti/hsqlib",
   "version": "1.0.0",
   "description": "C# Utility library for handling .HSQ files as found in Cryo's 1990s videogames such as Dune, KGB, Lost Eden, etc.",
   "main": "index.js",

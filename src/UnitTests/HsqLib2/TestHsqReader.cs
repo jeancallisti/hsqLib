@@ -12,45 +12,8 @@ namespace UnitTests
     /// <summary>
     /// Unit Tests for version 1 of the library (verbatim from ZWomp's source code)
     /// </summary>
-    public class TestHsqLib2
+    public class TestHsqReader
     {
-
-        [Test]
-        public void TestHeaderChecksum()
-        {
-
-            var jess = new byte[] { 0x5F, 0x61, 0x00, 0x00, 0x25, 0xC6 };
-            var bunk = new byte[] { 0xF2, 0x59, 0x00, 0xA6, 0x38, 0x82 };
-            var chan = new byte[] { 0x81, 0x4A, 0x00, 0xDE, 0x21, 0xE1 };
-
-            Assert.That(HsqHeader.CheckHeaderValid(jess), Is.True);
-            jess[4] = 0x61;
-            Assert.That(HsqHeader.CheckHeaderValid(jess), Is.False);
-
-            Assert.That(HsqHeader.CheckHeaderValid(bunk), Is.True);
-            bunk[2] = 0x61;
-            Assert.That(HsqHeader.CheckHeaderValid(bunk), Is.False);
-
-            Assert.That(HsqHeader.CheckHeaderValid(chan), Is.True);
-            chan[3] = 0x61;
-            Assert.That(HsqHeader.CheckHeaderValid(chan), Is.False);
-        }
-
-        [Test]
-        public void TestHeaderUncompressedSize()
-        {
-            bool ignoreBadChecksum = false;
-
-            var jess = new HsqHeader(new byte[] { 0x5F, 0x61, 0x00, 0x00, 0x25, 0xC6 }, ignoreBadChecksum);
-            var bunk = new HsqHeader(new byte[] { 0xF2, 0x59, 0x00, 0xA6, 0x38, 0x82 }, ignoreBadChecksum);
-            var chan = new HsqHeader(new byte[] { 0x81, 0x4A, 0x00, 0xDE, 0x21, 0xE1 }, ignoreBadChecksum);
-
-            Assert.That(jess.UncompressedSize == 24927, Is.True);
-            Assert.That(bunk.UncompressedSize == 23026, Is.True);
-            Assert.That(chan.UncompressedSize == 19073, Is.True);
-            Assert.That(chan.UncompressedSize == 666, Is.False);
-        }
-
         private MemoryStream AsStream(byte[] input)
         {
             MemoryStream stream = new MemoryStream();
@@ -178,11 +141,11 @@ namespace UnitTests
             var input_bytes = new byte[]
             {
                 0x0D, 0x00, 0x15, 0x00, 0x00, 0x83, // Header (checksum wrong)
-                0x1F, 0x1E, // Instructions
+                0x1F, 0x1E, // Instructions. They end up with bit '0' which means we have only a half instruction...
                 0xF0, 0xFF, 0x2F, 0x22, 0x12,
                 0xFE, // Distance
                 0x54, 0xFD, 0x33, 0x03,
-                0x0E, 0x0F, // Instructions
+                0x0E, 0x0F, // ...With the other half here, in this new batch of instructions.
                 0xFD, // Distance
             };
 

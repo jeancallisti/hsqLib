@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SampleProject
+namespace UnpackCli
 {
     class Program
     {
         private void PrintHelp()
         {
-            Console.WriteLine("HsqLib2SampleProject.exe <hsq file>");
+            Console.WriteLine("UnpackCli2.exe <hsq file>");
         }
 
         public void Run(string[] args)

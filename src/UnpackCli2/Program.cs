@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SampleProject
+namespace UnpackCli
 {
     class Program
     {
         private void PrintHelp()
         {
-            Console.WriteLine("HsqLibSampleProject.exe <hsq file>");
+            Console.WriteLine("UnpackCli.exe <hsq file>");
         }
 
         public void Run(string[] args)

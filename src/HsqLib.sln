@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnpackCli", "UnpackCli\Unpa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnpackCli2", "UnpackCli2\UnpackCli2.csproj", "{A5BF4F9D-3508-4536-BFE6-16DF2E3DB3D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoDataLib", "CryoDataLib\CryoDataLib.csproj", "{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoDataCli", "CryoDataCli\CryoDataCli.csproj", "{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{A5BF4F9D-3508-4536-BFE6-16DF2E3DB3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5BF4F9D-3508-4536-BFE6-16DF2E3DB3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5BF4F9D-3508-4536-BFE6-16DF2E3DB3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

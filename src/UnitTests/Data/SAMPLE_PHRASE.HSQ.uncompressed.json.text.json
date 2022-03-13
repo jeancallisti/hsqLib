@@ -1,0 +1,2225 @@
+{
+  "Metadata": {
+    "TotalSize": 888,
+    "Addresses": [
+      {
+        "SentenceStartAddress": 888,
+        "SentenceEndAddress": 929
+      },
+      {
+        "SentenceStartAddress": 929,
+        "SentenceEndAddress": 1011
+      },
+      {
+        "SentenceStartAddress": 1011,
+        "SentenceEndAddress": 1028
+      },
+      {
+        "SentenceStartAddress": 1028,
+        "SentenceEndAddress": 1107
+      },
+      {
+        "SentenceStartAddress": 1107,
+        "SentenceEndAddress": 1210
+      },
+      {
+        "SentenceStartAddress": 1210,
+        "SentenceEndAddress": 1361
+      },
+      {
+        "SentenceStartAddress": 1361,
+        "SentenceEndAddress": 1621
+      },
+      {
+        "SentenceStartAddress": 1621,
+        "SentenceEndAddress": 1743
+      },
+      {
+        "SentenceStartAddress": 1743,
+        "SentenceEndAddress": 1916
+      },
+      {
+        "SentenceStartAddress": 1916,
+        "SentenceEndAddress": 2040
+      },
+      {
+        "SentenceStartAddress": 2040,
+        "SentenceEndAddress": 2182
+      },
+      {
+        "SentenceStartAddress": 2182,
+        "SentenceEndAddress": 2235
+      },
+      {
+        "SentenceStartAddress": 2235,
+        "SentenceEndAddress": 2350
+      },
+      {
+        "SentenceStartAddress": 2350,
+        "SentenceEndAddress": 2415
+      },
+      {
+        "SentenceStartAddress": 2415,
+        "SentenceEndAddress": 2521
+      },
+      {
+        "SentenceStartAddress": 2521,
+        "SentenceEndAddress": 2558
+      },
+      {
+        "SentenceStartAddress": 2558,
+        "SentenceEndAddress": 2685
+      },
+      {
+        "SentenceStartAddress": 2685,
+        "SentenceEndAddress": 2835
+      },
+      {
+        "SentenceStartAddress": 2835,
+        "SentenceEndAddress": 2886
+      },
+      {
+        "SentenceStartAddress": 2886,
+        "SentenceEndAddress": 2916
+      },
+      {
+        "SentenceStartAddress": 2916,
+        "SentenceEndAddress": 3051
+      },
+      {
+        "SentenceStartAddress": 3051,
+        "SentenceEndAddress": 3132
+      },
+      {
+        "SentenceStartAddress": 3132,
+        "SentenceEndAddress": 3482
+      },
+      {
+        "SentenceStartAddress": 3482,
+        "SentenceEndAddress": 3573
+      },
+      {
+        "SentenceStartAddress": 3573,
+        "SentenceEndAddress": 3745
+      },
+      {
+        "SentenceStartAddress": 3745,
+        "SentenceEndAddress": 3798
+      },
+      {
+        "SentenceStartAddress": 3798,
+        "SentenceEndAddress": 3890
+      },
+      {
+        "SentenceStartAddress": 3890,
+        "SentenceEndAddress": 3971
+      },
+      {
+        "SentenceStartAddress": 3971,
+        "SentenceEndAddress": 4021
+      },
+      {
+        "SentenceStartAddress": 4021,
+        "SentenceEndAddress": 4124
+      },
+      {
+        "SentenceStartAddress": 4124,
+        "SentenceEndAddress": 4176
+      },
+      {
+        "SentenceStartAddress": 4176,
+        "SentenceEndAddress": 4207
+      },
+      {
+        "SentenceStartAddress": 4207,
+        "SentenceEndAddress": 4263
+      },
+      {
+        "SentenceStartAddress": 4263,
+        "SentenceEndAddress": 4325
+      },
+      {
+        "SentenceStartAddress": 4325,
+        "SentenceEndAddress": 4350
+      },
+      {
+        "SentenceStartAddress": 4350,
+        "SentenceEndAddress": 4388
+      },
+      {
+        "SentenceStartAddress": 4388,
+        "SentenceEndAddress": 4449
+      },
+      {
+        "SentenceStartAddress": 4449,
+        "SentenceEndAddress": 4548
+      },
+      {
+        "SentenceStartAddress": 4548,
+        "SentenceEndAddress": 4668
+      },
+      {
+        "SentenceStartAddress": 4668,
+        "SentenceEndAddress": 4777
+      },
+      {
+        "SentenceStartAddress": 4777,
+        "SentenceEndAddress": 4848
+      },
+      {
+        "SentenceStartAddress": 4848,
+        "SentenceEndAddress": 4922
+      },
+      {
+        "SentenceStartAddress": 4922,
+        "SentenceEndAddress": 4993
+      },
+      {
+        "SentenceStartAddress": 4993,
+        "SentenceEndAddress": 5053
+      },
+      {
+        "SentenceStartAddress": 5053,
+        "SentenceEndAddress": 5208
+      },
+      {
+        "SentenceStartAddress": 5208,
+        "SentenceEndAddress": 5319
+      },
+      {
+        "SentenceStartAddress": 5319,
+        "SentenceEndAddress": 5383
+      },
+      {
+        "SentenceStartAddress": 5383,
+        "SentenceEndAddress": 5500
+      },
+      {
+        "SentenceStartAddress": 5500,
+        "SentenceEndAddress": 5611
+      },
+      {
+        "SentenceStartAddress": 5611,
+        "SentenceEndAddress": 5638
+      },
+      {
+        "SentenceStartAddress": 5638,
+        "SentenceEndAddress": 5681
+      },
+      {
+        "SentenceStartAddress": 5681,
+        "SentenceEndAddress": 5707
+      },
+      {
+        "SentenceStartAddress": 5707,
+        "SentenceEndAddress": 5772
+      },
+      {
+        "SentenceStartAddress": 5772,
+        "SentenceEndAddress": 5918
+      },
+      {
+        "SentenceStartAddress": 5918,
+        "SentenceEndAddress": 6019
+      },
+      {
+        "SentenceStartAddress": 6019,
+        "SentenceEndAddress": 6117
+      },
+      {
+        "SentenceStartAddress": 6117,
+        "SentenceEndAddress": 6241
+      },
+      {
+        "SentenceStartAddress": 6241,
+        "SentenceEndAddress": 6305
+      },
+      {
+        "SentenceStartAddress": 6305,
+        "SentenceEndAddress": 6451
+      },
+      {
+        "SentenceStartAddress": 6451,
+        "SentenceEndAddress": 6520
+      },
+      {
+        "SentenceStartAddress": 6520,
+        "SentenceEndAddress": 6692
+      },
+      {
+        "SentenceStartAddress": 6692,
+        "SentenceEndAddress": 6847
+      },
+      {
+        "SentenceStartAddress": 6847,
+        "SentenceEndAddress": 6915
+      },
+      {
+        "SentenceStartAddress": 6915,
+        "SentenceEndAddress": 6965
+      },
+      {
+        "SentenceStartAddress": 6965,
+        "SentenceEndAddress": 7030
+      },
+      {
+        "SentenceStartAddress": 7030,
+        "SentenceEndAddress": 7070
+      },
+      {
+        "SentenceStartAddress": 7070,
+        "SentenceEndAddress": 7100
+      },
+      {
+        "SentenceStartAddress": 7100,
+        "SentenceEndAddress": 7229
+      },
+      {
+        "SentenceStartAddress": 7229,
+        "SentenceEndAddress": 7428
+      },
+      {
+        "SentenceStartAddress": 7428,
+        "SentenceEndAddress": 7507
+      },
+      {
+        "SentenceStartAddress": 7507,
+        "SentenceEndAddress": 7634
+      },
+      {
+        "SentenceStartAddress": 7634,
+        "SentenceEndAddress": 7656
+      },
+      {
+        "SentenceStartAddress": 7656,
+        "SentenceEndAddress": 7823
+      },
+      {
+        "SentenceStartAddress": 7823,
+        "SentenceEndAddress": 7853
+      },
+      {
+        "SentenceStartAddress": 7853,
+        "SentenceEndAddress": 7924
+      },
+      {
+        "SentenceStartAddress": 7924,
+        "SentenceEndAddress": 8040
+      },
+      {
+        "SentenceStartAddress": 8040,
+        "SentenceEndAddress": 8181
+      },
+      {
+        "SentenceStartAddress": 8181,
+        "SentenceEndAddress": 8267
+      },
+      {
+        "SentenceStartAddress": 8267,
+        "SentenceEndAddress": 8618
+      },
+      {
+        "SentenceStartAddress": 8618,
+        "SentenceEndAddress": 8628
+      },
+      {
+        "SentenceStartAddress": 8628,
+        "SentenceEndAddress": 8661
+      },
+      {
+        "SentenceStartAddress": 8661,
+        "SentenceEndAddress": 8924
+      },
+      {
+        "SentenceStartAddress": 8924,
+        "SentenceEndAddress": 8959
+      },
+      {
+        "SentenceStartAddress": 8959,
+        "SentenceEndAddress": 9050
+      },
+      {
+        "SentenceStartAddress": 9050,
+        "SentenceEndAddress": 9069
+      },
+      {
+        "SentenceStartAddress": 9069,
+        "SentenceEndAddress": 9131
+      },
+      {
+        "SentenceStartAddress": 9131,
+        "SentenceEndAddress": 9208
+      },
+      {
+        "SentenceStartAddress": 9208,
+        "SentenceEndAddress": 9230
+      },
+      {
+        "SentenceStartAddress": 9230,
+        "SentenceEndAddress": 9276
+      },
+      {
+        "SentenceStartAddress": 9276,
+        "SentenceEndAddress": 9432
+      },
+      {
+        "SentenceStartAddress": 9432,
+        "SentenceEndAddress": 9623
+      },
+      {
+        "SentenceStartAddress": 9623,
+        "SentenceEndAddress": 9777
+      },
+      {
+        "SentenceStartAddress": 9777,
+        "SentenceEndAddress": 9835
+      },
+      {
+        "SentenceStartAddress": 9835,
+        "SentenceEndAddress": 9887
+      },
+      {
+        "SentenceStartAddress": 9887,
+        "SentenceEndAddress": 9928
+      },
+      {
+        "SentenceStartAddress": 9928,
+        "SentenceEndAddress": 9998
+      },
+      {
+        "SentenceStartAddress": 9998,
+        "SentenceEndAddress": 10032
+      },
+      {
+        "SentenceStartAddress": 10032,
+        "SentenceEndAddress": 10085
+      },
+      {
+        "SentenceStartAddress": 10085,
+        "SentenceEndAddress": 10131
+      },
+      {
+        "SentenceStartAddress": 10131,
+        "SentenceEndAddress": 10151
+      },
+      {
+        "SentenceStartAddress": 10151,
+        "SentenceEndAddress": 10245
+      },
+      {
+        "SentenceStartAddress": 10245,
+        "SentenceEndAddress": 10275
+      },
+      {
+        "SentenceStartAddress": 10275,
+        "SentenceEndAddress": 10292
+      },
+      {
+        "SentenceStartAddress": 10292,
+        "SentenceEndAddress": 10304
+      },
+      {
+        "SentenceStartAddress": 10304,
+        "SentenceEndAddress": 10346
+      },
+      {
+        "SentenceStartAddress": 10346,
+        "SentenceEndAddress": 10379
+      },
+      {
+        "SentenceStartAddress": 10379,
+        "SentenceEndAddress": 10433
+      },
+      {
+        "SentenceStartAddress": 10433,
+        "SentenceEndAddress": 10511
+      },
+      {
+        "SentenceStartAddress": 10511,
+        "SentenceEndAddress": 10543
+      },
+      {
+        "SentenceStartAddress": 10543,
+        "SentenceEndAddress": 10656
+      },
+      {
+        "SentenceStartAddress": 10656,
+        "SentenceEndAddress": 10660
+      },
+      {
+        "SentenceStartAddress": 10660,
+        "SentenceEndAddress": 10683
+      },
+      {
+        "SentenceStartAddress": 10683,
+        "SentenceEndAddress": 10769
+      },
+      {
+        "SentenceStartAddress": 10769,
+        "SentenceEndAddress": 10794
+      },
+      {
+        "SentenceStartAddress": 10794,
+        "SentenceEndAddress": 10820
+      },
+      {
+        "SentenceStartAddress": 10820,
+        "SentenceEndAddress": 10859
+      },
+      {
+        "SentenceStartAddress": 10859,
+        "SentenceEndAddress": 10900
+      },
+      {
+        "SentenceStartAddress": 10900,
+        "SentenceEndAddress": 10929
+      },
+      {
+        "SentenceStartAddress": 10929,
+        "SentenceEndAddress": 10967
+      },
+      {
+        "SentenceStartAddress": 10967,
+        "SentenceEndAddress": 10999
+      },
+      {
+        "SentenceStartAddress": 10999,
+        "SentenceEndAddress": 11003
+      },
+      {
+        "SentenceStartAddress": 11003,
+        "SentenceEndAddress": 11064
+      },
+      {
+        "SentenceStartAddress": 11064,
+        "SentenceEndAddress": 11108
+      },
+      {
+        "SentenceStartAddress": 11108,
+        "SentenceEndAddress": 11178
+      },
+      {
+        "SentenceStartAddress": 11178,
+        "SentenceEndAddress": 11254
+      },
+      {
+        "SentenceStartAddress": 11254,
+        "SentenceEndAddress": 11351
+      },
+      {
+        "SentenceStartAddress": 11351,
+        "SentenceEndAddress": 11424
+      },
+      {
+        "SentenceStartAddress": 11424,
+        "SentenceEndAddress": 11527
+      },
+      {
+        "SentenceStartAddress": 11527,
+        "SentenceEndAddress": 11564
+      },
+      {
+        "SentenceStartAddress": 11564,
+        "SentenceEndAddress": 11629
+      },
+      {
+        "SentenceStartAddress": 11629,
+        "SentenceEndAddress": 11633
+      },
+      {
+        "SentenceStartAddress": 11633,
+        "SentenceEndAddress": 11674
+      },
+      {
+        "SentenceStartAddress": 11674,
+        "SentenceEndAddress": 11822
+      },
+      {
+        "SentenceStartAddress": 11822,
+        "SentenceEndAddress": 11940
+      },
+      {
+        "SentenceStartAddress": 11940,
+        "SentenceEndAddress": 11976
+      },
+      {
+        "SentenceStartAddress": 11976,
+        "SentenceEndAddress": 12024
+      },
+      {
+        "SentenceStartAddress": 12024,
+        "SentenceEndAddress": 12071
+      },
+      {
+        "SentenceStartAddress": 12071,
+        "SentenceEndAddress": 12162
+      },
+      {
+        "SentenceStartAddress": 12162,
+        "SentenceEndAddress": 12212
+      },
+      {
+        "SentenceStartAddress": 12212,
+        "SentenceEndAddress": 12273
+      },
+      {
+        "SentenceStartAddress": 12273,
+        "SentenceEndAddress": 12331
+      },
+      {
+        "SentenceStartAddress": 12331,
+        "SentenceEndAddress": 12689
+      },
+      {
+        "SentenceStartAddress": 12689,
+        "SentenceEndAddress": 12995
+      },
+      {
+        "SentenceStartAddress": 12995,
+        "SentenceEndAddress": 13056
+      },
+      {
+        "SentenceStartAddress": 13056,
+        "SentenceEndAddress": 13097
+      },
+      {
+        "SentenceStartAddress": 13097,
+        "SentenceEndAddress": 13196
+      },
+      {
+        "SentenceStartAddress": 13196,
+        "SentenceEndAddress": 13282
+      },
+      {
+        "SentenceStartAddress": 13282,
+        "SentenceEndAddress": 13370
+      },
+      {
+        "SentenceStartAddress": 13370,
+        "SentenceEndAddress": 13503
+      },
+      {
+        "SentenceStartAddress": 13503,
+        "SentenceEndAddress": 13542
+      },
+      {
+        "SentenceStartAddress": 13542,
+        "SentenceEndAddress": 13849
+      },
+      {
+        "SentenceStartAddress": 13849,
+        "SentenceEndAddress": 13907
+      },
+      {
+        "SentenceStartAddress": 13907,
+        "SentenceEndAddress": 13989
+      },
+      {
+        "SentenceStartAddress": 13989,
+        "SentenceEndAddress": 14151
+      },
+      {
+        "SentenceStartAddress": 14151,
+        "SentenceEndAddress": 14250
+      },
+      {
+        "SentenceStartAddress": 14250,
+        "SentenceEndAddress": 14299
+      },
+      {
+        "SentenceStartAddress": 14299,
+        "SentenceEndAddress": 14441
+      },
+      {
+        "SentenceStartAddress": 14441,
+        "SentenceEndAddress": 14582
+      },
+      {
+        "SentenceStartAddress": 14582,
+        "SentenceEndAddress": 14793
+      },
+      {
+        "SentenceStartAddress": 14793,
+        "SentenceEndAddress": 14942
+      },
+      {
+        "SentenceStartAddress": 14942,
+        "SentenceEndAddress": 15069
+      },
+      {
+        "SentenceStartAddress": 15069,
+        "SentenceEndAddress": 15145
+      },
+      {
+        "SentenceStartAddress": 15145,
+        "SentenceEndAddress": 15190
+      },
+      {
+        "SentenceStartAddress": 15190,
+        "SentenceEndAddress": 15432
+      },
+      {
+        "SentenceStartAddress": 15432,
+        "SentenceEndAddress": 15473
+      },
+      {
+        "SentenceStartAddress": 15473,
+        "SentenceEndAddress": 15523
+      },
+      {
+        "SentenceStartAddress": 15523,
+        "SentenceEndAddress": 15556
+      },
+      {
+        "SentenceStartAddress": 15556,
+        "SentenceEndAddress": 15617
+      },
+      {
+        "SentenceStartAddress": 15617,
+        "SentenceEndAddress": 15725
+      },
+      {
+        "SentenceStartAddress": 15725,
+        "SentenceEndAddress": 15934
+      },
+      {
+        "SentenceStartAddress": 15934,
+        "SentenceEndAddress": 16028
+      },
+      {
+        "SentenceStartAddress": 16028,
+        "SentenceEndAddress": 16093
+      },
+      {
+        "SentenceStartAddress": 16093,
+        "SentenceEndAddress": 16139
+      },
+      {
+        "SentenceStartAddress": 16139,
+        "SentenceEndAddress": 16210
+      },
+      {
+        "SentenceStartAddress": 16210,
+        "SentenceEndAddress": 16378
+      },
+      {
+        "SentenceStartAddress": 16378,
+        "SentenceEndAddress": 16491
+      },
+      {
+        "SentenceStartAddress": 16491,
+        "SentenceEndAddress": 16583
+      },
+      {
+        "SentenceStartAddress": 16583,
+        "SentenceEndAddress": 16611
+      },
+      {
+        "SentenceStartAddress": 16611,
+        "SentenceEndAddress": 16624
+      },
+      {
+        "SentenceStartAddress": 16624,
+        "SentenceEndAddress": 16726
+      },
+      {
+        "SentenceStartAddress": 16726,
+        "SentenceEndAddress": 16833
+      },
+      {
+        "SentenceStartAddress": 16833,
+        "SentenceEndAddress": 16847
+      },
+      {
+        "SentenceStartAddress": 16847,
+        "SentenceEndAddress": 16938
+      },
+      {
+        "SentenceStartAddress": 16938,
+        "SentenceEndAddress": 17019
+      },
+      {
+        "SentenceStartAddress": 17019,
+        "SentenceEndAddress": 17029
+      },
+      {
+        "SentenceStartAddress": 17029,
+        "SentenceEndAddress": 17035
+      },
+      {
+        "SentenceStartAddress": 17035,
+        "SentenceEndAddress": 17074
+      },
+      {
+        "SentenceStartAddress": 17074,
+        "SentenceEndAddress": 17179
+      },
+      {
+        "SentenceStartAddress": 17179,
+        "SentenceEndAddress": 17241
+      },
+      {
+        "SentenceStartAddress": 17241,
+        "SentenceEndAddress": 17349
+      },
+      {
+        "SentenceStartAddress": 17349,
+        "SentenceEndAddress": 17439
+      },
+      {
+        "SentenceStartAddress": 17439,
+        "SentenceEndAddress": 17522
+      },
+      {
+        "SentenceStartAddress": 17522,
+        "SentenceEndAddress": 17597
+      },
+      {
+        "SentenceStartAddress": 17597,
+        "SentenceEndAddress": 17669
+      },
+      {
+        "SentenceStartAddress": 17669,
+        "SentenceEndAddress": 17736
+      },
+      {
+        "SentenceStartAddress": 17736,
+        "SentenceEndAddress": 17782
+      },
+      {
+        "SentenceStartAddress": 17782,
+        "SentenceEndAddress": 17834
+      },
+      {
+        "SentenceStartAddress": 17834,
+        "SentenceEndAddress": 17933
+      },
+      {
+        "SentenceStartAddress": 17933,
+        "SentenceEndAddress": 17972
+      },
+      {
+        "SentenceStartAddress": 17972,
+        "SentenceEndAddress": 18037
+      },
+      {
+        "SentenceStartAddress": 18037,
+        "SentenceEndAddress": 18111
+      },
+      {
+        "SentenceStartAddress": 18111,
+        "SentenceEndAddress": 18231
+      },
+      {
+        "SentenceStartAddress": 18231,
+        "SentenceEndAddress": 18318
+      },
+      {
+        "SentenceStartAddress": 18318,
+        "SentenceEndAddress": 18409
+      },
+      {
+        "SentenceStartAddress": 18409,
+        "SentenceEndAddress": 18495
+      },
+      {
+        "SentenceStartAddress": 18495,
+        "SentenceEndAddress": 18578
+      },
+      {
+        "SentenceStartAddress": 18578,
+        "SentenceEndAddress": 18732
+      },
+      {
+        "SentenceStartAddress": 18732,
+        "SentenceEndAddress": 18827
+      },
+      {
+        "SentenceStartAddress": 18827,
+        "SentenceEndAddress": 18912
+      },
+      {
+        "SentenceStartAddress": 18912,
+        "SentenceEndAddress": 19018
+      },
+      {
+        "SentenceStartAddress": 19018,
+        "SentenceEndAddress": 19111
+      },
+      {
+        "SentenceStartAddress": 19111,
+        "SentenceEndAddress": 19277
+      },
+      {
+        "SentenceStartAddress": 19277,
+        "SentenceEndAddress": 19311
+      },
+      {
+        "SentenceStartAddress": 19311,
+        "SentenceEndAddress": 19383
+      },
+      {
+        "SentenceStartAddress": 19383,
+        "SentenceEndAddress": 19440
+      },
+      {
+        "SentenceStartAddress": 19440,
+        "SentenceEndAddress": 19524
+      },
+      {
+        "SentenceStartAddress": 19524,
+        "SentenceEndAddress": 19797
+      },
+      {
+        "SentenceStartAddress": 19797,
+        "SentenceEndAddress": 19834
+      },
+      {
+        "SentenceStartAddress": 19834,
+        "SentenceEndAddress": 19980
+      },
+      {
+        "SentenceStartAddress": 19980,
+        "SentenceEndAddress": 20048
+      },
+      {
+        "SentenceStartAddress": 20048,
+        "SentenceEndAddress": 20091
+      },
+      {
+        "SentenceStartAddress": 20091,
+        "SentenceEndAddress": 20166
+      },
+      {
+        "SentenceStartAddress": 20166,
+        "SentenceEndAddress": 20251
+      },
+      {
+        "SentenceStartAddress": 20251,
+        "SentenceEndAddress": 20343
+      },
+      {
+        "SentenceStartAddress": 20343,
+        "SentenceEndAddress": 20453
+      },
+      {
+        "SentenceStartAddress": 20453,
+        "SentenceEndAddress": 20504
+      },
+      {
+        "SentenceStartAddress": 20504,
+        "SentenceEndAddress": 20719
+      },
+      {
+        "SentenceStartAddress": 20719,
+        "SentenceEndAddress": 20794
+      },
+      {
+        "SentenceStartAddress": 20794,
+        "SentenceEndAddress": 20896
+      },
+      {
+        "SentenceStartAddress": 20896,
+        "SentenceEndAddress": 20983
+      },
+      {
+        "SentenceStartAddress": 20983,
+        "SentenceEndAddress": 21090
+      },
+      {
+        "SentenceStartAddress": 21090,
+        "SentenceEndAddress": 21180
+      },
+      {
+        "SentenceStartAddress": 21180,
+        "SentenceEndAddress": 21253
+      },
+      {
+        "SentenceStartAddress": 21253,
+        "SentenceEndAddress": 21355
+      },
+      {
+        "SentenceStartAddress": 21355,
+        "SentenceEndAddress": 21434
+      },
+      {
+        "SentenceStartAddress": 21434,
+        "SentenceEndAddress": 21521
+      },
+      {
+        "SentenceStartAddress": 21521,
+        "SentenceEndAddress": 21587
+      },
+      {
+        "SentenceStartAddress": 21587,
+        "SentenceEndAddress": 21692
+      },
+      {
+        "SentenceStartAddress": 21692,
+        "SentenceEndAddress": 21794
+      },
+      {
+        "SentenceStartAddress": 21794,
+        "SentenceEndAddress": 21891
+      },
+      {
+        "SentenceStartAddress": 21891,
+        "SentenceEndAddress": 22060
+      },
+      {
+        "SentenceStartAddress": 22060,
+        "SentenceEndAddress": 22101
+      },
+      {
+        "SentenceStartAddress": 22101,
+        "SentenceEndAddress": 22182
+      },
+      {
+        "SentenceStartAddress": 22182,
+        "SentenceEndAddress": 22228
+      },
+      {
+        "SentenceStartAddress": 22228,
+        "SentenceEndAddress": 22281
+      },
+      {
+        "SentenceStartAddress": 22281,
+        "SentenceEndAddress": 22334
+      },
+      {
+        "SentenceStartAddress": 22334,
+        "SentenceEndAddress": 22391
+      },
+      {
+        "SentenceStartAddress": 22391,
+        "SentenceEndAddress": 22466
+      },
+      {
+        "SentenceStartAddress": 22466,
+        "SentenceEndAddress": 22545
+      },
+      {
+        "SentenceStartAddress": 22545,
+        "SentenceEndAddress": 22646
+      },
+      {
+        "SentenceStartAddress": 22646,
+        "SentenceEndAddress": 22777
+      },
+      {
+        "SentenceStartAddress": 22777,
+        "SentenceEndAddress": 22892
+      },
+      {
+        "SentenceStartAddress": 22892,
+        "SentenceEndAddress": 22984
+      },
+      {
+        "SentenceStartAddress": 22984,
+        "SentenceEndAddress": 23004
+      },
+      {
+        "SentenceStartAddress": 23004,
+        "SentenceEndAddress": 23025
+      },
+      {
+        "SentenceStartAddress": 23025,
+        "SentenceEndAddress": 23109
+      },
+      {
+        "SentenceStartAddress": 23109,
+        "SentenceEndAddress": 23239
+      },
+      {
+        "SentenceStartAddress": 23239,
+        "SentenceEndAddress": 23243
+      },
+      {
+        "SentenceStartAddress": 23243,
+        "SentenceEndAddress": 23279
+      },
+      {
+        "SentenceStartAddress": 23279,
+        "SentenceEndAddress": 23348
+      },
+      {
+        "SentenceStartAddress": 23348,
+        "SentenceEndAddress": 23434
+      },
+      {
+        "SentenceStartAddress": 23434,
+        "SentenceEndAddress": 23519
+      },
+      {
+        "SentenceStartAddress": 23519,
+        "SentenceEndAddress": 23569
+      },
+      {
+        "SentenceStartAddress": 23569,
+        "SentenceEndAddress": 23615
+      },
+      {
+        "SentenceStartAddress": 23615,
+        "SentenceEndAddress": 23718
+      },
+      {
+        "SentenceStartAddress": 23718,
+        "SentenceEndAddress": 23734
+      },
+      {
+        "SentenceStartAddress": 23734,
+        "SentenceEndAddress": 23775
+      },
+      {
+        "SentenceStartAddress": 23775,
+        "SentenceEndAddress": 23793
+      },
+      {
+        "SentenceStartAddress": 23793,
+        "SentenceEndAddress": 23857
+      },
+      {
+        "SentenceStartAddress": 23857,
+        "SentenceEndAddress": 23882
+      },
+      {
+        "SentenceStartAddress": 23882,
+        "SentenceEndAddress": 23901
+      },
+      {
+        "SentenceStartAddress": 23901,
+        "SentenceEndAddress": 23931
+      },
+      {
+        "SentenceStartAddress": 23931,
+        "SentenceEndAddress": 23964
+      },
+      {
+        "SentenceStartAddress": 23964,
+        "SentenceEndAddress": 24053
+      },
+      {
+        "SentenceStartAddress": 24053,
+        "SentenceEndAddress": 24110
+      },
+      {
+        "SentenceStartAddress": 24110,
+        "SentenceEndAddress": 24140
+      },
+      {
+        "SentenceStartAddress": 24140,
+        "SentenceEndAddress": 24229
+      },
+      {
+        "SentenceStartAddress": 24229,
+        "SentenceEndAddress": 24296
+      },
+      {
+        "SentenceStartAddress": 24296,
+        "SentenceEndAddress": 24402
+      },
+      {
+        "SentenceStartAddress": 24402,
+        "SentenceEndAddress": 24441
+      },
+      {
+        "SentenceStartAddress": 24441,
+        "SentenceEndAddress": 24500
+      },
+      {
+        "SentenceStartAddress": 24500,
+        "SentenceEndAddress": 24591
+      },
+      {
+        "SentenceStartAddress": 24591,
+        "SentenceEndAddress": 24605
+      },
+      {
+        "SentenceStartAddress": 24605,
+        "SentenceEndAddress": 24687
+      },
+      {
+        "SentenceStartAddress": 24687,
+        "SentenceEndAddress": 24700
+      },
+      {
+        "SentenceStartAddress": 24700,
+        "SentenceEndAddress": 24762
+      },
+      {
+        "SentenceStartAddress": 24762,
+        "SentenceEndAddress": 25019
+      },
+      {
+        "SentenceStartAddress": 25019,
+        "SentenceEndAddress": 25145
+      },
+      {
+        "SentenceStartAddress": 25145,
+        "SentenceEndAddress": 25288
+      },
+      {
+        "SentenceStartAddress": 25288,
+        "SentenceEndAddress": 25341
+      },
+      {
+        "SentenceStartAddress": 25341,
+        "SentenceEndAddress": 25362
+      },
+      {
+        "SentenceStartAddress": 25362,
+        "SentenceEndAddress": 25420
+      },
+      {
+        "SentenceStartAddress": 25420,
+        "SentenceEndAddress": 25484
+      },
+      {
+        "SentenceStartAddress": 25484,
+        "SentenceEndAddress": 25595
+      },
+      {
+        "SentenceStartAddress": 25595,
+        "SentenceEndAddress": 25635
+      },
+      {
+        "SentenceStartAddress": 25635,
+        "SentenceEndAddress": 25683
+      },
+      {
+        "SentenceStartAddress": 25683,
+        "SentenceEndAddress": 25776
+      },
+      {
+        "SentenceStartAddress": 25776,
+        "SentenceEndAddress": 25843
+      },
+      {
+        "SentenceStartAddress": 25843,
+        "SentenceEndAddress": 25911
+      },
+      {
+        "SentenceStartAddress": 25911,
+        "SentenceEndAddress": 25947
+      },
+      {
+        "SentenceStartAddress": 25947,
+        "SentenceEndAddress": 25982
+      },
+      {
+        "SentenceStartAddress": 25982,
+        "SentenceEndAddress": 26160
+      },
+      {
+        "SentenceStartAddress": 26160,
+        "SentenceEndAddress": 26189
+      },
+      {
+        "SentenceStartAddress": 26189,
+        "SentenceEndAddress": 26248
+      },
+      {
+        "SentenceStartAddress": 26248,
+        "SentenceEndAddress": 26329
+      },
+      {
+        "SentenceStartAddress": 26329,
+        "SentenceEndAddress": 26464
+      },
+      {
+        "SentenceStartAddress": 26464,
+        "SentenceEndAddress": 26561
+      },
+      {
+        "SentenceStartAddress": 26561,
+        "SentenceEndAddress": 26658
+      },
+      {
+        "SentenceStartAddress": 26658,
+        "SentenceEndAddress": 26696
+      },
+      {
+        "SentenceStartAddress": 26696,
+        "SentenceEndAddress": 26801
+      },
+      {
+        "SentenceStartAddress": 26801,
+        "SentenceEndAddress": 26874
+      },
+      {
+        "SentenceStartAddress": 26874,
+        "SentenceEndAddress": 27020
+      },
+      {
+        "SentenceStartAddress": 27020,
+        "SentenceEndAddress": 27193
+      },
+      {
+        "SentenceStartAddress": 27193,
+        "SentenceEndAddress": 27368
+      },
+      {
+        "SentenceStartAddress": 27368,
+        "SentenceEndAddress": 27437
+      },
+      {
+        "SentenceStartAddress": 27437,
+        "SentenceEndAddress": 27513
+      },
+      {
+        "SentenceStartAddress": 27513,
+        "SentenceEndAddress": 27581
+      },
+      {
+        "SentenceStartAddress": 27581,
+        "SentenceEndAddress": 27616
+      },
+      {
+        "SentenceStartAddress": 27616,
+        "SentenceEndAddress": 27700
+      },
+      {
+        "SentenceStartAddress": 27700,
+        "SentenceEndAddress": 27749
+      },
+      {
+        "SentenceStartAddress": 27749,
+        "SentenceEndAddress": 27863
+      },
+      {
+        "SentenceStartAddress": 27863,
+        "SentenceEndAddress": 27918
+      },
+      {
+        "SentenceStartAddress": 27918,
+        "SentenceEndAddress": 27977
+      },
+      {
+        "SentenceStartAddress": 27977,
+        "SentenceEndAddress": 28132
+      },
+      {
+        "SentenceStartAddress": 28132,
+        "SentenceEndAddress": 28191
+      },
+      {
+        "SentenceStartAddress": 28191,
+        "SentenceEndAddress": 28207
+      },
+      {
+        "SentenceStartAddress": 28207,
+        "SentenceEndAddress": 28242
+      },
+      {
+        "SentenceStartAddress": 28242,
+        "SentenceEndAddress": 28287
+      },
+      {
+        "SentenceStartAddress": 28287,
+        "SentenceEndAddress": 28298
+      },
+      {
+        "SentenceStartAddress": 28298,
+        "SentenceEndAddress": 28367
+      },
+      {
+        "SentenceStartAddress": 28367,
+        "SentenceEndAddress": 28397
+      },
+      {
+        "SentenceStartAddress": 28397,
+        "SentenceEndAddress": 28434
+      },
+      {
+        "SentenceStartAddress": 28434,
+        "SentenceEndAddress": 28480
+      },
+      {
+        "SentenceStartAddress": 28480,
+        "SentenceEndAddress": 28547
+      },
+      {
+        "SentenceStartAddress": 28547,
+        "SentenceEndAddress": 28600
+      },
+      {
+        "SentenceStartAddress": 28600,
+        "SentenceEndAddress": 28657
+      },
+      {
+        "SentenceStartAddress": 28657,
+        "SentenceEndAddress": 28693
+      },
+      {
+        "SentenceStartAddress": 28693,
+        "SentenceEndAddress": 28751
+      },
+      {
+        "SentenceStartAddress": 28751,
+        "SentenceEndAddress": 28771
+      },
+      {
+        "SentenceStartAddress": 28771,
+        "SentenceEndAddress": 28815
+      },
+      {
+        "SentenceStartAddress": 28815,
+        "SentenceEndAddress": 28870
+      },
+      {
+        "SentenceStartAddress": 28870,
+        "SentenceEndAddress": 28908
+      },
+      {
+        "SentenceStartAddress": 28908,
+        "SentenceEndAddress": 28960
+      },
+      {
+        "SentenceStartAddress": 28960,
+        "SentenceEndAddress": 29006
+      },
+      {
+        "SentenceStartAddress": 29006,
+        "SentenceEndAddress": 29036
+      },
+      {
+        "SentenceStartAddress": 29036,
+        "SentenceEndAddress": 29043
+      },
+      {
+        "SentenceStartAddress": 29043,
+        "SentenceEndAddress": 29110
+      },
+      {
+        "SentenceStartAddress": 29110,
+        "SentenceEndAddress": 29175
+      },
+      {
+        "SentenceStartAddress": 29175,
+        "SentenceEndAddress": 29290
+      },
+      {
+        "SentenceStartAddress": 29290,
+        "SentenceEndAddress": 29410
+      },
+      {
+        "SentenceStartAddress": 29410,
+        "SentenceEndAddress": 29469
+      },
+      {
+        "SentenceStartAddress": 29469,
+        "SentenceEndAddress": 29502
+      },
+      {
+        "SentenceStartAddress": 29502,
+        "SentenceEndAddress": 29585
+      },
+      {
+        "SentenceStartAddress": 29585,
+        "SentenceEndAddress": 29629
+      },
+      {
+        "SentenceStartAddress": 29629,
+        "SentenceEndAddress": 29750
+      },
+      {
+        "SentenceStartAddress": 29750,
+        "SentenceEndAddress": 29871
+      },
+      {
+        "SentenceStartAddress": 29871,
+        "SentenceEndAddress": 29895
+      },
+      {
+        "SentenceStartAddress": 29895,
+        "SentenceEndAddress": 29961
+      },
+      {
+        "SentenceStartAddress": 29961,
+        "SentenceEndAddress": 30005
+      },
+      {
+        "SentenceStartAddress": 30005,
+        "SentenceEndAddress": 30325
+      },
+      {
+        "SentenceStartAddress": 30325,
+        "SentenceEndAddress": 30442
+      },
+      {
+        "SentenceStartAddress": 30442,
+        "SentenceEndAddress": 30498
+      },
+      {
+        "SentenceStartAddress": 30498,
+        "SentenceEndAddress": 30559
+      },
+      {
+        "SentenceStartAddress": 30559,
+        "SentenceEndAddress": 30699
+      },
+      {
+        "SentenceStartAddress": 30699,
+        "SentenceEndAddress": 30802
+      },
+      {
+        "SentenceStartAddress": 30802,
+        "SentenceEndAddress": 30894
+      },
+      {
+        "SentenceStartAddress": 30894,
+        "SentenceEndAddress": 30974
+      },
+      {
+        "SentenceStartAddress": 30974,
+        "SentenceEndAddress": 31123
+      },
+      {
+        "SentenceStartAddress": 31123,
+        "SentenceEndAddress": 31163
+      },
+      {
+        "SentenceStartAddress": 31163,
+        "SentenceEndAddress": 31249
+      },
+      {
+        "SentenceStartAddress": 31249,
+        "SentenceEndAddress": 31302
+      },
+      {
+        "SentenceStartAddress": 31302,
+        "SentenceEndAddress": 31384
+      },
+      {
+        "SentenceStartAddress": 31384,
+        "SentenceEndAddress": 31449
+      },
+      {
+        "SentenceStartAddress": 31449,
+        "SentenceEndAddress": 31541
+      },
+      {
+        "SentenceStartAddress": 31541,
+        "SentenceEndAddress": 31554
+      },
+      {
+        "SentenceStartAddress": 31554,
+        "SentenceEndAddress": 31662
+      },
+      {
+        "SentenceStartAddress": 31662,
+        "SentenceEndAddress": 31729
+      },
+      {
+        "SentenceStartAddress": 31729,
+        "SentenceEndAddress": 31788
+      },
+      {
+        "SentenceStartAddress": 31788,
+        "SentenceEndAddress": 31896
+      },
+      {
+        "SentenceStartAddress": 31896,
+        "SentenceEndAddress": 32076
+      },
+      {
+        "SentenceStartAddress": 32076,
+        "SentenceEndAddress": 32249
+      },
+      {
+        "SentenceStartAddress": 32249,
+        "SentenceEndAddress": 32475
+      },
+      {
+        "SentenceStartAddress": 32475,
+        "SentenceEndAddress": 32499
+      },
+      {
+        "SentenceStartAddress": 32499,
+        "SentenceEndAddress": 32573
+      },
+      {
+        "SentenceStartAddress": 32573,
+        "SentenceEndAddress": 32684
+      },
+      {
+        "SentenceStartAddress": 32684,
+        "SentenceEndAddress": 32760
+      },
+      {
+        "SentenceStartAddress": 32760,
+        "SentenceEndAddress": 33052
+      },
+      {
+        "SentenceStartAddress": 33052,
+        "SentenceEndAddress": 33105
+      },
+      {
+        "SentenceStartAddress": 33105,
+        "SentenceEndAddress": 33177
+      },
+      {
+        "SentenceStartAddress": 33177,
+        "SentenceEndAddress": 33215
+      },
+      {
+        "SentenceStartAddress": 33215,
+        "SentenceEndAddress": 33230
+      },
+      {
+        "SentenceStartAddress": 33230,
+        "SentenceEndAddress": 33281
+      },
+      {
+        "SentenceStartAddress": 33281,
+        "SentenceEndAddress": 33408
+      },
+      {
+        "SentenceStartAddress": 33408,
+        "SentenceEndAddress": 33522
+      },
+      {
+        "SentenceStartAddress": 33522,
+        "SentenceEndAddress": 33560
+      },
+      {
+        "SentenceStartAddress": 33560,
+        "SentenceEndAddress": 33807
+      },
+      {
+        "SentenceStartAddress": 33807,
+        "SentenceEndAddress": 34099
+      },
+      {
+        "SentenceStartAddress": 34099,
+        "SentenceEndAddress": 34169
+      },
+      {
+        "SentenceStartAddress": 34169,
+        "SentenceEndAddress": 34203
+      },
+      {
+        "SentenceStartAddress": 34203,
+        "SentenceEndAddress": 34287
+      },
+      {
+        "SentenceStartAddress": 34287,
+        "SentenceEndAddress": 34330
+      },
+      {
+        "SentenceStartAddress": 34330,
+        "SentenceEndAddress": 34355
+      },
+      {
+        "SentenceStartAddress": 34355,
+        "SentenceEndAddress": 34432
+      },
+      {
+        "SentenceStartAddress": 34432,
+        "SentenceEndAddress": 34514
+      },
+      {
+        "SentenceStartAddress": 34514,
+        "SentenceEndAddress": 34534
+      },
+      {
+        "SentenceStartAddress": 34534,
+        "SentenceEndAddress": 34575
+      },
+      {
+        "SentenceStartAddress": 34575,
+        "SentenceEndAddress": 34611
+      },
+      {
+        "SentenceStartAddress": 34611,
+        "SentenceEndAddress": 34642
+      },
+      {
+        "SentenceStartAddress": 34642,
+        "SentenceEndAddress": 34675
+      },
+      {
+        "SentenceStartAddress": 34675,
+        "SentenceEndAddress": 34743
+      },
+      {
+        "SentenceStartAddress": 34743,
+        "SentenceEndAddress": 34762
+      },
+      {
+        "SentenceStartAddress": 34762,
+        "SentenceEndAddress": 34810
+      },
+      {
+        "SentenceStartAddress": 34810,
+        "SentenceEndAddress": 34866
+      },
+      {
+        "SentenceStartAddress": 34866,
+        "SentenceEndAddress": 34959
+      },
+      {
+        "SentenceStartAddress": 34959,
+        "SentenceEndAddress": 35030
+      },
+      {
+        "SentenceStartAddress": 35030,
+        "SentenceEndAddress": 35099
+      },
+      {
+        "SentenceStartAddress": 35099,
+        "SentenceEndAddress": 35130
+      },
+      {
+        "SentenceStartAddress": 35130,
+        "SentenceEndAddress": 35331
+      },
+      {
+        "SentenceStartAddress": 35331,
+        "SentenceEndAddress": 35353
+      },
+      {
+        "SentenceStartAddress": 35353,
+        "SentenceEndAddress": 35389
+      },
+      {
+        "SentenceStartAddress": 35389,
+        "SentenceEndAddress": 35482
+      },
+      {
+        "SentenceStartAddress": 35482,
+        "SentenceEndAddress": 35570
+      },
+      {
+        "SentenceStartAddress": 35570,
+        "SentenceEndAddress": 35732
+      },
+      {
+        "SentenceStartAddress": 35732,
+        "SentenceEndAddress": 35839
+      },
+      {
+        "SentenceStartAddress": 35839,
+        "SentenceEndAddress": 35960
+      },
+      {
+        "SentenceStartAddress": 35960,
+        "SentenceEndAddress": 36069
+      },
+      {
+        "SentenceStartAddress": 36069,
+        "SentenceEndAddress": 36138
+      },
+      {
+        "SentenceStartAddress": 36138,
+        "SentenceEndAddress": 36208
+      },
+      {
+        "SentenceStartAddress": 36208,
+        "SentenceEndAddress": 36254
+      },
+      {
+        "SentenceStartAddress": 36254,
+        "SentenceEndAddress": 36303
+      },
+      {
+        "SentenceStartAddress": 36303,
+        "SentenceEndAddress": 36571
+      },
+      {
+        "SentenceStartAddress": 36571,
+        "SentenceEndAddress": 36667
+      },
+      {
+        "SentenceStartAddress": 36667,
+        "SentenceEndAddress": 36807
+      },
+      {
+        "SentenceStartAddress": 36807,
+        "SentenceEndAddress": 36882
+      },
+      {
+        "SentenceStartAddress": 36882,
+        "SentenceEndAddress": 36951
+      },
+      {
+        "SentenceStartAddress": 36951,
+        "SentenceEndAddress": 37065
+      },
+      {
+        "SentenceStartAddress": 37065,
+        "SentenceEndAddress": 37125
+      },
+      {
+        "SentenceStartAddress": 37125,
+        "SentenceEndAddress": 37156
+      },
+      {
+        "SentenceStartAddress": 37156,
+        "SentenceEndAddress": 37186
+      },
+      {
+        "SentenceStartAddress": 37186,
+        "SentenceEndAddress": 37217
+      },
+      {
+        "SentenceStartAddress": 37217,
+        "SentenceEndAddress": 37353
+      },
+      {
+        "SentenceStartAddress": 37353,
+        "SentenceEndAddress": 37407
+      },
+      {
+        "SentenceStartAddress": 37407,
+        "SentenceEndAddress": 37427
+      }
+    ]
+  },
+  "Sentences": {
+    "888": "I'm the Duke Leto Atreides, your father.ÿ",
+    "929": "What have you done with Gurney? Don't tell me you left him alone in the desert...ÿ",
+    "1011": "Where is Gurney?ÿ",
+    "1028": "We don't have enough people working for us. Go out and see more of the Fremen!ÿ",
+    "1107": "My son, we must mine the spice as soon as possible... otherwise the Emperor might recall us from Dune.ÿ",
+    "1210": "We've spotted three troops of Fremen around the palace and I've sent Gurney Halleck to meet them. He's not back yet. Go there and see what's going on.ÿ",
+    "1361": "The Fremen have a special garment which they call a \"stillsuit\". Wearing it, they can stay in the desert without losing their bodily water.þ It would be an advantage for us to have some of these stillsuits. Go with Gurney Halleck and see if you can find some.ÿ",
+    "1621": "We've got the stillsuits. Good work Paul! Don't forget to have a look at the map, to see if your troops are working well.ÿ",
+    "1743": "Paul, as you know, we haven't been here at the palace long and this old building may still hold many secrets. Our enemies were here recently, you know, some signs prove it.ÿ",
+    "1916": "Well... your mother Jessica has this special talent for... er... sounding a room and finding secret doors. Try it with her.ÿ",
+    "2040": "This communication room will be of great use to us. Jessica has stunning faculties, doesn't she? I think there is a great deal of her in you.ÿ",
+    "2182": "Your friend Duncan is an expert on spice production.ÿ",
+    "2235": "What? You're telling me that you've found a Fremen girl and you didn't even ask her to come with you...!? Pfuuu...ÿ",
+    "2350": "Your mother told me that there is something she wants you do to.ÿ",
+    "2415": "Gurney Halleck has disappeared!\r I saw him in the palace a while ago, but nobody has seen him since then.ÿ",
+    "2521": "Try to find Gurney with your mother.ÿ",
+    "2558": "WHAT ??!!! Gurney Halleck unconscious !! Arg... This palace is full of traps! AHH! These Harkonnens are going to pay for this!ÿ",
+    "2685": "Go and see Thufir Hawat, our \"Mentat\", he's just returned from exploring the palace, trying to find traps. You'll find him in the communication room.ÿ",
+    "2835": "Thufir is right: You have to find a Fremen leader.ÿ",
+    "2886": "So you've seen the message...ÿ",
+    "2916": "This crime can't go unpunished. I'm planning a punitive expedition with my personal guard. I'm sure Thufir Hawat will agree with this.ÿ",
+    "3051": "Thufir Hawat is over-prudent... I've never run away from these Harkonnen brutes.ÿ",
+    "3132": "It's of no use insisting: I've made up my mind. I'm going to leave in a few hours, my guard is ready.þ You, my son, must stay here and continue with what you've begun. You're doing well and I'm proud of you.þ If I happen not to come back, I hope that you'll remember me as a good father, Paul, and as a Duke who showed courage in the face of danger.ÿ",
+    "3482": "This is my favorite room in the palace... Look, Paul, look at those dunes... What a sight!ÿ",
+    "3573": "A person needs new experiences: They jar something inside, allowing you to grow.þ Without changes, something sleeps inside us and seldom awakens.\r THE SLEEPER MUST AWAKEN!ÿ",
+    "3745": "Have you seen the message in the communication room?ÿ",
+    "3798": "And remember... Avoid wandering in the desert... You won't go very far without a stillsuit.ÿ",
+    "3890": "Remember that now our most important task is to achieve a good spice production.ÿ",
+    "3971": "Keep on going, Paul! All my hopes are set on you.ÿ",
+    "4021": "You've been found unconscious in the desert. Walking so far in the desert often means death, you know.ÿ",
+    "4124": "Where are you going so fast? I have to talk to you!ÿ",
+    "4176": "I'm sure you enjoyed the view.ÿ",
+    "4207": "Paul! Glad to see you're back! Who's this man with you?ÿ",
+    "4263": "PAUL! Don't play games with me! This is not the right moment!ÿ",
+    "4325": "No, I have to stay here!ÿ",
+    "4350": "Now, Paul ! THAT'S ENOUGH. I said NO!ÿ",
+    "4388": "There's no use for you to insist, Paul, I have to stay here.ÿ",
+    "4449": "A communication room! Let's all gather here... Jessica really has stunning faculties, doesn't she?ÿ",
+    "4548": "As we are almost all gathered here, I would like to congratulate Paul for what he's done since we arrived here on Dune.ÿ",
+    "4668": "He visited ' sietchs and now ( troops of Fremen are working for us. That's a good start, isn't it Jessica?ÿ",
+    "4777": "Paul... I'm very proud of you, my son! All of my hopes are set on you.ÿ",
+    "4848": "Hmm... This \"vision\" stuff is beyond my comprehension... How did he know?ÿ",
+    "4922": "Anyway, let's all gather on the balcony: I have to talk to all of you.ÿ",
+    "4993": "Take a good look around you... Tell me... What can you see?ÿ",
+    "5053": "Right, Duncan! DUNES... Thanks to Paul's diplomatic actions, we're now able to stay here... Helped by our Fremen friends, Harah's presence here proves it.ÿ",
+    "5208": "Hmm... Well, anyway... Paul has visited ' sietchs and ( troops are on our side. You've done good work, Paul!ÿ",
+    "5319": "Gurney, have you... But... where's Gurney? Has anyone seen him?ÿ",
+    "5383": "We are honoured by your confidence and we accept your help, Stilgar. I'm glad to see my son is in such good company.ÿ",
+    "5500": "Paul, I trust Stilgar. You've found the right man: I'm sure his presence will give you many new possibilities.ÿ",
+    "5611": "If this was a race, I won!ÿ",
+    "5638": "Did you want me to get lost in the desert?ÿ",
+    "5681": "You don't walk very fast.ÿ",
+    "5707": "Why did you leave me in the desert? Sometimes you frighten me...ÿ",
+    "5772": "I'm your mother, Jessica. The Duke has sent Gurney Halleck to \u0000\u0002-\u0000\u0011. Go outside, take an orni and fly there. Hurry up, my son, I feel danger...ÿ",
+    "5918": "The Duke is dead... Killed by the Harkonnens. Thufir will give you all the details... It's terrible!ÿ",
+    "6019": "Paul, I tell you... These Harkonnens are beasts. They don't know the meaning of the word \"mercy\"!ÿ",
+    "6117": "Oh my... I can't find words, Paul... A greenhouse! Here on Dune. Look at that water... Water on Dune! Can you imagine that?ÿ",
+    "6241": "There is a hidden door on the left... Yes... Let's have a look.ÿ",
+    "6305": "The spice is mined from the sands of Dune. Spice prolongs life, extends consciousness. It's used by the Guild Navigators to travel through space.ÿ",
+    "6451": "I wonder what the proximity of so much spice will do to you, Paul...ÿ",
+    "6520": "I gave you more than an education: It was more a kind of special training. I expect that here, on this very special planet, you will discover that you have special powers.ÿ",
+    "6692": "I can't tell you more for the moment... But each time you experience something weird or... hmm... special, come and tell me: I'll give you an explanation.ÿ",
+    "6847": "Ok now... together we can try to explore the palace a little, hmmm?ÿ",
+    "6915": "I've just found a hidden door, here on the right.ÿ",
+    "6965": "...I feel something here... it's so faint... No! let's continue.ÿ",
+    "7030": "I feel nothing particular in this room.ÿ",
+    "7070": "It seems to lead somewhere...ÿ",
+    "7100": "It looks like a communication room, to send and receive long distance messages. I'm going to try to open this door on the right.ÿ",
+    "7229": "This is a communication room: When you view a message, a holographic image of the sender is generated in the center.þ No messages have arrived yet, but I'm sure we'll soon have one from the Emperor.ÿ",
+    "7428": "I'm so tired from having sounded rooms like that. It's emotionally exhausting.ÿ",
+    "7507": "Oooh! Paul with a girl! \r\u0006(I knew this would happen...) \r\bShe's quite charming but don't let her distract you from your goals!ÿ",
+    "7634": "Paul! Listen to me...ÿ",
+    "7656": "Walk out into the desert, stay there a while: LET IT PENETRATE YOU. Spice is omnipresent on Dune... It may awake your internal potentials. I insist that you go alone.ÿ",
+    "7823": "I wonder where Gurney can be.ÿ",
+    "7853": "Oh... Paul! How I can feel this power in you! \r\u0006(Could he be the One?)ÿ",
+    "7924": "Believe me Paul! I can sense that your powers have increased. You are now able to contact Fremens in a wider range.ÿ",
+    "8040": "After having drunk the Water of Life, your mental capabilities have been boosted.\r You are now able to contact Fremens on the entire planet.ÿ",
+    "8181": "Have you realized the importance of the change in you, since your stay in the desert?ÿ",
+    "8267": "You are now able to contact the Fremen within a certain range. This range will extend with experience, I'm sure.þ Hmm, about this vision... Well, these visions are related to your education, you know, the Bene Gesserit way.þ Because of the presence of such great quantities of spice, you will have unexpected visions of events, places you are not in.ÿ",
+    "8618": "Gurney...ÿ",
+    "8628": "Gurney's regained consciousness.ÿ",
+    "8661": "I'm glad to meet Stilgar, the Fremen leader... I can feel strength in him.þ Paul... I have a deep feeling that being here on Dune with these Fremen will reveal something to you... something you can't even imagine...þ You say they gave you a name: . Hmm... Good!ÿ",
+    "8924": "Leto is really upset. Talk to him!ÿ",
+    "8959": "I'm afraid nothing can be done to prevent that, Paul. Stop worrying, you must continue on.ÿ",
+    "9050": "Leto has departed.ÿ",
+    "9069": "I miss Leto. He's been a good father to you, don't forget it.ÿ",
+    "9131": "So... Thufir told you about something hidden in this palace... Yes, maybe...ÿ",
+    "9208": "Good to see you, Paulÿ",
+    "9230": "I think you have the situation under control.ÿ",
+    "9276": "You've been invited to drink the Water of Life... Hmm... You were right not to try... I've heard about it but not much... Listen, I'm going to investigate.ÿ",
+    "9432": "Water of Life is an illuminating poison produced by a baby worm when dying from drowning. It is changed within the body of Fremen Reverend Mothers to become an \"awareness spectrum\" narcotic.ÿ",
+    "9623": "Paul, my son, now you're able to drink the Water of Life. It will extend your capabilities and I'm sure that the Fremen will worship you more after that.ÿ",
+    "9777": "Let me look at you... Your eyes... They are turning blue!ÿ",
+    "9835": "I'm still amazed by this change to your eyes, Paul!ÿ",
+    "9887": "No doubt, now... Your eyes will be blue.ÿ",
+    "9928": "I'm doing my best to help you Paul, but sometimes you have to manage.ÿ",
+    "9998": "It's so hot! We'd better go back.ÿ",
+    "10032": "Are we going far? I've already got sand in my shoes.ÿ",
+    "10085": "I don't think that's the right place to chat!ÿ",
+    "10131": "Look! Paul is back!ÿ",
+    "10151": "Oh Paul... How I miss our planet... Caladan, with its oceans and... Ah, this is so different!ÿ",
+    "10245": "Wait! I can feel something...ÿ",
+    "10275": "I'm staying hereÿ",
+    "10292": "Paul, wait!ÿ",
+    "10304": "DON'T USE THIS DOOR! I can feel the trap.ÿ",
+    "10346": "I want to stay here with Gurney.ÿ",
+    "10379": "PAUL! I was sure you were coming... It's terrible....ÿ",
+    "10433": "You're doing great job, Paul... I wish Leto was here, he was so proud of you.ÿ",
+    "10511": "Wait Paul, I want to stay here.ÿ",
+    "10543": "Oh Paul! Have you seen your face?! You look so tired... You've been walking a lot in desert lately, haven't you?ÿ",
+    "10656": "OK!ÿ",
+    "10660": "Glad to be with you...ÿ",
+    "10683": "We both will try to examine the few rooms we can access. Go ahead, I'm following you.ÿ",
+    "10769": "No, Paul, I'm too tired.ÿ",
+    "10794": "Let's try to find Gurney!ÿ",
+    "10820": "I'll follow you Paul, but not too far!ÿ",
+    "10859": "I don't think I need to be at your side.ÿ",
+    "10900": "Ok Paul, I'm going with you.ÿ",
+    "10929": "Oh no Paul! \r\u0006I don't like this placeÿ",
+    "10967": "Where do you want me to sit...?ÿ",
+    "10999": "NO!ÿ",
+    "11003": "Here... in the desert? You do have stange ideas sometimes...ÿ",
+    "11064": "I'm going to try to get Gurney on his feet.ÿ",
+    "11108": "Thank you Leto, but let me tell you this is an exhausting exercise...ÿ",
+    "11178": "I'm pleased to notice that Paul now has a rising charisma among the Fremen.ÿ",
+    "11254": "He says he knows about the message which has just arrived... Paul, you had a vision, didn't you?ÿ",
+    "11351": "Well... Come and see me later Paul, and I'll explain all of this to you.ÿ",
+    "11424": "I know him, Leto: That's Stilgar... Every Fremen thinks of him as a great man... They all respect him.ÿ",
+    "11527": "I can feel strength in you, Stilgar.ÿ",
+    "11564": "Long live to the Emperor Paul Atreides and to Chani the Empress.ÿ",
+    "11629": "OH!ÿ",
+    "11633": "I don't forget they killed my dear Leto.ÿ",
+    "11674": "Paul! Nice to see you again!\r The Duke asked me to help you. As a \"Mentat\", I'll analyse our strategic position, facing our enemies the Harkonnens.ÿ",
+    "11822": "Oh yes, finding out traps is my speciality... but obviously I missed the one you're talking about. Let's have a look.ÿ",
+    "11940": "Are you sure of where we are going?ÿ",
+    "11976": "...!!? Do we really have to walk in the desert?ÿ",
+    "12024": "Let's go and have a look at this trapped door.ÿ",
+    "12071": "The trap was easy to locate... I've just removed it. There is an armoury behind this door.ÿ",
+    "12162": "Let's go into the armoury. I have to talk to you.ÿ",
+    "12212": "Nice armoury...indeed! I ordered this man to guard the door.ÿ",
+    "12273": "Why don't you ask the troop chiefs about a Fremen leader?ÿ",
+    "12331": "Did you happen to think that we could use these Fremen against our Harkonnen enemies?þ Mining spice is necessary - otherwise the Emperor will drive us out of Dune - ... BUT.... The Harkonnens are here, on this very planet, and they control almost one quarter of the planet.þ Sooner or later, they'll stand against us. Paul, we have to be ready to face them!ÿ",
+    "12689": "Paul, listen to me. I feel these Fremen could be incredible warriors for us... if you could have a Fremen leader on your side, a leader respected by all of the Fremen.þ Ask the Fremen you know, including Harah. Do as you wish... but GET ME THAT FREMEN LEADER! I'm sure he exists, somewhere on this planet.ÿ",
+    "12995": "I was sure you were capable of finding a great Fremen! Good!ÿ",
+    "13056": "Go and introduce Stilgar to your father.ÿ",
+    "13097": "Stilgar being with us, we now can really begin to think about these Harkonnens... See what I mean?ÿ",
+    "13196": "Now, KNOW THAT you can use Gurney Halleck to instruct Fremen in the handling of arms.ÿ",
+    "13282": "The Baron Harkonnen... long-time enemy of ours. Always capable of the worst atrocities.ÿ",
+    "13370": "The Duke is losing his temper. It's still too early to attack Harkonnens frontally. Moreover... Wait! A new message's just arrived!!ÿ",
+    "13503": "View the message before anything else.ÿ",
+    "13542": "Soon, our Fremen will be formidable warriors... The Harkonnens are very numerous in the area north of the palace. Heavily armed too!þ Now if we have to attack, it would be better in Stilgar's native area: Ergsun. The Harkonnens there are very far from the Arrakeen palace. The Harkonnen weak spot is there!ÿ",
+    "13849": "Go and tell this to the Duke, Paul, he may listen to you.ÿ",
+    "13907": "You tried your best to convince the Duke not to go... but nothing could stop him.ÿ",
+    "13989": "I'm worried about these Harkonnens. Now that they know what we're doing, they will surely try to infiltrate some of their men among us. Beware of sabotages Paul!ÿ",
+    "14151": "Anyway, you surely must be able to attack some remote Harkonnen fortresses by now. But be careful!ÿ",
+    "14250": "I spoke with Harah: she really wants to go home.ÿ",
+    "14299": "As far as I know, the Duke and his guard didn't have much chance to fight. The transportation ornis were spotted by Harkonnens and shot down.ÿ",
+    "14441": "Paul! We have to find another means of transportation if we want to beat these Harkonnens. I wonder how the Fremen have done it in the past.ÿ",
+    "14582": "Gee! These Fremen do have surprises. Riding worms... seems incredible!þ This could be the perfect way to go to the Harkonnen fortresses... could be... That's an advantage, for sure, but... I've been thinking...ÿ",
+    "14793": "We still lack something. Something that would turn the balance... Something that the Harkonnens can't imagine, even in their most pessimistic plans.ÿ",
+    "14942": "Don't ask me what... I don't know! But maybe, YOU could find it. My feeling is that the answer is here... in this very palace.ÿ",
+    "15069": "Didn't I tell you, hmmm? Did you show this greenhouse to Chani and Stilgar?ÿ",
+    "15145": "I'm sure Chani's father is a person to meet.ÿ",
+    "15190": "Hmm... Chani kidnapped by Feyd-Rautha Harkonnen... Not good...þ I wonder where Chani is now... Probably not in the Harkonnen palace.þ My guess is that she is in one of these Harkonnen fortresses. Why don't you use spies to try to locate her?ÿ",
+    "15432": "We're almost ready for the final attack.ÿ",
+    "15473": "This is a good place to prepare the final attack.ÿ",
+    "15523": "I want to stay here for a while.ÿ",
+    "15556": "Let's go to one of the sietchs close to the Arrakeen palace.ÿ",
+    "15617": "Before anything else, I think it would be better to gather here Jessica, Chani, Gurney, Stilgar and myself.ÿ",
+    "15725": "I've analysed the situation: The palace is well protected by a very powerful shield.þ What we need is to have at least 10000 men in the three sietchs around the palace, each troop being equipped with atomics.ÿ",
+    "15934": "We have enough men around the palace to attack it. You and Stilgar can launch the attack now.ÿ",
+    "16028": "We must wait until our troops put this shield down with atomics.ÿ",
+    "16093": "Now that the shield is down, we can go there.ÿ",
+    "16139": "We now control more areas than Harkonnens do. This is good work, Paul!ÿ",
+    "16210": "Well, I can see you've found another Fremen girl. \r\u0006(She's nice looking, Paul... If only I...) \bHmm, I'm sure she'll help you to gain a better knowledge of the Fremen.ÿ",
+    "16378": "We can't let these Harkonnen attack our sietchs like that. We must show them what we can do on their fortresses.ÿ",
+    "16491": "Paul! If you don't attack the Harkonnen fortresses, they'll keep on attacking us like that!ÿ",
+    "16583": "Are you jogging... or what?ÿ",
+    "16611": "Nothing new.ÿ",
+    "16624": "This Feyd-Rautha Harkonnen... He's really mad and crazy. Watch out, Paul, he might be very dangerous!ÿ",
+    "16726": "The Emperor only seems to be interested in getting spice. But, Hmm... I wonder if he's hiding something...ÿ",
+    "16833": "Ok, let's go!ÿ",
+    "16847": "Oh, oh, how impetuous! Listen... I've just explained to you why I'd rather stay here. Hmm?ÿ",
+    "16938": "Not now, I have to stay here to analyse all of the elements I've got in my hand.ÿ",
+    "17019": "Not here.ÿ",
+    "17029": "Good!ÿ",
+    "17035": "As you wish, Paul... I'm staying here.ÿ",
+    "17074": "YOU had a machiavellian plan, Shaddam IV: You sent us on Dune hoping that the Harkonnens would crush us.ÿ",
+    "17179": "But Paul has upset your plan, by rallying all of the Fremens.ÿ",
+    "17241": "You don't expect to remain as an Emperor after that. You three are going to be exiled on the prison planet.ÿ",
+    "17349": "Yes... I've asked Paul to gather us here, as we are about to attack the Harkonnen palace.ÿ",
+    "17439": "Yes Jessica, your son has been able to annihilate all of the Harkonnen fortresses.ÿ",
+    "17522": "You're right... and don't forget that the Baron and Feyd-Rautha are there.ÿ",
+    "17597": "Moreover, the Emperor himself could come to help his Harkonnen friends!ÿ",
+    "17669": "I'm a little bit nervous about this... We haven't sent him much...ÿ",
+    "17736": "I'm afraid it won't be enough to satisfy him.ÿ",
+    "17782": "We don't have to worry: we've sent what he asked...ÿ",
+    "17834": "We've sent him more than he asked. If that doesn't please him, I don't know what could please him.ÿ",
+    "17933": "We couldn't send him more than that...ÿ",
+    "17972": "AH! The answer has just come. Let's have a look at this message!ÿ",
+    "18037": "I'm Duncan Idaho. The Duke asked me to supervise the production of spice.ÿ",
+    "18111": "Hmm... well, for the moment, I haven't much to do! I hope that we'll be able to extract large quantities of spice soon.ÿ",
+    "18231": "If you really want to know about the properties of the spice, ask your mother Jessica.ÿ",
+    "18318": "Eh! You've not visited all of the sietchs you know. We do need to extract spice, don't we?ÿ",
+    "18409": "You definitely have to find Fremen who can prospect an area for spice. You've got to!ÿ",
+    "18495": "I must congratulate you on finding this prospection troop. We're on the way, Paul!ÿ",
+    "18578": "Even with the Fremen, we won't go very far in mining spice if we don't have more harvesters: It's a very efficient machine to mine spice from the ground.ÿ",
+    "18732": "You told me you saw one harvester in a sietch. Go there with Gurney and ask where they got it.ÿ",
+    "18827": "You've seen the Emperor's message. Well... our spice production has to be increased!ÿ",
+    "18912": "This Fremen from \u0000\u0003-\u0000\u000f - \u0006The one who gave us the stillsuits \b- he told me about an area rich in spice.ÿ",
+    "19018": "Paul, I don't think that I've told you about the worms... They are a danger to spice mining.ÿ",
+    "19111": "Sandworms grow to enormous size - specimens longer than 400 metres have been seen in the deep desert - and live to a great age. Worms attack all rhythmic vibrations.ÿ",
+    "19277": "Your mother was searching for youÿ",
+    "19311": "Don't ask me about Gurney... I have so much to do here with this spice.ÿ",
+    "19383": "Have you seen Thufir? I saw him going to the comms room.ÿ",
+    "19440": "Don't hesitate to regroup your troops in a place where there is much spice to mine.ÿ",
+    "19524": "I understand that you're worried about your father... er... He'll be back... But life goes on here...þ The Fremen I see often complain about worm attacks: The worms arrive suddenly and attack the harvester. If the miners don't have an orni, they can't watch for the worms.ÿ",
+    "19797": "Why don't you try to find a village?ÿ",
+    "19834": "Paul you have to find ornis... Hmm... It has come to my attention that in the villages there are smugglers. They trade equipment and other stuff.ÿ",
+    "19980": "I've been told 'bout another village in the east, south of \u0000\u0003-\u0000\u0011.ÿ",
+    "20048": "Our stocks of spice are currently  0 kgs.ÿ",
+    "20091": "Our stocks of spice have been reduced to zero... Something has to be done.ÿ",
+    "20166": "Yesterday, we had produced ®0 kgs of spice, that is °0 better than the day before.ÿ",
+    "20251": "Yesterday, we only produced ®0 kgs of spice... Hmm... That's ²0 less than the day before.ÿ",
+    "20343": "I wonder why we haven't heard from the Emperor. Aren't there any messages from him in the communication room?ÿ",
+    "20453": "The Emperor asked for a spice shipment, didn't he?ÿ",
+    "20504": "Unfortunately, we don't have enough spice in stock for the moment. I don't know how the Emperor will react.. but this won't be good for us.þ Why don't you find out why the Fremen troops can't produce more spice...?ÿ",
+    "20719": "We can't send him what he asked for... ¼0kgs... as our stocks are ´0kgs.ÿ",
+    "20794": "We can send him the totality of our stocks... well... That would make a shipment of ´0 kgs of spice.ÿ",
+    "20896": "Maybe three-quarters then... Let me think... ¶0 kgs? \r\u0006(Remember he asked for ¼0kgs)ÿ",
+    "20983": "I can see that you aren't pleased with this idea... Er... What about half of our stocks, ¸0 kgs of spice?ÿ",
+    "21090": "The least we can do is to ship about one quarter of our stocks... er... º0 kgs of spice.ÿ",
+    "21180": "We can send him what he asked for... ´0kgs... as our stocks are  0kgs.ÿ",
+    "21253": "We can send him the totality of our stocks... well... That would make a shipment of ¶0 kgs of spice.ÿ",
+    "21355": "We can send him the totality of our stocks... ¶0 kgs... That's a lot, indeed!ÿ",
+    "21434": "Maybe three-quarters then... Let me think... ¸0 kgs? \r\u0006(Remember he asked for ¼0kgs)ÿ",
+    "21521": "Hmm Hmm... Er... What about half of our stocks, º0 kgs of spice?ÿ",
+    "21587": "Why don't we try to send him 50% more than what he asked, º0kgs? We can do it as our stocks are  0kgs.ÿ",
+    "21692": "Well... Maybe, 50% more than what he asked, ¸0kgs? That won't be a problem as our stocks are  0kgs.ÿ",
+    "21794": "We can try to send him º0kgs... The double of what he asked. Maybe that would please him a lot.ÿ",
+    "21891": "Well... we still have some time before the end of the day. But... Paul, we can't delay anymore.\r Huh, I'm not very excited about having the Emperor come here, you know!ÿ",
+    "22060": "Ok! So we stick to your previous choice.ÿ",
+    "22101": "Ok Paul, let's go to the communication room at once to send this to the Emperor.ÿ",
+    "22182": "Come on, let's go to that communication room!ÿ",
+    "22228": "The next demand from the Emperor will be in Ï days.ÿ",
+    "22281": "The Emperor will call for a spice shipment tomorrow.ÿ",
+    "22334": "No message from the Emperor... I wonder what's going on.ÿ",
+    "22391": "Ah... one moment... I have received some kind of bill... Let me find it...ÿ",
+    "22466": "Yes... A smuggler from the  region is claiming a payment of  0 kgs of spice.ÿ",
+    "22545": "I've already told you about it but you didn't answer... This smuggler from  wants  0 kgs of spice.ÿ",
+    "22646": "Oh yes... hmm... Do you still refuse to pay the  0 kgs of spice to the smuggler from ? If so, I'm going to throw this bill away.ÿ",
+    "22777": "Well... er... the problem is that we only have  0 kgs in stock. And he wants  0 kgs. We can't pay him right now.ÿ",
+    "22892": "Our stocks of spice are currently  0 kgs. Do you want me to send  0 kgs to this smuggler?ÿ",
+    "22984": "Ok that'll be done.ÿ",
+    "23004": "I hope he'll wait...ÿ",
+    "23025": "Hmm... er... I understand that you have more important things to think about now...ÿ",
+    "23109": "Do remember that spice is by far the most valuable substance in the whole universe.. and that it can only be found here, on Dune.ÿ",
+    "23239": "...ÿ",
+    "23243": "Paul! Wait for the Emperor's reply.ÿ",
+    "23279": "The spice has been shipped... Let's wait for the Emperor's reaction.ÿ",
+    "23348": "Paul! You don't forget that we have to go together to the communication room, do you?ÿ",
+    "23434": "Paul! What about this spice shipment? Don't we have to go to the communication room?ÿ",
+    "23519": "Eh, that's not the way to the communication room!ÿ",
+    "23569": "That's an odd way to go to the comms room...!ÿ",
+    "23615": "I don't want to poke my nose into your business... but we have to send spice to the Emperor. Remember?ÿ",
+    "23718": "Good! Let's go!ÿ",
+    "23734": "I can't now, I have some work left here.ÿ",
+    "23775": "If you want so...ÿ",
+    "23793": "Don't tell me that you don't want to send spice to the Emperor!ÿ",
+    "23857": "Er... I can see dunes...ÿ",
+    "23882": "SHUT UP, YOU LIAR!ÿ",
+    "23901": "This Harkonnen is really mad.ÿ",
+    "23931": "We can get information from him.ÿ",
+    "23964": "Fremen told me that the spice is mined much faster when using a harvester like this one.ÿ",
+    "24053": "The Harkonnen forces seem to be much stronger than ours.ÿ",
+    "24110": "I don't think we can make it.ÿ",
+    "24140": "Your presence here has boosted the motivation of our men. That will make the difference.ÿ",
+    "24229": "I take it that our men can cope easily with these Harkonnens here.ÿ",
+    "24296": "We can set a massive attack on that fortress. This is hazardous but sometimes, that's a quick way to win.ÿ",
+    "24402": "This massive attack has cost us lives.ÿ",
+    "24441": "With this massive attack, we've cut down Harkonnen forces.ÿ",
+    "24500": "Even in full daylight, sky is dark because of the smoke screen released by the Harkonnens.ÿ",
+    "24591": "What a fight!ÿ",
+    "24605": "\u0006Aaarrrr.... The dooorrr...beeehind youaa... traaapped.... Ttttell the Duuuuke...ÿ",
+    "24687": "\u0006aaarrrr....ÿ",
+    "24700": "I'm Gurney Halleck. I've served the Atreides for a long time.ÿ",
+    "24762": "I've just come into contact with the Fremen. The Fremen have always lived in the sands of Dune. They live in sietchs so well hidden that no one knows exactly how many they are.þ I've tried to convince them to work for us... Try, Paul... They may trust you.ÿ",
+    "25019": "Oh yes... Stillsuits... let me remember...þ That's it! The Fremen in the sietch where we met told me about a stillsuit maker.ÿ",
+    "25145": "Did you notice that all the Fremen we meet have blue eyes, totally blue, no whites in them. It's linked to saturation of the blood with spice.ÿ",
+    "25288": "The Fremen seem to be organized in tribes or troops.ÿ",
+    "25341": "Not much hospitable!ÿ",
+    "25362": "Uh... I don't understand much in this kind of technology.ÿ",
+    "25420": "I tried to open the door behind you. That's all I can remember.ÿ",
+    "25484": "This armoury is of great interest to me. Don't forget that I'm a military training specialist - I trained you.ÿ",
+    "25595": "Hmm... Stilgar sure is the man we need.ÿ",
+    "25635": "I understand that the final attack is imminent.ÿ",
+    "25683": "It would best to visit the three sietchs together and return to the palace to tell the Duke.ÿ",
+    "25776": "Let's go and tell the Duke that we have two troops working for us.ÿ",
+    "25843": "It's impossible to discover new places without precise indications.ÿ",
+    "25911": "We must fly eastwards from \u0000\u0002-\u0000\u0011.ÿ",
+    "25947": "Let's visit these two new sietchs.ÿ",
+    "25982": "I did suspect the existence of a troop of prospecters. There has to be one!þ I'm convinced such a troop is nearby... Probably still in one of these \"already prospected\" sietchs.ÿ",
+    "26160": "Let's go back to the palace.ÿ",
+    "26189": "I wonder if Duncan is satisfied with the spice production.ÿ",
+    "26248": "What about looking at the map to find where the Fremen that Duncan mentioned is?ÿ",
+    "26329": "Have you seen the two harvesters around the sietch? We must go to the two nearest sietchs to tell the Fremen to come and pick them up.ÿ",
+    "26464": "The best thing to do now is to go back to the palace after having attributed the two harvesters.ÿ",
+    "26561": "The Fremen who gave us the stillsuits is the one who told us where the harvesters are, isn't he?ÿ",
+    "26658": "He said \"south-eastwards\", didn't he?ÿ",
+    "26696": "You should have asked Harah to come along with us. I'm sure that she could help us to meet more Fremens.ÿ",
+    "26801": "Why don't we go back to the palace after we visit the three new sietchs?ÿ",
+    "26874": "As a master in the handling of arms, I'm really interested in looking at the weapons here. This will give me clues... on how we could fight here.ÿ",
+    "27020": "Thufir is right! We have to be ready... and I want to take a part in it.þ For the moment, I'm staying here but soon I hope to be able to teach the Fremen our art of combat.ÿ",
+    "27193": "Paul... I've studied the weapons here. Interesting... really!þ I think that now I can train some Fremen, in the same way as I taught you before coming here on Dune, remember?ÿ",
+    "27368": "Bring me to a sietch where I can teach the Fremen our art of combat.ÿ",
+    "27437": "If you like, I can stay here to train these Fremen in the handling of arms.ÿ",
+    "27513": "I'm teaching the Fremen my art of combat. They're learning quickly.ÿ",
+    "27581": "Chilly in the morning... isn't it?ÿ",
+    "27616": "That's the time of day I miss our planet Caladan most... with its clouds and sea...ÿ",
+    "27700": "Sun is coming down. The night will soon be here.ÿ",
+    "27749": "This is what I love on this planet: sunsets. A pity I don't have my baliset on hand... I'd have loved to play it.ÿ",
+    "27863": "This is one of those red nights. Strange night indeed.ÿ",
+    "27918": "Nights are clear enough on Dune... not a cloud in the sky.ÿ",
+    "27977": "We can send spies to discover Harkonnen fortresses. They could tell us how many troops there are. Then we could move troops to this fortress to attack it.ÿ",
+    "28132": "Are we going to stay here?... Either we go in or we leave!ÿ",
+    "28191": "Nice sietch...!ÿ",
+    "28207": "You'd better talk with the Fremen.ÿ",
+    "28242": "It's so silent... Impressive, isn't it Paul?ÿ",
+    "28287": "Beautiful!ÿ",
+    "28298": "It's rather different here from the sietchs we've been to, isn't it?ÿ",
+    "28367": "It's cooler inside, isn't it?ÿ",
+    "28397": "Are we going to stay here all night?ÿ",
+    "28434": "We shouldn't venture like that in the desert!ÿ",
+    "28480": "I wouldn't say that it's the most varied landscape I've ever seen!ÿ",
+    "28547": "Another step and I bet we'll see some more dunes...!ÿ",
+    "28600": "Dunes... Dunes... Is there anything else on this planet?ÿ",
+    "28657": "Those smugglers, they look wealthy!ÿ",
+    "28693": "I wouldn't say that these Harkonnens are good decorators!ÿ",
+    "28751": "Hey! Here we are...ÿ",
+    "28771": "Look! The stillsuits have been stored here!ÿ",
+    "28815": "No I want to stay here to have a look at this armoury.ÿ",
+    "28870": "Ah, Paul, I was sure you were joking!ÿ",
+    "28908": "But, Paul, you know I'm always ready to follow you.ÿ",
+    "28960": "Ok... but only to go with you in the armoury.ÿ",
+    "29006": "Ok, Paul, I'm going with you.ÿ",
+    "29036": "Great!ÿ",
+    "29043": "Good! I'm going to try to teach these Fremen the handling of arms.ÿ",
+    "29110": "Ok... but I think you're wrong. I still may be able to help you.ÿ",
+    "29175": "Eh, haven't you seen that desolate place... What do you want me to do in that desert? You're not serious, are you?ÿ",
+    "29290": "Really Paul, I don't understand you... Well, as you insist, I'm staying here, but... well... I considered you a friend.ÿ",
+    "29410": "Oh no, you're not going to leave me here, in the desert...ÿ",
+    "29469": "Look Paul! The Emperor was here!ÿ",
+    "29502": "Don't count your chickens before they hatch! There is still this Harkonnen palace.ÿ",
+    "29585": "We have to go to - to stem that epidemic.ÿ",
+    "29629": "Good to see these Harkonnens beaten off! Our Fremen are good warriors, ain't they?... And you sure know how to lead men.ÿ",
+    "29750": "You are , Duke Leto Atreides' son. You've come to our people; this behavior honors you and so you deserve our interest.ÿ",
+    "29871": "I have faith in you, .ÿ",
+    "29895": "In the matter of diseases, Chani is far more qualified than I am.ÿ",
+    "29961": "It looks like a big waste of water to me...ÿ",
+    "30005": "There are many caches like that, Paul. It's the old Fremen dream: vegetation on Arrakis.þ There is very, very slight humidity in the air on Arrakis. We use a wind-trap to extract it and it comes down here.þ And... we also have little quantities of the very special Water of Life. It is used by our few Reverend Mothers.ÿ",
+    "30325": "The Water of Life extends consciousness but only a few people are able to absorb it and live. Do you want to try, ?ÿ",
+    "30442": "You're wise. Maybe someday you'll be ready to drink it.ÿ",
+    "30498": "Your decision frightens me, . Drink it if that's your will.ÿ",
+    "30559": "I don't know what Water of Life has done to you. I am not exactly expert in these matters, you know. Uh... I don't see any change in you...ÿ",
+    "30699": "We have to rally other Fremen troops to our cause if we want some chances of defeating the Harkonnens.ÿ",
+    "30802": "Of course, I know very well the sietchs around here. Why don't we try to go there together?ÿ",
+    "30894": "I'd also like to meet the Duke and your mother... People talk much about her...ÿ",
+    "30974": "Fremen live in sietchs. Villages were made by immigrants. Fremen don't usually go to villages... er... we don't even know their locations very well.ÿ",
+    "31123": "Why don't you ask Harah about villages?ÿ",
+    "31163": "Hmm... The fish's mouth... Fish... I saw something fish-shaped... maybe in your orni.ÿ",
+    "31249": "Er... Harah asked you to bring her home, didn't she?ÿ",
+    "31302": "Paul... I was waiting until Harah wasn't with us. I have something to tell you...ÿ",
+    "31384": "I'd like you to meet somebody... I think it's important for you.ÿ",
+    "31449": "I want us to go to \u0000\u0005-\u0000\u000f, west of the village we've found. I've mentioned it on your map.ÿ",
+    "31541": "Let's enter!ÿ",
+    "31554": "You understand now why I've waited for Harah to leave us... \u0006(Have you noticed how she gazes at you, Paul!)ÿ",
+    "31662": "I still don't understand why you didn't ask Chani to come with us.ÿ",
+    "31729": "\u0006Let's go to another room... I've something to tell you...ÿ",
+    "31788": "Paul, for you, worms mean danger. As a matter of fact, they do attack  harvesters and men sometimes, but...ÿ",
+    "31896": "As incredible it may sound to you, Fremen use worms to travel in the desert. We... er... ride them.þ I guess you should now be able to ride a worm, Paul. Let's go into the desert.ÿ",
+    "32076": "Paul, now that you've perfectly ridden a worm, you know everything about the Fremen... \r\u0006Almost everything.þ So, this new way of transportation, you've got it, haven't you?ÿ",
+    "32249": "The old Fremen dream that is. Vegetation on Dune. We have water (have you seen the big reservoir here) and Kynes has bulbs.þ Vegetation could be a weapon against the Harkonnens. Where there are plants there's no more spice...ÿ",
+    "32475": "Let's go and see Chani.ÿ",
+    "32499": "I don't remember where we left her. Maybe you can try to contact Fremens.ÿ",
+    "32573": "We all like Chani a lot... I'm sure her missing will have a bad effect on the motivation of the Fremen troops.ÿ",
+    "32684": "Good to see you with Chani again... Fremen have recovered their motivation!ÿ",
+    "32760": "There are no more Harkonnen fortresses on Dune... The Arrakeen palace is the only Harkonnen place remaining.þ To attack the palace, I guess that we will need the help of Thufir Hawat.þ It would be a good idea to ask Thufir to come with us in one of the places around the palace, wouldn't it?ÿ",
+    "33052": "Now that we're here, let's see what Thufir will say.ÿ",
+    "33105": "I'm sure that Thufir Hawat is the best man to prepare the final attack.ÿ",
+    "33177": "Do you want to launch the attack now?ÿ",
+    "33215": "As you want, ÿ",
+    "33230": "Good! The troops are now converging on the palace.ÿ",
+    "33281": "I'm always following you... always in your shadow. Before we met, I was a leader! Now I sometimes feel like being your puppet.ÿ",
+    "33408": "I'm a Fremen, you know. I need to stay in a sietch, among my people. I'm pretty sure I'll feel better after that.ÿ",
+    "33522": "You have the eyes of a Fremen now, .ÿ",
+    "33560": "Well... uh... we've got a problem here... The first solution I can think of is to separate them. But we will have this problem again in the future.þ Hmm... may be another solution... perhaps if something could make them forget their differencies.ÿ",
+    "33807": "I've just had a look at the damaged equipment... No doubt, it was done intentionnally. There are probably some Harkonnen agents infiltrated among us. We must show up these saboteurs.þ What we need is a well trained military troop here... They'll investigate and find these bloody Harkonnens.ÿ",
+    "34099": "We must tell some Fremen to come pick up the stuff we've bought here.ÿ",
+    "34169": "There is no Fremen troops here...ÿ",
+    "34203": "Someone has been here at one time... There is some equipment left... We can use it.ÿ",
+    "34287": "There is some equipment still unused here.ÿ",
+    "34330": "Have you seen the ornis?ÿ",
+    "34355": "Seeing these weapons, I feel my eagerness to see the Harkonnens out of Dune.ÿ",
+    "34432": "By the way, do you remember there is a message for you in the communication room?ÿ",
+    "34514": "I love this planet.ÿ",
+    "34534": "Why don't we try to rally these Fremens?ÿ",
+    "34575": "Troop chiefs appreciate your visit.ÿ",
+    "34611": "Are you waiting for something?ÿ",
+    "34642": "You like our sietchs, don't you?ÿ",
+    "34675": "You know... Fremen don't venture aimlessly in the desert like that.ÿ",
+    "34743": "Impressive palace!ÿ",
+    "34762": "Men are going to make this place more liveable.ÿ",
+    "34810": "I didn't know this sietch... You are really amazing, !ÿ",
+    "34866": "Aaah, here he goes again! You gave us such a fright, ! You've been unconscious three hours.ÿ",
+    "34959": "You're the first non-Dune born person being allowed to see this, Paul.ÿ",
+    "35030": "Too much is too much... I'm staying here for a while. I need a rest.ÿ",
+    "35099": "I'm tired of following you, .ÿ",
+    "35130": "Joining our forces, we'll be able to make these Harkonnen invaders step back. We'll call you MUAD'DIB, the name of the mouse shadow on the second moon of Dune.\r YOUR WATER SHALL MINGLE WITH OUR WATER.ÿ",
+    "35331": "Yes, , I'm with you.ÿ",
+    "35353": "As you wish, ... I will stay here.ÿ",
+    "35389": "Why leave me here, in the desert, ? I don't see your point... No, I'd rather stay with you.ÿ",
+    "35482": "Duke Leto Atreides, the Fremen people would like to assist you in your settlement here.ÿ",
+    "35570": "These enemies of yours, the Harkonnens, have always treated the Fremen badly. They despise us... They enslave us... They kill us... We'd like to be on your side.ÿ",
+    "35732": "Your son is a remarkable man... One of a kind, I'd say... He already knows ' sietchs and ( troop chiefs.ÿ",
+    "35839": "We talk a lot about him and his mother... This old prophecy, you know... I was very eager to meet you, Jessica Atreides.ÿ",
+    "35960": "With Chani, you will soon be a real Fremen, ... a Fremen leader as you know ' sietchs and ( troop chiefs.ÿ",
+    "36069": "Er... Wouldn't it be interesting to tell him about your experiments?ÿ",
+    "36138": "YOU, Baron Harkonnen, has mistreated our people with so much cruelty!ÿ",
+    "36208": "You'd better not say that of our new Emperor!ÿ",
+    "36254": "Fremen will always be indebted to Paul for this.ÿ",
+    "36303": "You've seen this planet: a big desert. Outer worlds people think of it only as a spice reservoir.þ But people here love their home world and they would like it to be more habitable.þ I'm involved in vegetation experiments... A vegetation that would grow in the sands.ÿ",
+    "36571": "I came to create a new kind of bulb. I've got some of them here. Come in the next room with me.ÿ",
+    "36667": "You see... These bulbs are almost ready... Still need a little more care.þ What I would need is to have some Fremen troops to work on them.ÿ",
+    "36807": "I know some sietchs around... Go and try to convince them to work with me.ÿ",
+    "36882": "Fremen do help me to get these bulbs ready. , the dream comes true!ÿ",
+    "36951": "One group of bulbs is ready to be used. But as you can see, I'm working to prepare new ones. This is exalting, !ÿ",
+    "37065": "Oh yes... Water... Go to the room on your left, you'll see.ÿ",
+    "37125": "Enough talking now, let's act!ÿ",
+    "37156": "Don't be so hasty, young man!ÿ",
+    "37186": "Here's my dear daughter Chani!ÿ",
+    "37217": "All of my life has been devoted to this old Fremen dream: grasslands on Arrakis. And you'd like me to give up these experiments. Oh No!ÿ",
+    "37353": "I see... I see... Paul Atreides, the famous Muad'Dib.ÿ",
+    "37407": "Hmm... would it be?ÿ"
+  },
+  "SourceFile": "SAMPLE_PHRASE.HSQ"
+}

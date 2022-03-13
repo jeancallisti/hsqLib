@@ -14,29 +14,20 @@ namespace UnitTests
     /// </summary>
     public class TestHsqReader
     {
-        private MemoryStream AsStream(byte[] input)
-        {
-            MemoryStream stream = new MemoryStream();
-            stream.Write(input, 0, input.Length);
-            stream.Position = 0;
-            return stream;
-        }
-        
+
         private async Task CompareInputOutput(byte[] input_bytes,  byte[] output_bytes)
         {
-            using (var stream = AsStream(input_bytes))
+            using (var stream = new MemoryStream(input_bytes))
+            using (var binaryReader = new System.IO.BinaryReader(stream))
             {
-                using (var binaryReader = new System.IO.BinaryReader(stream))
-                {
-                    var hsqReader = new HsqReader();
-                    bool ignoreBadChecksum = true;
-                    var output = await hsqReader.Unpack(new CustomBinaryReader(binaryReader), ignoreBadChecksum);
+                var hsqReader = new HsqReader();
+                bool ignoreBadChecksum = true;
+                var output = await hsqReader.Unpack("", new CustomBinaryReader(binaryReader), ignoreBadChecksum);
 
-                    var outputData = output.UnCompressedData;
+                var outputData = output.UnCompressedData;
 
-                    Assert.That(outputData.Length, Is.EqualTo(output_bytes.Length));
-                    Assert.AreEqual(outputData, output_bytes);
-                }
+                Assert.That(outputData.Length, Is.EqualTo(output_bytes.Length));
+                Assert.AreEqual(outputData, output_bytes);
             }
         }
 

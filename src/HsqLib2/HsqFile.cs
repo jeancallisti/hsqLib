@@ -4,14 +4,9 @@ namespace HsqLib2
 {
     public class HsqFile
     {
-        public HsqHeader Header { get; private set; }
-        public byte[] UnCompressedData { get; private set; }
-
-        public HsqFile(HsqHeader header, byte[] uncompressedData)
-        {
-            Header = header;
-            UnCompressedData = uncompressedData;
-        }
+        public string SourceFile { get; init; }
+        public HsqHeader Header { get; init; }
+        public byte[] UnCompressedData { get; init; }
     }
 
     /// <summary>
@@ -26,12 +21,12 @@ namespace HsqLib2
     {
         public static int HeaderSize { get; } = 6;
 
-        public int UncompressedSize { get; private set; }
-        public int CompressedSize { get; private set; }
-        public int CheckSumByte { get; private set; }
+        public int UncompressedSize { get; init; }
+        public int CompressedSize { get; init; }
+        public int CheckSumByte { get; init; }
 
 
-        public static bool CheckHeaderValid(byte[] data)
+        public static bool IsChecksumValid(byte[] data)
         {
             if (data.Length != HeaderSize)
             {
@@ -49,26 +44,28 @@ namespace HsqLib2
             return (total == validCheckSum);
         }
 
-        public HsqHeader(byte[] data, bool? ignoreBadChecksum = false)
+        //Only for Json deserialize
+        public HsqHeader() { }
+
+        public HsqHeader(byte[] data)
         {
-            if (!(ignoreBadChecksum ?? false) && !CheckHeaderValid(data))
+            if (data.Length != HeaderSize)
             {
-                throw new HsqException("Hsq header did not pass the checksum test.");
+                throw new HsqException("Header should be 6 bytes long");
             }
 
             int position = 0;
 
             // First 3 bytes = 24-bits int that we make 32 bits for convenience
-            var _4bytes = new byte[] { data[0], data[1], data[2], 0 };
+            var _4bytes = new byte[] { data[position++], data[position++], data[position++], 0 };
             UncompressedSize = (int)BitConverter.ToUInt32(_4bytes, 0);
-            position += 3;
 
             // Subsequent 2 bytes = 16-bits int
             CompressedSize = BitConverter.ToUInt16(data, position);
             position += 2;
 
             //subsequent 1 byte = checksum byte
-            CheckSumByte = data[position];
+            CheckSumByte = data[position++];
         }
     }
 }

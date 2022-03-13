@@ -83,13 +83,19 @@ namespace HsqLib2.HsqReader
         }
 
 
-        public async Task<HsqFile> Unpack(IBinaryReader reader, bool? ignoreBadChecksum = false)
+        public async Task<HsqFile> Unpack(string sourceFileName, IBinaryReader reader, bool? ignoreBadChecksum = false)
         {
             //TODO: optimize the output (stream?)
             var output = new List<byte>();
 
             var headerRaw = ReadHeader(reader);
-            var header = new HsqHeader(headerRaw, ignoreBadChecksum);
+
+            if (!(ignoreBadChecksum ?? false) && !HsqHeader.IsChecksumValid(headerRaw))
+            {
+                throw new HsqException("Hsq header did not pass the checksum test.");
+            }
+
+            var header = new HsqHeader(headerRaw);
 
             var instructionsReader = new InstructionsReader(reader);
 
@@ -104,15 +110,20 @@ namespace HsqLib2.HsqReader
                 //-DEBUG
             }
 
-            return new HsqFile(header, output.ToArray());
+            return new HsqFile {
+                SourceFile = sourceFileName,
+                Header = header,
+                UnCompressedData = output.ToArray()
+            };
         }
         
         public async Task<HsqFile> UnpackFile(FileStream fileStream, bool? ignoreBadChecksum)
         {
             using (var reader = new System.IO.BinaryReader(fileStream))
             {
+                var fileName = Path.GetFileName(fileStream.Name);
                 var customReader = new CustomBinaryReader(reader);
-                return await Unpack(customReader, ignoreBadChecksum);
+                return await Unpack(fileName, customReader, ignoreBadChecksum);
             }            
         }
     }

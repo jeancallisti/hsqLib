@@ -1,9 +1,7 @@
-﻿using HsqLib2;
-using HsqLib2.HsqReader;
+﻿using HsqLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace UnpackCli
 {
@@ -11,7 +9,7 @@ namespace UnpackCli
     {
         private void PrintHelp()
         {
-            Console.WriteLine("UnpackCli2.exe <hsq file>");
+            Console.WriteLine("UnpackCli.exe <hsq file>");
         }
 
         public void Run(string[] args)
@@ -24,37 +22,31 @@ namespace UnpackCli
 
             string filename = args[0];
 
-
             if (!File.Exists(filename))
             {
                 Console.WriteLine("Error: Argument needs to be valid file path.");
                 return;
             }
 
-            using (var inputStream = File.OpenRead(filename))
+
+            var input = new HsqLib.HsqCompressedFile.HsqCompressedFile(File.ReadAllBytes(filename));
+
+            if (!HsqHandler.ValidateHeader(input))
             {
-                var reader = new HsqReader();
-
-                //if (!HsqHandler.ValidateHeader(input))
-                //{
-                //    Console.WriteLine("Error: Not a valid HSQ file.");
-                //    return;
-                //}
-
-                var task = Task.Run(async () =>
-                {
-                    var unpacked = await reader.UnpackFile(inputStream, false);
-
-                    //if (!HsqHandler.ValidateOutputSize(input, output))
-                    //{
-                    //    Console.WriteLine("Warning: Output did not match size given in header.");
-                    //}
-
-                    Console.WriteLine("Saving file: " + args[0] + ".org");
-                    File.WriteAllBytes(args[0] + ".org", unpacked.UnCompressedData);
-                });
-                task.Wait();
+                Console.WriteLine("Error: Not a valid HSQ file.");
+                return;
             }
+
+            var output = new List<byte>();
+            HsqHandler.Uncompress(input, output);
+
+            if (!HsqHandler.ValidateOutputSize(input, output))
+            {
+                Console.WriteLine("Warning: Output did not match size given in header.");
+            }
+
+            Console.WriteLine("Saving file: " + args[0] + ".uncompressed");
+            File.WriteAllBytes(args[0] + ".uncompressed", output.ToArray());
         }
 
         static void Main(string[] args)

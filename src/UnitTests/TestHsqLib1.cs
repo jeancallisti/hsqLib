@@ -3,8 +3,9 @@ using HsqLib.HsqCompressedFile;
 using HsqLib.HsqCompressedFile.Instructions;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-
+using System.IO;
 
 namespace UnitTests
 {
@@ -275,33 +276,30 @@ namespace UnitTests
             Assert.AreEqual(output_bytes, output);
         }
 
-        /*[Test]
+        [Test]
         public void CanUncompressRealExample()
         {
-            var input_file = "D:\\Development\\C\\Dune\\JESS.HSQ";
-            var compare_to_file = "D:\\Development\\C\\Dune\\JESS.___";
+            var input_file = "Data\\SAMPLE.HSQ";
+            var compare_to_file = "Data\\SAMPLE.HSQ.UNPACKED";
 
             var compareTobytes = File.ReadAllBytes(compare_to_file);
 
             var input = new HsqCompressedFile(File.ReadAllBytes(input_file));
-            var output = new UncompressedFile();
+            var output = new List<byte>();
 
-            try
-            {
+            //try
+            //{
                 HsqHandler.Uncompress(input, output);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Current offset:" + input.CurrentOffset);
-                throw ex;
-            }
-            
+            //}
+            //catch(Exception ex)
+            //{
+            //    Console.WriteLine("Current offset:" + input.CurrentOffset);
+            //    throw ex;
+            //}
 
-            var result = output.GetAllBytes();
-
-            Assert.That(result.Length, Is.EqualTo(compareTobytes.Length));
-            Assert.AreEqual(compareTobytes, result);
-        }*/
+            Assert.That(output.Count, Is.EqualTo(compareTobytes.Length));
+            Assert.AreEqual(compareTobytes, output.ToArray());
+        }
 
         [Test]
         public void CanValidateHeader()

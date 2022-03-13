@@ -5,7 +5,6 @@ namespace CryoDataLib.TextLib
 {
     public class CryoTextData : CryoData
     {
-        public CryoTextMatadata Metadata { get; init; }
-        public Dictionary<int, string> Sentences { get; init; }
+        public Dictionary<int, CryoSentenceData> Sentences { get; } = new Dictionary<int, CryoSentenceData>();
     }
 }

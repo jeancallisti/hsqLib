@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static CryoDataLib.TextLib.CryoTextMatadata;
 
 namespace CryoDataLib.TextLib
 {
@@ -27,19 +26,22 @@ namespace CryoDataLib.TextLib
             return index.ToArray();
         }
     }
-    public class CryoTextMatadata
+
+    public class CryoTextAddressPair
     {
-        public class CryoTextAddressPair
-        {
-            public static int AddressByteSize { get; } = 2;
+        public static int AddressByteSize { get; } = 2;
 
-            public int SentenceStartAddress { get; init; }
-            public int SentenceEndAddress { get; init; }
-        }
+        public int SentenceStartAddress { get; init; }
+        public int SentenceEndAddress { get; init; }
+    }
 
-        public int TotalSize { get; init; }
+    public class CryoSentenceData
+    {
+        public int Index { get; init; }
+        public int SentenceStartAddress { get; init; }
+        public int SentenceEndAddress { get; init; }
 
-        public IEnumerable<CryoTextAddressPair> Addresses { get; init; }
+        public string Text { get; init; }
     }
     public class CryoTextDataInterpreter : ICryoDataInterpreter
     {
@@ -72,30 +74,24 @@ namespace CryoDataLib.TextLib
 
             return addressPairs;
         }
+
         public async Task<CryoData> InterpretData(HsqFile file)
         {
             using (var stream = new MemoryStream(file.UnCompressedData))
             using (var reader = new BinaryReader(stream))
             {
                 var indexData = CryoTextIndex.ReadIndex(reader);
-                var addressPairs = InterpretIndex(indexData);
+                var addressPairs = InterpretIndex(indexData).ToArray();
 
-                var metadata = new CryoTextMatadata
-                {
-                    Addresses = addressPairs,
-                    TotalSize = indexData[0],
-                };
-
-                var outputSentences = new Dictionary<int, string>();
                 var output = new CryoTextData()
                 {
-                    Metadata = metadata,
-                    Sentences = outputSentences,
                     SourceFile = file.SourceFile 
                 };
 
-                foreach (var addressPair in addressPairs)
+                foreach(var index in Enumerable.Range(0, addressPairs.Length))
                 {
+                    var addressPair = addressPairs[index];
+
                     var sentenceLength = addressPair.SentenceEndAddress - addressPair.SentenceStartAddress;
                     var sentenceBytes = Enumerable
                                         .Range(0, sentenceLength)
@@ -105,7 +101,16 @@ namespace CryoDataLib.TextLib
 
                     Console.WriteLine(sentence);
 
-                    output.Sentences.Add(addressPair.SentenceStartAddress, sentence);
+                    output.Sentences.Add(
+                        addressPair.SentenceStartAddress,
+                        new CryoSentenceData
+                        {
+                            Index = index,
+                            SentenceStartAddress = addressPair.SentenceStartAddress,
+                            SentenceEndAddress = addressPair.SentenceEndAddress,
+                            Text = sentence
+                        });
+
                 }
 
                 return output;

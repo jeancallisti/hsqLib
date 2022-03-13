@@ -36,3 +36,5 @@ C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\obj\Debug\net5.0\SamplePro
 C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\obj\Debug\net5.0\ref\SampleProject.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\obj\Debug\net5.0\SampleProject.pdb
 C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\obj\Debug\net5.0\SampleProject.genruntimeconfig.cache
+C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\bin\Debug\net5.0\HsqLib2.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\SampleProject\bin\Debug\net5.0\HsqLib2.pdb

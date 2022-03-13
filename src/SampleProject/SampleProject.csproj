@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HsqLib2\HsqLib2.csproj" />
     <ProjectReference Include="..\HsqLib\HsqLib.csproj" />
   </ItemGroup>
 

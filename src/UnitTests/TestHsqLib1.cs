@@ -1,4 +1,6 @@
 using HsqLib;
+using HsqLib.HsqCompressedFile;
+using HsqLib.HsqCompressedFile.Instructions;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -6,7 +8,10 @@ using System.Collections.Generic;
 
 namespace UnitTests
 {
-    public class Tests
+    /// <summary>
+    /// Unit Tests for version 1 of the library (verbatim from ZWomp's source code)
+    /// </summary>
+    public class TestHsqLib1
     {
         [Test]
         public void CanUncompressFileWithoutRepeatedData()

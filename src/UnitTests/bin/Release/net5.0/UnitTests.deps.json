@@ -9,6 +9,7 @@
       "UnitTests/1.0.0": {
         "dependencies": {
           "HsqLib": "1.0.0",
+          "HsqLib2": "1.0.0",
           "Microsoft.NET.Test.Sdk": "16.9.4",
           "Moq.EntityFrameworkCore": "5.0.0.2",
           "NUnit": "3.13.1",
@@ -1042,6 +1043,11 @@
         "runtime": {
           "HsqLib.dll": {}
         }
+      },
+      "HsqLib2/1.0.0": {
+        "runtime": {
+          "HsqLib2.dll": {}
+        }
       }
     }
   },
@@ -1633,6 +1639,11 @@
       "hashPath": "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
     },
     "HsqLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HsqLib2/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

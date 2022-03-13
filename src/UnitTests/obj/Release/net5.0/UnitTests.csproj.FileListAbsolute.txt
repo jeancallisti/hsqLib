@@ -115,3 +115,5 @@ C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\obj\Release\net5.0\UnitTests.d
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\obj\Release\net5.0\ref\UnitTests.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\obj\Release\net5.0\UnitTests.pdb
 C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\obj\Release\net5.0\UnitTests.genruntimeconfig.cache
+C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Release\net5.0\HsqLib2.dll
+C:\Users\ma-beg\source\repos\hsqLib\src\UnitTests\bin\Release\net5.0\HsqLib2.pdb

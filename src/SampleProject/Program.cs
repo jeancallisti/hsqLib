@@ -7,38 +7,94 @@ namespace SampleProject
 {
     class Program
     {
-        static void Main(string[] args)
+        private void PrintHelp()
         {
-            if (args.Length != 1)
+            Console.WriteLine("DuneHSQHandler.exe -v1 <hsq file>");
+            Console.WriteLine("   OR");
+            Console.WriteLine("DuneHSQHandler.exe -v2 <hsq file>");
+            Console.WriteLine("");
+            Console.WriteLine("-v1 uses version 1 of the library (stable), -v2 uses version 2 (refactored, unstable).");
+        }
+
+        public void Run(string[] args)
+        {
+            if (args.Length != 2)
             {
-                Console.WriteLine("DuneHSQHandler.exe <hsq file>");
+                PrintHelp();
                 return;
             }
 
-            if (!File.Exists(args[0]))
+            string version = args[0];
+            string filename = args[1];
+
+
+            if (!File.Exists(filename))
             {
                 Console.WriteLine("Error: Argument needs to be valid file path.");
                 return;
             }
 
-            var input = new HsqCompressedFile(File.ReadAllBytes(args[0]));
-
-            if (!HsqHandler.ValidateHeader(input))
+            if (version == "-v1")
             {
-                Console.WriteLine("Error: Not a valid HSQ file.");
+                var input = new HsqLib.HsqCompressedFile.HsqCompressedFile(File.ReadAllBytes(filename));
+
+                if (!HsqHandler.ValidateHeader(input))
+                {
+                    Console.WriteLine("Error: Not a valid HSQ file.");
+                    return;
+                }
+
+                var output = new List<byte>();
+                HsqHandler.Uncompress(input, output);
+
+                if (!HsqHandler.ValidateOutputSize(input, output))
+                {
+                    Console.WriteLine("Warning: Output did not match size given in header.");
+                }
+
+                Console.WriteLine("Saving file: " + args[0] + ".org");
+                File.WriteAllBytes(args[0] + ".org", output.ToArray());
+
                 return;
             }
 
-            var output = new List<byte>();
-            HsqHandler.Uncompress(input, output);
-
-            if (!HsqHandler.ValidateOutputSize(input, output))
+            if (version == "-v2")
             {
-                Console.WriteLine("Warning: Output did not match size given in header.");
+                using (var inputStream = File.OpenRead(filename))
+                {
+
+                }
+
+                //var input = new HsqLib2.HsqReader.HsqCompressedFile(File.ReadAllBytes(filename));
+
+                //if (!HsqHandler.ValidateHeader(input))
+                //{
+                //    Console.WriteLine("Error: Not a valid HSQ file.");
+                //    return;
+                //}
+
+                //var output = new List<byte>();
+                //HsqHandler.Uncompress(input, output);
+
+                //if (!HsqHandler.ValidateOutputSize(input, output))
+                //{
+                //    Console.WriteLine("Warning: Output did not match size given in header.");
+                //}
+
+                //Console.WriteLine("Saving file: " + args[0] + ".org");
+                //File.WriteAllBytes(args[0] + ".org", output.ToArray());
+
+                return;
             }
 
-            Console.WriteLine("Saving file: " + args[0] + ".org");
-            File.WriteAllBytes(args[0] + ".org", output.ToArray());
+            Console.WriteLine("Version must be -v1 or -v2.");
+            return;
+
+        }
+
+        static void Main(string[] args)
+        {
+            new Program().Run(args);
         }
     }
 }

@@ -11,6 +11,16 @@
         "runtime": {
           "bin/placeholder/HsqLib.dll": {}
         }
+      },
+      "HsqLib2/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/HsqLib2.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HsqLib2.dll": {}
+        }
       }
     }
   },
@@ -19,11 +29,17 @@
       "type": "project",
       "path": "../HsqLib/HsqLib.csproj",
       "msbuildProject": "../HsqLib/HsqLib.csproj"
+    },
+    "HsqLib2/1.0.0": {
+      "type": "project",
+      "path": "../HsqLib2/HsqLib2.csproj",
+      "msbuildProject": "../HsqLib2/HsqLib2.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "HsqLib >= 1.0.0"
+      "HsqLib >= 1.0.0",
+      "HsqLib2 >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -58,6 +74,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib2\\HsqLib2.csproj": {
+              "projectPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib2\\HsqLib2.csproj"
+            },
             "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib.csproj": {
               "projectPath": "C:\\Users\\ma-beg\\source\\repos\\hsqLib\\src\\HsqLib\\HsqLib.csproj"
             }

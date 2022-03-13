@@ -9,3 +9,4 @@ C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Release\net5.0\HsqLib.csproj.
 C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Release\net5.0\HsqLib.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Release\net5.0\ref\HsqLib.dll
 C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Release\net5.0\HsqLib.pdb
+C:\Users\ma-beg\source\repos\hsqLib\src\HsqLib\obj\Release\net5.0\HsqLib.csproj.AssemblyReference.cache

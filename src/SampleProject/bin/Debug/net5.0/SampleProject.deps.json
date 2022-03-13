@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v5.0": {
       "SampleProject/1.0.0": {
         "dependencies": {
-          "HsqLib": "1.0.0"
+          "HsqLib": "1.0.0",
+          "HsqLib2": "1.0.0"
         },
         "runtime": {
           "SampleProject.dll": {}
@@ -17,6 +18,11 @@
       "HsqLib/1.0.0": {
         "runtime": {
           "HsqLib.dll": {}
+        }
+      },
+      "HsqLib2/1.0.0": {
+        "runtime": {
+          "HsqLib2.dll": {}
         }
       }
     }
@@ -28,6 +34,11 @@
       "sha512": ""
     },
     "HsqLib/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HsqLib2/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

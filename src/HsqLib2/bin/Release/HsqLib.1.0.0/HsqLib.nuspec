@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>HsqLib</id>
+    <version>1.0.0</version>
+    <authors>Core functions and tests by ZWomp - Repackaged by Monsieur Ouxx - Based on work by bigs.fr, pierroelmito</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">GPL-3.0-or-later</license>
+    <licenseUrl>https://licenses.nuget.org/GPL-3.0-or-later</licenseUrl>
+    <projectUrl>https://sourceforge.net/projects/dunerevival/</projectUrl>
+    <description>C# library to handle .HSQ files as found in Cryo videogames from the 1990s such as dune, KGB, Lost Eden...
+
+Unit tests and Project sample can be found in the solution, in the Github repo. https://github.com/jeancallisti/hsqLib</description>
+    <repository type="git" url="https://github.com/jeancallisti/hsqLib" />
+    <dependencies>
+      <group targetFramework="net5.0" />
+    </dependencies>
+  </metadata>
+</package>

@@ -1,3 +1,4 @@
+using HsqLib2;
 using HsqLib2.BinaryReader;
 using HsqLib2.HsqReader;
 using Moq;

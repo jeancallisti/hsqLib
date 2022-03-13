@@ -8,7 +8,6 @@ namespace HsqLib2.HsqReader.Instructions
 
     public class InstructionsReader
     {
-        int currentBit = 0;
         Stack<bool> bits = new Stack<bool>();
 
         private readonly IBinaryReader reader;

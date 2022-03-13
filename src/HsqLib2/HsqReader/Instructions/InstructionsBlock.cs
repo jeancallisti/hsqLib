@@ -48,36 +48,36 @@ namespace HsqLib2.HsqReader.Instructions
             // A '1' means instruction "Copy byte"
             if (reader.ReadBit()) //Read and increase
             {
-                Console.WriteLine("Bit: True");
-                Console.WriteLine("Step: CopyByte");
+                //Console.WriteLine("Bit: True"); //DEBUG
+                //Console.WriteLine("Step: CopyByte"); //DEBUG
 
                 return new Instruction(InstructionType.CopyByte, null, null);
             }
             else
             {
-                Console.WriteLine("Bit: False");
+                //Console.WriteLine("Bit: False"); //DEBUG
 
                 // '01' means "Method 1"
                 if (reader.ReadBit()) //Read and increase
                 {
-                    Console.WriteLine("Bit: True");
-                    Console.WriteLine("Step: Method1");
+                    //Console.WriteLine("Bit: True"); //DEBUG
+                    //Console.WriteLine("Step: Method1"); //DEBUG
 
                     return new Instruction(InstructionType.Method1, null, null);
                 }
                 // '00' means "Method 0"
                 else
                 {
-                    Console.WriteLine("Bit: False"); //DEBUG
+                    //Console.WriteLine("Bit: False"); //DEBUG
 
                     var param1 = reader.ReadBit(); //Read and increase
 
-                    Console.WriteLine($"Bit: {param1}"); //DEBUG
+                    //Console.WriteLine($"Bit: {param1}"); //DEBUG
 
                     var param2 = reader.ReadBit(); //Read and increase
 
-                    Console.WriteLine($"Bit: {param2}"); //DEBUG
-                    Console.WriteLine("Step: Method0"); //DEBUG
+                    //Console.WriteLine($"Bit: {param2}"); //DEBUG
+                    //Console.WriteLine("Step: Method0"); //DEBUG
 
 
                     //we read two more bits as parameters

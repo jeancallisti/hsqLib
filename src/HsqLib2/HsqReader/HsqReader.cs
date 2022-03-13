@@ -100,7 +100,7 @@ namespace HsqLib2.HsqReader
                 ProcessInstruction(reader, instruction, output);
 
                 //+DEBUG
-                Console.WriteLine(string.Join(",", output.ToArray().Select(b => Convert.ToString(b, 16))));
+                //Console.WriteLine(string.Join(",", output.ToArray().Select(b => Convert.ToString(b, 16))));
                 //-DEBUG
             }
 

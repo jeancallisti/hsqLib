@@ -291,34 +291,30 @@ namespace UnitTests
 
         }
 
-        /*
+
+
         [Test]
         public void CanUncompressRealExample()
         {
-            var input_file = "D:\\Development\\C\\Dune\\JESS.HSQ";
-            var compare_to_file = "D:\\Development\\C\\Dune\\JESS.___";
+            var input_file = "Data\\SAMPLE.HSQ";
+            var compare_to_file = "Data\\SAMPLE.HSQ.UNPACKED";
 
             var compareTobytes = File.ReadAllBytes(compare_to_file);
 
-            var input = new HsqCompressedFile(File.ReadAllBytes(input_file));
-            var output = new UncompressedFile();
-
-            try
+            using (var inputStream = File.OpenRead(input_file))
             {
-                HsqHandler.Uncompress(input, output);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Current offset:" + input.CurrentOffset);
-                throw ex;
-            }
-            
+                var reader = new HsqReader();
 
-            var result = output.GetAllBytes();
+                var task = Task.Run(async () =>
+                {
+                    var unpacked = await reader.UnpackFile(inputStream, false);
 
-            Assert.That(result.Length, Is.EqualTo(compareTobytes.Length));
-            Assert.AreEqual(compareTobytes, result);
-        }*/
+                    Assert.That(unpacked.UnCompressedData.Length, Is.EqualTo(compareTobytes.Length));
+                    Assert.AreEqual(unpacked.UnCompressedData, compareTobytes);
+                });
+                task.Wait();
+            }
+        }
 
         /*
         [Test]

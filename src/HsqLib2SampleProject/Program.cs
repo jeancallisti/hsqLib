@@ -54,10 +54,6 @@ namespace SampleProject
                     File.WriteAllBytes(args[0] + ".org", unpacked.UnCompressedData);
                 });
                 task.Wait();
-
-
-
-
             }
         }
 

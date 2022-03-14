@@ -14,7 +14,13 @@ namespace CryoDataLib.TextLib
                 [
                     {
                         Culture : ""en-US"",
-                        Redirects : [] //English doesn't need any redirect
+                        Redirects : [
+                            // Every culture
+		                    // (implicit : 254 = line break)
+
+                            //Culture-specific 
+                            //English doesn't need any redirect
+                        ] 
                     },
                     {
                         Culture : ""fr-FR"",
@@ -26,13 +32,13 @@ namespace CryoDataLib.TextLib
 		                    { Key: 91, Value:   ""â"" }, // '['
 		                    { Key: 92, Value:   ""ê"" }, // '\\'
 		                    { Key: 93, Value:   ""î"" }, // ']'
+		                    { Key: 94, Value:   ""ô"" }, // '^'
 		                    { Key: 95, Value:   ""û"" }, // '_'
 		                    { Key: 123, Value:  ""à"" }, // '{'
 		                    { Key: 124, Value:  ""é"" }, // '|'
 		                    { Key: 125, Value:  ""è"" }, // '}'
 		                    { Key: 126, Value:  ""ù"" }, // '~'
 		                    { Key: 127, Value:  ""ç"" }, // DEL
-                            //TODO: ô
                         ]
                     },
                 ]

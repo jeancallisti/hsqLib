@@ -127,7 +127,7 @@ namespace CryoDataLib.TextLib
                         string asString = new string(buffer.Select(b => (char)b).ToArray());
 
                         //Console.WriteLine($"Value : '{asString}'.");
-                        strParams.Add($"\"{asString}\"");
+                        strParams.Add($"{asString}");
 
                         break;
 

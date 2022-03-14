@@ -33,6 +33,20 @@ namespace CryoDataLib.TextLib
                     Params: []
                 },
                 {
+                    //Progress report values are triggered by byte '0x91' 
+                    //followed by one byte to specify what report data we want.
+                    // - number of sietches visited by Paul is triggered by byte  = '0x27' 
+                    // - number of Fremen troops that have been rallied           = '0x28' 
+                    FunctionName: ""ProgressReportVariable"",
+                    TriggerByteHex: ""0x91"",
+                    Params: [
+                        {
+                            Name: ""Value"",
+                            Mode: ""READ8"",
+                        },
+                    ]
+                },
+                {
                     //A sietch's name is triggered by byte '0x80' 
                     //followed by the sietch name's index as a 16bit value
                     FunctionName: ""SietchName"",

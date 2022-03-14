@@ -83,19 +83,37 @@ namespace HsqLib2.HsqReader
         }
 
 
-        public async Task<HsqFile> Unpack(string sourceFileName, IBinaryReader reader, bool? ignoreBadChecksum = false)
+        public async Task<HsqFile> Unpack(string sourceFileName, IBinaryReader reader, bool? ignoreHeader = false)
         {
             //TODO: optimize the output (stream?)
             var output = new List<byte>();
 
             var headerRaw = ReadHeader(reader);
 
-            if (!(ignoreBadChecksum ?? false) && !HsqHeader.IsChecksumValid(headerRaw))
+            if (!(ignoreHeader ?? false) && !HsqHeader.IsChecksumValid(headerRaw))
             {
                 throw new HsqException("Hsq header did not pass the checksum test.");
             }
 
             var header = new HsqHeader(headerRaw);
+
+            if (!(ignoreHeader ?? false) && !HsqHeader.IsCompressed(headerRaw))
+            {
+                // Not compressed : return file as-is
+                Console.WriteLine($"File {sourceFileName} does not appear to be compressed.");
+
+                while (!reader.EOF)
+                {
+                    output.Add(reader.ReadByte());
+                }
+
+                return new HsqFile
+                {
+                    SourceFile = sourceFileName,
+                    Header = header,
+                    UnCompressedData = output.ToArray()
+                };
+            }
 
             var instructionsReader = new InstructionsReader(reader);
 
@@ -117,13 +135,13 @@ namespace HsqLib2.HsqReader
             };
         }
         
-        public async Task<HsqFile> UnpackFile(FileStream fileStream, bool? ignoreBadChecksum)
+        public async Task<HsqFile> UnpackFile(FileStream fileStream, bool? ignoreHeader)
         {
             using (var reader = new System.IO.BinaryReader(fileStream))
             {
                 var fileName = Path.GetFileName(fileStream.Name);
                 var customReader = new CustomBinaryReader(reader);
-                return await Unpack(fileName, customReader, ignoreBadChecksum);
+                return await Unpack(fileName, customReader, ignoreHeader);
             }            
         }
     }

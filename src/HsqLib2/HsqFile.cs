@@ -44,6 +44,12 @@ namespace HsqLib2
             return (total == validCheckSum);
         }
 
+        public static bool IsCompressed(byte[] data)
+        {
+            // See https://zwomp.com/index.php/2020/02/01/hsq-compression-corrections/
+            return data[2] == 0 && IsChecksumValid(data);
+        }
+
         //Only for Json deserialize
         public HsqHeader() { }
 
@@ -56,9 +62,10 @@ namespace HsqLib2
 
             int position = 0;
 
-            // First 3 bytes = 24-bits int that we make 32 bits for convenience
-            var _4bytes = new byte[] { data[position++], data[position++], data[position++], 0 };
-            UncompressedSize = (int)BitConverter.ToUInt32(_4bytes, 0);
+            UncompressedSize = BitConverter.ToUInt16(data, 0);
+            position += 2;
+
+            position++; //Skip the '00' byte that's always there for control
 
             // Subsequent 2 bytes = 16-bits int
             CompressedSize = BitConverter.ToUInt16(data, position);

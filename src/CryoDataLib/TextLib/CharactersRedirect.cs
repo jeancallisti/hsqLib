@@ -19,6 +19,10 @@ namespace CryoDataLib.TextLib
                     {
                         Culture : ""fr-FR"",
                         Redirects : [
+                            // Every culture
+		                    // (implicit : 254 = line break)
+
+                            //Culture-specific
 		                    { Key: 91, Value:   ""â"" }, // '['
 		                    { Key: 92, Value:   ""ê"" }, // '\\'
 		                    { Key: 93, Value:   ""î"" }, // ']'

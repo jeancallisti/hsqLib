@@ -21,7 +21,7 @@ namespace CryoDataCli
             Console.WriteLine("To obtain a file in json format, use other CLI utility : UnpackCli2.exe -json FILE.HSQ");
         }
 
-        public static IEnumerable<CharsetRedirectTable> Deserialize(string json)
+        public static IEnumerable<CharsetRedirectTable> DeserializeCharSet(string json)
         {
             using (var streamReader = new StringReader(json))
             using (var jsonTextReader = new JsonTextReader(streamReader))
@@ -31,12 +31,32 @@ namespace CryoDataCli
             }
         }
 
+        public static Dictionary<string, string> DeserializeSpecialStrings(string json)
+        {
+            using (var streamReader = new StringReader(json))
+            using (var jsonTextReader = new JsonTextReader(streamReader))
+            {
+                var jsonSerializer = new JsonSerializer();
+                var asArray = jsonSerializer.Deserialize<IEnumerable<KeyValuePair<string,string>>>(jsonTextReader);
+
+                return new Dictionary<string, string>(asArray);
+            }
+        }
+
         private IEnumerable<CharsetRedirectTable> LoadCharSets()
         {
             //For now we load from static string but we could load from config file
             var jsonData = CharSets.BasicJsonData;
 
-            return Deserialize(jsonData);
+            return DeserializeCharSet(jsonData);
+        }
+
+        private Dictionary<string, string> LoadSpecialStrings()
+        {
+            //For now we load from static string but we could load from config file
+            var jsonData = SpecialValues.ValuesJson;
+
+            return DeserializeSpecialStrings(jsonData);
         }
 
         private bool ParseTextParams(string[] args, out string culture, out string fileName)
@@ -84,6 +104,9 @@ namespace CryoDataCli
                 throw new NotImplementedException($"Unknown charset '{culture}'. Available : {string.Join(", ", charSets.Select(cs => "-"+cs.Culture))}");
             }
 
+            var specialStrings = LoadSpecialStrings();
+
+
             using (var stream = File.OpenRead(filename))
             using (var streamReader = new StreamReader(stream))
             using (var jsonTextReader = new JsonTextReader(streamReader))
@@ -91,7 +114,7 @@ namespace CryoDataCli
                 var jsonSerializer = new JsonSerializer();
                 var hsqFile = jsonSerializer.Deserialize<HsqFile>(jsonTextReader);
 
-                var textParser = new CryoTextDataInterpreter(charSet);
+                var textParser = new CryoTextDataInterpreter(charSet, specialStrings);
 
                 var task = Task.Run(async () =>
                 {

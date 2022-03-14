@@ -41,16 +41,17 @@ namespace CryoDataLib.TextLib
         public int SentenceStartAddress { get; init; }
         public int SentenceEndAddress { get; init; }
 
-        public string Text { get; init; }
+        public string TextWithInstructions { get; init; }
+        public string TextRaw { get; init; }
     }
     public class CryoTextDataInterpreter : ICryoDataInterpreter
     {
         public string Culture { get; }
         public Dictionary<byte, char> CharSetRedirect { get; }
-        public IEnumerable<Tuple<byte[], byte[]>> SpecialStrings { get; }
+        public IEnumerable<TextInstruction> TextInstructions { get; }
 
 
-        public CryoTextDataInterpreter(CharsetRedirectTable charSet, Dictionary<string, string> specialStrings)
+        public CryoTextDataInterpreter(CharsetRedirectTable charSet, IEnumerable<JsonTextInstruction> textInstructions)
         {
             Culture = charSet.Culture;
 
@@ -59,42 +60,145 @@ namespace CryoDataLib.TextLib
                     new KeyValuePair<byte, char>(key: item.Key, value: item.Value))
             );
 
-            //Store which special sequences of bytes must be replaced, and by what.
-            //as we do it, we convert everything to array of bytes instead of plain strings, for optimization
-            SpecialStrings = specialStrings.ToArray().Select(item => new Tuple<byte[], byte[]>
-            (
-                // "0x55,0x56,0x57" --> { 85, 86, 87 }
-                item1: SpecialValues.HexStringToBytesSequence(item.Key),
-
-                // "UVW" --> "%UVW%" --> { 37, 85, 86, 87, 37 }
-                item2: SpecialValues.StringToBytesSequence($"%{item.Value}%")
-            )).ToArray();
+            TextInstructions = textInstructions.Select(i => new TextInstruction
+            {
+                TriggerByte = HexHelper.HexStringToByte(i.TriggerByteHex),
+                FunctionName = i.FunctionName,
+                Params = i.Params.Select(p => new TextInstructionParam
+                {
+                    Name = p.Name,
+                    Mode = p.Mode,
+                    Terminator = !string.IsNullOrEmpty(p.Terminator) ? HexHelper.HexStringToByte(p.Terminator) : null
+                })
+            }).ToList();
         }
 
 
+        private byte[] ProcessInstruction(byte[] input, int instructionPosition, TextInstruction instruction)
+        {
+            //+DEBUG
+            //if (instruction.TriggerByte == 134)
+            //{
+            //    int a = 1;
+            //}
+            //-DEBUG
+            var instructionStart = instructionPosition;
 
+            var strParams = new List<string>();
+
+            var currentPosition = instructionPosition;
+
+            currentPosition++; //Skip instruction byte
+
+            foreach (var param in instruction.Params)
+            {
+                var paramName = param.Name;
+                //Console.WriteLine($"Reading param {param.Name}.");
+
+
+                switch (param.Mode)
+                {
+                    case "READ8":
+                        var paramValue8 = input[currentPosition++];
+                        //Console.WriteLine($"Value : {paramValue}.");
+
+                        strParams.Add($"{param.Name}=\"{paramValue8}\"");
+
+                        break;
+
+                    case "READ16":
+                        var paramBytes = new byte[2] { input[currentPosition++], input[currentPosition++] };
+                        var paramValue16 = BitConverter.ToUInt16(paramBytes, 0);
+                        //Console.WriteLine($"Value : {paramValue}.");
+
+                        strParams.Add($"{param.Name}=\"{paramValue16}\"");
+
+                        break;
+
+                    case "READUNTIL":
+                        var endByte = param.Terminator;
+                        var buffer = new List<byte>();
+                        var c = input[currentPosition++];
+                        while (c != endByte && currentPosition < input.Length)
+                        {
+                            buffer.Add(c);
+                            c = input[currentPosition++];
+                        }
+                        string asString = new string(buffer.Select(b => (char)b).ToArray());
+
+                        //Console.WriteLine($"Value : '{asString}'.");
+                        strParams.Add($"\"{asString}\"");
+
+                        break;
+
+                    default:
+                        throw new NotImplementedException($"Not implemented : {param.Mode}");
+                }
+            }
+
+            var instructionEnd = currentPosition;
+
+            var sequenceToReplace = input.Skip(instructionStart).Take(instructionEnd-instructionStart).ToArray();
+
+            var strInstruction = "";
+            // it's an open/close tag instruction
+            if (instruction.Params.Any(p => p.Mode == "READUNTIL"))
+            {
+                strInstruction = $"<{instruction.FunctionName}>{strParams.First()}</{instruction.FunctionName}>";
+            } 
+            
+            //It's a standard instruction with a finite set of parameters
+            else
+            {
+                strInstruction = $"<{instruction.FunctionName} {string.Join(" ", strParams)} />";
+            }
+
+            var asBytes = strInstruction.ToCharArray().Select(c => HexHelper.SafeCharToByte(c)).ToArray();
+
+            input = input.Replace(sequenceToReplace, asBytes);
+
+            return input;
+        }
         /// <summary>
         /// There are some places where a sequence of bytes is neither plain text nor
-        /// special characters to replace, but instead placeholders for external variables.
+        /// special characters to replace, but instead special instructions for text replacement.
         /// For example, text like "Take Gurney Halleck to Carthag-Tuek" will appear as
-        /// "Take Gurnay Halleck to 0x80 0x00 0x02-0x80 0x00 0x11"
-        /// where 0x80 0x00 0x02 is a variable for the first part of the sietch's name and 0x80 0x00 0x11 is a variable for the second part.
-        /// We convert that to  "Take Gurnay Halleck to %SIETCHNAME1%-%SIETCHNAME2%". 
-        /// We surround variable names with '%' by choice, to resemble environment variables.
+        /// "Take Gurney Halleck to 0x80 0x00 0x02-0x80 0x00 0x11".
+        /// where 0x80 is a special instructiona and {0x00 0x02} is its parameter.
+        /// We convert that to  "Take Gurney Halleck to %SIETCHNAME(value)%-%SIETCHNAME(value)%". 
+        /// We surround variable names with '%' by choice, to resemble environment variables and for easy text search/replace.
         /// </summary>
-        private byte[] ReplaceSpecialStrings(byte[] input)
+        private byte[] ParseTextInstructions(byte[] input)
         {
-            if (!input.Contains(SpecialValues.EscapeByte))
+            var instructionsToDetect = TextInstructions.Select(i => i.TriggerByte);
+
+            var detectedInstructions = input
+                                        .Intersect(instructionsToDetect)
+                                        .ToList();
+
+            if (!detectedInstructions.Any())
             {
+                // return as-is
                 return input;
             }
 
-            SpecialStrings.ToList().ForEach(tuple =>
+            detectedInstructions.ForEach(instToProcess =>
             {
-                var toFind = tuple.Item1;
-                var replacement = tuple.Item2;
+                var position = input.ToList().IndexOf(instToProcess);
+                
+                if (position >= 0)
+                {
+                    var instructionData = TextInstructions.First(i => i.TriggerByte == instToProcess);
 
-                input = input.Replace(toFind, replacement);
+                    while (position >= 0)
+                    {
+                        input = ProcessInstruction(input, position, instructionData);
+
+                        //Keep searching, there might be several instructions of the same kind
+                        position = input.ToList().IndexOf(instToProcess);
+                    }
+                }
+
             });
 
             return input;
@@ -168,23 +272,37 @@ namespace CryoDataLib.TextLib
                     var sentenceLength = addressPair.SentenceEndAddress - addressPair.SentenceStartAddress;
                     var sentenceBytes = Enumerable
                                         .Range(0, sentenceLength)
-                                        .Select(i => reader.ReadByte());
+                                        .Select(i => reader.ReadByte())
+                                        .ToArray();
 
-                    sentenceBytes = ReplaceSpecialStrings(sentenceBytes.ToArray());
+                    try
+                    {
+                        var asStringRaw = string.Join("", sentenceBytes.Select(b => ConvertChar(b)));
 
-                    var sentence = string.Join("", sentenceBytes.Select(b => ConvertChar(b)));
+                        Console.WriteLine(asStringRaw);
 
-                    Console.WriteLine(sentence);
+                        sentenceBytes = ParseTextInstructions(sentenceBytes.ToArray());
 
-                    output.Sentences.Add(
-                        addressPair.SentenceStartAddress,
-                        new CryoSentenceData
-                        {
-                            Index = index,
-                            SentenceStartAddress = addressPair.SentenceStartAddress,
-                            SentenceEndAddress = addressPair.SentenceEndAddress,
-                            Text = sentence
-                        });
+                        var asStringWithInstructions = string.Join("", sentenceBytes.Select(b => ConvertChar(b)));
+
+                        output.Sentences.Add(
+                            addressPair.SentenceStartAddress,
+                            new CryoSentenceData
+                            {
+                                Index = index,
+                                SentenceStartAddress = addressPair.SentenceStartAddress,
+                                SentenceEndAddress = addressPair.SentenceEndAddress,
+                                TextRaw = asStringRaw,
+                                TextWithInstructions = asStringWithInstructions
+                            });
+                    } catch (Exception ex)
+                    {
+                        Console.WriteLine($"ERROR: Failed to process sentence at address '{addressPairs[index].SentenceStartAddress}'.");
+                        Console.WriteLine($"ERROR: Details: '{ex.Message}'.");
+                        Console.WriteLine($"ERROR: String was '{ string.Join("", sentenceBytes.Select(b => ConvertChar(b))) }'");
+                        //throw ex;
+                    }
+
 
                 }
 

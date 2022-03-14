@@ -31,15 +31,13 @@ namespace CryoDataCli
             }
         }
 
-        public static Dictionary<string, string> DeserializeSpecialStrings(string json)
+        public static IEnumerable<JsonTextInstruction> DeserializeTextInstructions(string json)
         {
             using (var streamReader = new StringReader(json))
             using (var jsonTextReader = new JsonTextReader(streamReader))
             {
                 var jsonSerializer = new JsonSerializer();
-                var asArray = jsonSerializer.Deserialize<IEnumerable<KeyValuePair<string,string>>>(jsonTextReader);
-
-                return new Dictionary<string, string>(asArray);
+                return jsonSerializer.Deserialize<IEnumerable<JsonTextInstruction>>(jsonTextReader);
             }
         }
 
@@ -51,12 +49,12 @@ namespace CryoDataCli
             return DeserializeCharSet(jsonData);
         }
 
-        private Dictionary<string, string> LoadSpecialStrings()
+        private IEnumerable<JsonTextInstruction> LoadTextInstructions()
         {
             //For now we load from static string but we could load from config file
-            var jsonData = SpecialValues.ValuesJson;
+            var jsonData = TextInstructions.Json;
 
-            return DeserializeSpecialStrings(jsonData);
+            return DeserializeTextInstructions(jsonData);
         }
 
         private bool ParseTextParams(string[] args, out string culture, out string fileName)
@@ -104,7 +102,7 @@ namespace CryoDataCli
                 throw new NotImplementedException($"Unknown charset '{culture}'. Available : {string.Join(", ", charSets.Select(cs => "-"+cs.Culture))}");
             }
 
-            var specialStrings = LoadSpecialStrings();
+            var textInstructions = LoadTextInstructions();
 
 
             using (var stream = File.OpenRead(filename))
@@ -114,7 +112,7 @@ namespace CryoDataCli
                 var jsonSerializer = new JsonSerializer();
                 var hsqFile = jsonSerializer.Deserialize<HsqFile>(jsonTextReader);
 
-                var textParser = new CryoTextDataInterpreter(charSet, specialStrings);
+                var textParser = new CryoTextDataInterpreter(charSet, textInstructions);
 
                 var task = Task.Run(async () =>
                 {

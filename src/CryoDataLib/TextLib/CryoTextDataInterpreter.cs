@@ -45,11 +45,29 @@ namespace CryoDataLib.TextLib
     }
     public class CryoTextDataInterpreter : ICryoDataInterpreter
     {
+        public string Culture { get; }
+        public Dictionary<byte, char> CharSetRedirect { get; }
+
+        public CryoTextDataInterpreter(CharsetRedirectTable charSet)
+        {
+            Culture = charSet.Culture;
+
+            CharSetRedirect = new Dictionary<byte, char>(
+                charSet.Redirects.Select(item => 
+                    new KeyValuePair<byte, char>(key: item.Key, value: item.Value))
+            );
+        }
 
         private char ConvertChar(byte c)
         {
-            //TODO: char substitution
-            return (char)c;
+            if (!CharSetRedirect.ContainsKey(c))
+            {
+                // In C#, unlike C, char type is a two-byte unicode char.
+                // the modern equivalent of the old wchar_t. Ready to use!
+                return (char)c;
+            }
+            
+            return CharSetRedirect[c];
         }
 
         private IEnumerable<CryoTextAddressPair> InterpretIndex(int[] indexData)

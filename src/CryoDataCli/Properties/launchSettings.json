@@ -2,7 +2,7 @@
   "profiles": {
     "CryoDataCli": {
       "commandName": "Project",
-      "commandLineArgs": "-text  ..\\..\\..\\..\\UnitTests\\Data\\SAMPLE_PHRASE.HSQ.uncompressed.json"
+      "commandLineArgs": "-text  -fr-FR .\\Data\\CryoText\\SAMPLE_FR.HSQ.uncompressed.json"
     }
   }
 }

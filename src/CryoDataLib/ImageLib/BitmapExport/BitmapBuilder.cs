@@ -48,13 +48,6 @@ namespace CryoDataLib.ImageLib.BitmapExport
                     bmp.SetPixel(i, j, bitmapPalette[colorIndex]);
                 }
             }
-
-            //Graphics g = Graphics.FromImage(bmp);
-            //g.Set
-            //gBmp.DrawEverything(); //this is your code for drawing
-            //g.Dispose();
-            //bmp.Save("image.png", ImageFormat.Png);
-
             return bmp;
         }
 

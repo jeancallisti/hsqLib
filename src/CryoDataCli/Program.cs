@@ -1,10 +1,12 @@
 ﻿using CryoDataLib;
 using CryoDataLib.ImageLib;
+using CryoDataLib.ImageLib.BitmapExport;
 using CryoDataLib.TextLib;
 using HsqLib2;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -189,6 +191,26 @@ namespace CryoDataCli
                                                         //To save prettified json
                                                         Formatting.Indented);
                     File.WriteAllText(outputFile, jsonHsqFile);
+
+                    if (true)
+                    {
+                        var palettes = cryoData.Palette.SubPalettes.ToArray();
+
+                        int scaleUpFactor = 20;
+
+                        for (int i = 0; i < palettes.Length; i++)
+                        {
+                            var subPaletteAsSprite = cryoData.Palette.ToSprite(i);
+                            var asBitmap = BitmapBuilder.ToBitmap(subPaletteAsSprite);
+
+                            var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, 20);
+                            var outputPaletteFile = $"{cryoData.SourceFile}.palette{i}.png";
+                            Console.WriteLine($"Saving palette file {outputPaletteFile}...");
+                            scaledUpBitmap.Save(outputPaletteFile, ImageFormat.Png);
+                        }
+                    }
+
+
                     return;
 
                 });

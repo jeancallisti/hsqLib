@@ -21,6 +21,9 @@
     <None Update="Data\CryoImage\SAMPLE_IMAGE.HSQ.uncompressed.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\CryoImage\SAMPLE_IMAGE2.HSQ.uncompressed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\CryoText\SAMPLE_EN.HSQ.uncompressed.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

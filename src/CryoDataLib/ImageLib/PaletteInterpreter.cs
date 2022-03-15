@@ -27,6 +27,8 @@ namespace CryoDataLib.ImageLib
             var locationInPalette = paletteReader.ReadByte();
             var colorsCount = paletteReader.ReadByte();
 
+            Console.WriteLine($"{colorsCount} colors.");
+
             var colors = new List<PaletteColor>();
 
             for(var i = 0; i < colorsCount; i++)
@@ -59,13 +61,18 @@ namespace CryoDataLib.ImageLib
                     {
                         SubPalettes = new List<SubPalette>()
                     };
+                } else
+                {
+                    Console.WriteLine($"There is subpalette(s).");
                 }
 
 
                 var subPalettes = new List<SubPalette>();
 
+                int count = 0;
                 while (!IsEndOfPalette(paletteReader))
                 {
+                    Console.WriteLine($"Subpalette {count}...");
                     try
                     {
                         subPalettes.Add(DecodeSubPalette(paletteReader));
@@ -74,6 +81,7 @@ namespace CryoDataLib.ImageLib
                     {
                         throw new CryoDataException("Could not process subpalette.");
                     }
+                    count++;
                 }
 
                 //Palette junk (between the terminating 0xFF 0xFF and the address where the palette ends)
@@ -89,26 +97,10 @@ namespace CryoDataLib.ImageLib
                     Console.WriteLine($"[{string.Join(",", junkBytes.Select(b => HexHelper.ByteToHexString(b)))}]");
                 }
 
-                var result = new Palette
+                return new Palette
                 {
                     SubPalettes = subPalettes
                 };
-
-                if (true)
-                {
-                    int scaleUpFactor = 20;
-
-                    for (int i=0; i < result.SubPalettes.Count(); i++)
-                    {
-                        var subPaletteAsSprite = result.ToSprite(i);
-                        var asBitmap = BitmapBuilder.ToBitmap(subPaletteAsSprite);
-
-                        var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbout(asBitmap, 20);
-                        scaledUpBitmap.Save($"palette{i}.png", ImageFormat.Png);
-                    }
-                }
-
-                return result;
             }
         }
 

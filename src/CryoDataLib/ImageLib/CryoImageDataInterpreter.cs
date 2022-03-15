@@ -67,7 +67,7 @@ namespace CryoDataLib.ImageLib
 
                 var paletteData = CryoImageIndex.ReadPalette(reader, paletteDataSize);  
                 
-                PaletteInterpreter.DecodePalette(paletteData);
+                var palette = PaletteInterpreter.DecodePalette(paletteData);
 
                 long arrayStartsAt = reader.BaseStream.Position;
 
@@ -80,7 +80,7 @@ namespace CryoDataLib.ImageLib
                 var output = new CryoImageData()
                 {
                     SourceFile = file.SourceFile,
-                    //Palette = palette,
+                    Palette = palette,
                     Addresses = offsetsArray
                 };
 

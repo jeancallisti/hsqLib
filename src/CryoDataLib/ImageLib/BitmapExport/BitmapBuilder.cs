@@ -56,7 +56,7 @@ namespace CryoDataLib.ImageLib.BitmapExport
             return ToBitmap(sprite.Width, sprite.Height, sprite.Data, sprite.Palette);
         }
 
-        public static Bitmap ScaleUpNearestNeighbout(Bitmap b, int scaleFactor)
+        public static Bitmap ScaleUpNearestNeighbour(Bitmap b, int scaleFactor)
         {
             Graphics g = Graphics.FromImage(b);
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;

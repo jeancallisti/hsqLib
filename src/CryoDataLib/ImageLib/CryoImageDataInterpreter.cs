@@ -26,92 +26,12 @@ namespace CryoDataLib.ImageLib
         }
     }
 
-    public class PaletteColor
-    {
-
-        public int Index { get; init; }
-        public byte R { get; init; }
-        public byte G { get; init; }
-        public byte B { get; init; }
-    }
-
-    public class Palette
-    {
-        public IEnumerable<PaletteColor> Colors { get; init; }
-    }
 
     public class CryoImageDataInterpreter : ICryoDataInterpreter
     {
-
-
         public CryoImageDataInterpreter()
         {
         }
-
-        private static bool IsEndOfPalette(BinaryReader paletteReader)
-        {
-            var nextWord = paletteReader.ReadUInt16();
-            //Rewind the two bytes we've just read.
-            paletteReader.BaseStream.Position -= 2;
-
-            //The palette data always ends with 0xFF 0xFF
-            return (nextWord == 65535);
-        }
-
-        private Palette DecodePalette(byte[] paletteData)
-        {
-            using (var stream = new MemoryStream(paletteData))
-            using (var paletteReader = new BinaryReader(stream))
-            {
-                if (paletteData.Length == 0)
-                {
-                    Console.WriteLine($"No palette.");
-                    return new Palette
-                    {
-                        Colors = new List<PaletteColor>()
-                    };
-                }
-
-                var colors = new List<PaletteColor>();
-
-                while (!IsEndOfPalette(paletteReader))
-                {
-                    try
-                    {
-
-                    } catch {
-                        Console.Error.WriteLine("Could not process palette.");
-                    }
-
-
-                }
-
-                //var paletteData = new Stack<byte>(CryoImageIndex.ReadPalette(reader, paletteDataSize).Reverse());
-
-                //int paletteColorCount = paletteData.Count / 3;
-                //Console.WriteLine($"Palette has {paletteColorCount} colors");
-
-                //int colorIndex = 0;
-                //while (paletteData.Count > 0)
-                //{
-                //    palette.Add(new PaletteColor()
-                //    {
-                //        Index = colorIndex++,
-                //        R = paletteData.Pop(),
-                //        G = paletteData.Pop(),
-                //        B = paletteData.Pop(),
-                //    });
-                //}
-
-
-
-                return new Palette
-                {
-                    Colors = colors
-                };
-            }
-        }
-
 
         private IEnumerable<long> InterpretOffsetsArray(BinaryReader reader)
         {
@@ -147,7 +67,7 @@ namespace CryoDataLib.ImageLib
 
                 var paletteData = CryoImageIndex.ReadPalette(reader, paletteDataSize);  
                 
-                DecodePalette(paletteData);
+                PaletteInterpreter.DecodePalette(paletteData);
 
                 long arrayStartsAt = reader.BaseStream.Position;
 

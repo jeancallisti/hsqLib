@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CryoDataLib.TextLib
+namespace CryoDataLib
 {
     public class HexHelper
     {

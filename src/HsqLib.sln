@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnpackCli", "UnpackCli\Unpa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnpackCli2", "UnpackCli2\UnpackCli2.csproj", "{A5BF4F9D-3508-4536-BFE6-16DF2E3DB3D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoDataLib", "CryoDataLib\CryoDataLib.csproj", "{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryoDataLib", "CryoDataLib\CryoDataLib.csproj", "{9C0297C3-DFBC-4C19-8C7C-E91B6A2ACC1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoDataCli", "CryoDataCli\CryoDataCli.csproj", "{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryoDataCli", "CryoDataCli\CryoDataCli.csproj", "{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineUtil", "CommandLineUtil\CommandLineUtil.csproj", "{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D4F99B4-9BCE-418B-8248-24AAE130CBD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

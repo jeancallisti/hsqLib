@@ -1,4 +1,5 @@
 ﻿using CryoDataLib;
+using CryoDataLib.ImageLib;
 using CryoDataLib.TextLib;
 using HsqLib2;
 using Newtonsoft.Json;
@@ -17,6 +18,9 @@ namespace CryoDataCli
             Console.WriteLine("To unpack a text file (e.g. PHRASEXX.HSQ) :");
             Console.WriteLine("       CryoDataCli.exe -text -<charset> <uncompressed hsq file in json format>");
             Console.WriteLine("       Charset can be : en-US, fr-FR, and others (see latest source code for reference).");
+            Console.WriteLine("");
+            Console.WriteLine("To unpack a set of images (e.g. CHANKISS.HSQ) :");
+            Console.WriteLine("       CryoDataCli.exe -image <uncompressed hsq file in json format>");
             Console.WriteLine("");
             Console.WriteLine("To obtain a file in json format, use other CLI utility : UnpackCli2.exe -json FILE.HSQ");
         }
@@ -82,6 +86,21 @@ namespace CryoDataCli
             return true;
         }
 
+        private bool ParseImageParams(string[] args, out string fileName)
+        {
+            fileName = "";
+
+            if (args.Length != 1)
+            {
+                PrintHelp();
+                return false;
+            }
+
+            fileName = args[0];
+
+            return true;
+        }
+
         private void DoText(string[] args)
         {
             if (!ParseTextParams(args, out var culture, out var filename)) {
@@ -136,6 +155,50 @@ namespace CryoDataCli
             //File.WriteAllBytes(args[0] + ".org", output.ToArray());
         }
 
+
+        private void DoImage(string[] args)
+        {
+            if (!ParseImageParams(args, out var filename))
+            {
+                return;
+            }
+
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine($"Error: Could not open '{Path.GetFullPath(filename)}'");
+                return;
+            }
+
+            using (var stream = File.OpenRead(filename))
+            using (var streamReader = new StreamReader(stream))
+            using (var jsonTextReader = new JsonTextReader(streamReader))
+            {
+                var jsonSerializer = new JsonSerializer();
+                var hsqFile = jsonSerializer.Deserialize<HsqFile>(jsonTextReader);
+
+                var imageInterpreter = new CryoImageDataInterpreter();
+
+                var task = Task.Run(async () =>
+                {
+                    var cryoData = (CryoImageData)await imageInterpreter.InterpretData(hsqFile);
+
+                    string outputFile = $"{cryoData.SourceFile}.image.json";
+                    Console.WriteLine("Saving json file: " + outputFile);
+                    var jsonHsqFile = JsonConvert.SerializeObject(
+                                                        cryoData,
+                                                        //To save prettified json
+                                                        Formatting.Indented);
+                    File.WriteAllText(outputFile, jsonHsqFile);
+                    return;
+
+                });
+                task.Wait();
+            }
+
+            //Console.WriteLine("Saving file: " + args[0] + ".org");
+            //File.WriteAllBytes(args[0] + ".org", output.ToArray());
+        }
+
         public void Run(string[] args)
         {
             if (args.Length < 2)
@@ -155,7 +218,13 @@ namespace CryoDataCli
                 return;
             }
 
+            if (switchText == "-image")
+            {
+                DoImage(subArgs);
+                return;
+            }
 
+            PrintHelp();
 
         }
 

@@ -85,19 +85,21 @@ namespace HsqLib2.HsqReader
 
         public async Task<HsqFile> Unpack(string sourceFileName, IBinaryReader reader, bool? ignoreHeader = false)
         {
+            var ignoreH = ignoreHeader ?? false;
+
             //TODO: optimize the output (stream?)
             var output = new List<byte>();
 
             var headerRaw = ReadHeader(reader);
 
-            if (!(ignoreHeader ?? false) && !HsqHeader.IsChecksumValid(headerRaw))
+            if (!ignoreH && !HsqHeader.IsChecksumValid(headerRaw))
             {
                 throw new HsqException("Hsq header did not pass the checksum test.");
             }
 
             var header = new HsqHeader(headerRaw);
 
-            if (!(ignoreHeader ?? false) && !HsqHeader.IsCompressed(headerRaw))
+            if (!ignoreH && !HsqHeader.IsCompressed(headerRaw))
             {
                 // Not compressed : return file as-is
                 Console.WriteLine($"File {sourceFileName} does not appear to be compressed.");

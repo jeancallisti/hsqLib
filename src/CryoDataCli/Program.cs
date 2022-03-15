@@ -109,7 +109,7 @@ namespace CryoDataCli
 
             if (!File.Exists(filename))
             {
-                Console.WriteLine($"Error: Could not open '{Path.GetFullPath(filename)}'");
+                Console.Error.WriteLine($"Could not open '{Path.GetFullPath(filename)}'");
                 return;
             }
 
@@ -165,7 +165,7 @@ namespace CryoDataCli
 
             if (!File.Exists(filename))
             {
-                Console.WriteLine($"Error: Could not open '{Path.GetFullPath(filename)}'");
+                Console.Error.WriteLine($"Could not open '{Path.GetFullPath(filename)}'");
                 return;
             }
 

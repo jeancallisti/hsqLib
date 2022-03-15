@@ -9,6 +9,8 @@ namespace CryoDataLib.ImageLib
 {
     public class CryoImageIndex
     {
+        public static int InitialOffsetSize { get; } = 2;
+
         /// <summary>
         /// First 2 bytes of the data. Offset to "Offsets aray"
         /// See https://zwomp.com/index.php/2020/07/01/exploring-the-dune-files-the-image-files/
@@ -46,49 +48,68 @@ namespace CryoDataLib.ImageLib
         {
         }
 
-        private Palette InterpretPalette(int initialOffset, BinaryReader reader)
+        private static bool IsEndOfPalette(BinaryReader paletteReader)
         {
-            var palette = new List<PaletteColor>();
+            var nextWord = paletteReader.ReadUInt16();
+            //Rewind the two bytes we've just read.
+            paletteReader.BaseStream.Position -= 2;
 
-            //If the data starts immediately after the 2 bytes we've just read it means there was no room for a palette, duh!
-            bool hasPalette = initialOffset > 2;
+            //The palette data always ends with 0xFF 0xFF
+            return (nextWord == 65535);
+        }
 
-            if (!hasPalette)
+        private Palette DecodePalette(byte[] paletteData)
+        {
+            using (var stream = new MemoryStream(paletteData))
+            using (var paletteReader = new BinaryReader(stream))
             {
-                Console.WriteLine($"No palette.");
-            }
-            else
-            {
-                int paletteDataSize = initialOffset - 2;
-
-                if (paletteDataSize % 3 != 0)
+                if (paletteData.Length == 0)
                 {
-                    throw new CryoDataException("Palette data is not a multiple of 3");
-                }
-
-                var paletteData = new Stack<byte>(CryoImageIndex.ReadPalette(reader, paletteDataSize).Reverse());
-
-                int paletteColorCount = paletteData.Count / 3;
-                Console.WriteLine($"Palette has {paletteColorCount} colors");
-
-                int colorIndex = 0;
-                while (paletteData.Count > 0)
-                {
-                    palette.Add(new PaletteColor()
+                    Console.WriteLine($"No palette.");
+                    return new Palette
                     {
-                        Index = colorIndex++,
-                        R = paletteData.Pop(),
-                        G = paletteData.Pop(),
-                        B = paletteData.Pop(),
-                    });
+                        Colors = new List<PaletteColor>()
+                    };
                 }
 
-            }
+                var colors = new List<PaletteColor>();
 
-            return new Palette
-            {
-                Colors = palette
-            };
+                while (!IsEndOfPalette(paletteReader))
+                {
+                    try
+                    {
+
+                    } catch {
+                        Console.Error.WriteLine("Could not process palette.");
+                    }
+
+
+                }
+
+                //var paletteData = new Stack<byte>(CryoImageIndex.ReadPalette(reader, paletteDataSize).Reverse());
+
+                //int paletteColorCount = paletteData.Count / 3;
+                //Console.WriteLine($"Palette has {paletteColorCount} colors");
+
+                //int colorIndex = 0;
+                //while (paletteData.Count > 0)
+                //{
+                //    palette.Add(new PaletteColor()
+                //    {
+                //        Index = colorIndex++,
+                //        R = paletteData.Pop(),
+                //        G = paletteData.Pop(),
+                //        B = paletteData.Pop(),
+                //    });
+                //}
+
+
+
+                return new Palette
+                {
+                    Colors = colors
+                };
+            }
         }
 
 
@@ -122,7 +143,11 @@ namespace CryoDataLib.ImageLib
             {
                 int initialOffset = CryoImageIndex.ReadInitialOffset(reader);
 
-                var palette = InterpretPalette(initialOffset, reader);
+                var paletteDataSize = initialOffset - CryoImageIndex.InitialOffsetSize; //Subtract the two bytes we've just read.
+
+                var paletteData = CryoImageIndex.ReadPalette(reader, paletteDataSize);  
+                
+                DecodePalette(paletteData);
 
                 long arrayStartsAt = reader.BaseStream.Position;
 
@@ -135,7 +160,7 @@ namespace CryoDataLib.ImageLib
                 var output = new CryoImageData()
                 {
                     SourceFile = file.SourceFile,
-                    Palette = palette,
+                    //Palette = palette,
                     Addresses = offsetsArray
                 };
 

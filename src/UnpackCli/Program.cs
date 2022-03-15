@@ -24,7 +24,7 @@ namespace UnpackCli
 
             if (!File.Exists(filename))
             {
-                Console.WriteLine("Error: Argument needs to be valid file path.");
+                Console.Error.WriteLine("Argument needs to be valid file path.");
                 return;
             }
 
@@ -33,7 +33,7 @@ namespace UnpackCli
 
             if (!HsqHandler.ValidateHeader(input))
             {
-                Console.WriteLine("Error: Not a valid HSQ file.");
+                Console.Error.WriteLine("Not a valid HSQ file.");
                 return;
             }
 

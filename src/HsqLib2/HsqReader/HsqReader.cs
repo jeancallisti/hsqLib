@@ -92,7 +92,10 @@ namespace HsqLib2.HsqReader
 
             var headerRaw = ReadHeader(reader);
 
-            if (!ignoreH && !HsqHeader.IsChecksumValid(headerRaw))
+            if (ignoreH)
+            {
+                Console.WriteLine("Ignoring file's header.");
+            } else if (!HsqHeader.IsChecksumValid(headerRaw))
             {
                 throw new HsqException("Hsq header did not pass the checksum test.");
             }

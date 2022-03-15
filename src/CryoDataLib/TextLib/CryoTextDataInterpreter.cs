@@ -297,13 +297,10 @@ namespace CryoDataLib.TextLib
                             });
                     } catch (Exception ex)
                     {
-                        Console.WriteLine($"ERROR: Failed to process sentence at address '{addressPairs[index].SentenceStartAddress}'.");
-                        Console.WriteLine($"ERROR: Details: '{ex.Message}'.");
-                        Console.WriteLine($"ERROR: String was '{ string.Join("", sentenceBytes.Select(b => ConvertChar(b))) }'");
-                        //throw ex;
+                        Console.Error.WriteLine($"Failed to process sentence at address '{addressPairs[index].SentenceStartAddress}'.");
+                        Console.Error.WriteLine($"Details: '{ex.Message}'.");
+                        Console.Error.WriteLine($"String was '{ string.Join("", sentenceBytes.Select(b => ConvertChar(b))) }'");
                     }
-
-
                 }
 
                 return output;

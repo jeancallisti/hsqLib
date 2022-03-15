@@ -24,7 +24,7 @@ namespace CryoDataCli
             Console.WriteLine("To unpack a set of images (e.g. CHANKISS.HSQ) :");
             Console.WriteLine("       CryoDataCli.exe -image <uncompressed hsq file in json format>");
             Console.WriteLine("");
-            Console.WriteLine("To obtain a file in json format, use other CLI utility : UnpackCli2.exe -json FILE.HSQ");
+            Console.WriteLine("To obtain a file in json format, use other CLI utility : UnpackCli2.exe -json -file FILE.HSQ");
         }
 
         public static IEnumerable<CharsetRedirectTable> DeserializeCharSet(string json)
@@ -152,9 +152,6 @@ namespace CryoDataCli
                 });
                 task.Wait();
             }
-
-            //Console.WriteLine("Saving file: " + args[0] + ".org");
-            //File.WriteAllBytes(args[0] + ".org", output.ToArray());
         }
 
         private void SaveJsonFile(CryoImageData cryoData)

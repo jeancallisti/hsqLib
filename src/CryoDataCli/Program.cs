@@ -157,6 +157,47 @@ namespace CryoDataCli
             //File.WriteAllBytes(args[0] + ".org", output.ToArray());
         }
 
+        private void SaveJsonFile(CryoImageData cryoData)
+        {
+            string outputFile = $"{cryoData.SourceFile}.image.json";
+            Console.WriteLine("Saving json file: " + outputFile);
+            var jsonHsqFile = JsonConvert.SerializeObject(
+                                                cryoData,
+                                                //To save prettified json
+                                                Formatting.Indented);
+
+            File.WriteAllText(outputFile, jsonHsqFile);
+        }
+
+        private void SavePaletteFileAsPng(CryoImageData cryoData, int subpaletteIndex)
+        {
+            int scaleUpFactor = 20;
+
+            var subPaletteAsSprite = cryoData.Palette.ToSprite(subpaletteIndex);
+            var asBitmap = BitmapBuilder.ToBitmap(subPaletteAsSprite);
+
+            var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, scaleUpFactor);
+
+            var outputPaletteFile = $"{cryoData.SourceFile}.palette{subpaletteIndex}.png";
+            Console.WriteLine($"Saving palette file {outputPaletteFile}...");
+            scaledUpBitmap.Save(outputPaletteFile, ImageFormat.Png);
+        }
+
+
+        private void SaveToDisk(CryoImageData cryoData)
+        {
+
+            SaveJsonFile(cryoData);
+
+            if (true)
+            {
+                for (int i = 0; i < cryoData.Palette.SubPalettes.Count(); i++)
+                {
+                    SavePaletteFileAsPng(cryoData, i);
+                }
+            }
+        }
+
 
         private void DoImage(string[] args)
         {
@@ -184,41 +225,13 @@ namespace CryoDataCli
                 {
                     var cryoData = (CryoImageData)await imageInterpreter.InterpretData(hsqFile);
 
-                    string outputFile = $"{cryoData.SourceFile}.image.json";
-                    Console.WriteLine("Saving json file: " + outputFile);
-                    var jsonHsqFile = JsonConvert.SerializeObject(
-                                                        cryoData,
-                                                        //To save prettified json
-                                                        Formatting.Indented);
-                    File.WriteAllText(outputFile, jsonHsqFile);
-
-                    if (true)
-                    {
-                        var palettes = cryoData.Palette.SubPalettes.ToArray();
-
-                        int scaleUpFactor = 20;
-
-                        for (int i = 0; i < palettes.Length; i++)
-                        {
-                            var subPaletteAsSprite = cryoData.Palette.ToSprite(i);
-                            var asBitmap = BitmapBuilder.ToBitmap(subPaletteAsSprite);
-
-                            var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, 20);
-                            var outputPaletteFile = $"{cryoData.SourceFile}.palette{i}.png";
-                            Console.WriteLine($"Saving palette file {outputPaletteFile}...");
-                            scaledUpBitmap.Save(outputPaletteFile, ImageFormat.Png);
-                        }
-                    }
-
+                    SaveToDisk(cryoData);
 
                     return;
 
                 });
                 task.Wait();
             }
-
-            //Console.WriteLine("Saving file: " + args[0] + ".org");
-            //File.WriteAllBytes(args[0] + ".org", output.ToArray());
         }
 
         public void Run(string[] args)

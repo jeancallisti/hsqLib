@@ -58,7 +58,7 @@ namespace CryoDataLib.ImageLib
             {
                 Width = colorsPerRow,
                 Height = rowsCount,
-                Data = data,
+                Pixels = data,
                 Palette = palette
             };
 

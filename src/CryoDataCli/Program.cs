@@ -181,6 +181,17 @@ namespace CryoDataCli
             scaledUpBitmap.Save(fileName, ImageFormat.Png);
         }
 
+        private void SavePartSpriteAsPng(Sprite sprite, string fileName)
+        {
+            int scaleUpFactor = 20;
+
+            var asBitmap = BitmapBuilder.ToBitmap(sprite);
+
+            var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, scaleUpFactor);
+
+            Console.WriteLine($"Saving part file {fileName}...");
+            scaledUpBitmap.Save(fileName, ImageFormat.Png);
+        }
 
         private void SaveImageDataToDisk(CryoImageData cryoData)
         {
@@ -194,6 +205,44 @@ namespace CryoDataCli
                 {
                     var paletteFileName = $"{cryoData.SourceFile}.palette{i}.png";
                     SavePaletteFileAsPng(subPalettes[i], paletteFileName);
+                }
+            }
+
+            if (true) // TODO : make it optional?
+            {
+                var parts = cryoData.Parts
+                                        .Where(p => !p.IsCompressed) //TODO : for now, only non-compressed parts
+                                        .ToArray();
+
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    //Since we don't know which subpalette to apply, we apply all of them!
+                    var subPalettes = cryoData.SubPalettes.ToArray();
+                    for (int j = 0; j < subPalettes.Length; j++)
+                    {
+                        var partFileName = $"{cryoData.SourceFile}.part{i}.subpalette{j}.png";
+                        var palette = Palette.BuildFromSubpalette(subPalettes[j], PaletteColor.GREEN);
+
+                        try
+                        {
+                            //No palette for now. 'Parts' sprites rely on palette offset
+                            var asSpriteWithPaletteOffset = parts[i].ToSpriteWithPaletteOffset(); 
+                            try
+                            {
+                                var asSprite = asSpriteWithPaletteOffset.CombineWithPalette(palette);
+                                SavePartSpriteAsPng(asSprite, partFileName);
+                            }
+                            catch (CryoDataCannotApplyPaletteException ex)
+                            {
+                                Console.WriteLine($"Subpalette {j} does not seem to be a good candidate for part {i}. Not saving as PNG.");
+                            }
+                        } catch (Exception ex)
+                        {
+                            Console.Error.WriteLine($"Could not export part {i}, subpalette {j} as PNG.");
+                        }
+                    }
+
+
                 }
             }
         }

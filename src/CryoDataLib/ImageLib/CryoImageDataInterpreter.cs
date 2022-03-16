@@ -58,6 +58,19 @@ namespace CryoDataLib.ImageLib
         public int Width { get; init; }
         public int Height { get; init; }
         public int PaletteOffset { get; init; }
+        public byte[] RawData { get; init; } // Where each byte is two pixels or has RLE encoding
+        public byte[] UncompressedPixels { get; init; } //An actual pixels array of size width*length
+
+        public SpriteWithPaletteOffset ToSpriteWithPaletteOffset()
+        {
+            return new SpriteWithPaletteOffset()
+            {
+                Pixels = UncompressedPixels,
+                Width = Width,
+                Height = Height,
+                PaletteOffset = PaletteOffset
+            };
+        }
     }
 
 
@@ -82,14 +95,14 @@ namespace CryoDataLib.ImageLib
             }
 
             var addresses = new List<long>();
-            var itemsCount = sizeInBytes / 2;
+            var partsCount = sizeInBytes / 2;
 
-            Console.WriteLine($"Offsets array contains {itemsCount} items...");
+            Console.WriteLine($"Offsets array contains {partsCount} parts...");
 
             using (var stream = new MemoryStream(offsetsArrayData))
             using (var reader = new BinaryReader(stream))
             {
-                for (int i = 0; i < itemsCount; i++)
+                for (int i = 0; i < partsCount; i++)
                 {
                     addresses.Add(initialOffset + reader.ReadUInt16());
                 }
@@ -107,6 +120,57 @@ namespace CryoDataLib.ImageLib
             width = value16bits & 32767; // Keep only lower bits : 0111 1111 1111 1111
         }
 
+        private byte[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
+        {
+            var allPixels = new List<byte>();
+
+            using (var stream = new MemoryStream(rawPixelData))
+            using (var reader = new BinaryReader(stream))
+            {
+                for (int j = 0; j < height; j++) {
+
+                    int pixelCount = 0;
+                    var pixelsRow = new List<byte>();
+
+                    for (int i = 0; i < width; i++)
+                    {
+                        //Subtle! there can be garbage at the end of a row.
+                        //we need to keep track of how many actual pixels we've decoded!
+                        if (pixelCount < width)
+                        {
+                            var b = reader.ReadByte(); //Each byte is actually two pixels.
+
+                            var pixel1 = (byte)(b & 240); // b & 1111 0000
+                            pixelsRow.Add(pixel1);
+                            pixelCount++;
+
+                            var pixel2 = (byte)(b & 15);  // b & 0000 1111
+
+                            if (pixelCount < width)
+                            {
+                                pixelsRow.Add(pixel1);
+                                pixelCount++;
+                            } else
+                            {
+                                Console.WriteLine($"row {j} : Garbage pixel '{HexHelper.ByteToHexString(pixel2)}'.");
+                            }
+
+                        }
+                    }
+                    allPixels.AddRange(pixelsRow);
+                }
+
+            }
+
+            //Safety. Not needed if program works as expected
+            if (allPixels.Count() != width*height)
+            {
+                throw new CryoDataException("Image not properly decoded. Dimension don't match");
+            }
+
+            return allPixels.ToArray();
+        }
+
         private Part InterpretPart(long absoluteStartAddress, long absoluteEndAddress, byte[] partData)
         {
             using (var stream = new MemoryStream(partData))
@@ -114,11 +178,26 @@ namespace CryoDataLib.ImageLib
             {
                 //The first two bytes contain mixed info (image width AND compression flag) that we'll need to parse
                 var compressionAndWidth = reader.ReadUInt16();
+                var height = reader.ReadByte();
+                var paletteOffset = reader.ReadByte();
+                //long --> int because sprites are small enough.
+                var remainingBytesCount = (int)(partData.Length - reader.BaseStream.Position);
+                var rawPixelData = reader.ReadBytes(remainingBytesCount);
+
+                //Start interpreting data
+
                 InterpretCompressionAndWidth(compressionAndWidth, out var isCompressed, out var width);
 
-                var height = reader.ReadByte();
-
-                var paletteOffset = reader.ReadByte();
+                byte[] uncompressedPixels = null;
+                //Extra processing required to interpret RLE compression
+                if (isCompressed)
+                {
+                    Console.WriteLine($"Sprite is compressed. TODO.");
+                    //TODO
+                } else
+                {
+                    uncompressedPixels = InterpretPartNotCompressed(width, height, rawPixelData);
+                }
 
                 return new Part
                 {
@@ -128,6 +207,8 @@ namespace CryoDataLib.ImageLib
                     Width = width,
                     Height = height,
                     PaletteOffset = paletteOffset,
+                    RawData = rawPixelData,
+                    UncompressedPixels = uncompressedPixels
                 };
             }
         }
@@ -166,11 +247,14 @@ namespace CryoDataLib.ImageLib
                                                 : reader.BaseStream.Length //the very last address is implicit (end of file). We add it manually, lean and mean!
                 }).ToList();
 
-                var parts = new List<Part>(); int index = 0;
+                var parts = new List<Part>(); 
+                int partIndex = 0;
                 addressPairs.ForEach(addressesPair =>
                 {
                     try
                     {
+                        Console.WriteLine($"Part {partIndex}...");
+
                         // long --> int because hopefully there's no such thing as a sprite so big that its size needs more than 32 bits :-)
                         var partLengthInBytes = (int)(addressesPair.AbsoluteEndAddress - addressesPair.AbsoluteStartAddress);
 
@@ -180,10 +264,10 @@ namespace CryoDataLib.ImageLib
                     }
                     catch (Exception ex)
                     {
-                        Console.Error.WriteLine($"Could not process part {index} of {offsetsArray.Count()}.");
+                        Console.Error.WriteLine($"Could not process part {partIndex} of {offsetsArray.Count()}.");
                         Console.Error.WriteLine($"Details : {ex.StackTrace}");
                     }
-                    index++;
+                    partIndex++;
                 });
 
                 var output = new CryoImageData()

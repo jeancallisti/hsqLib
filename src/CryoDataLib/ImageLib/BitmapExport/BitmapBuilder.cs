@@ -32,6 +32,11 @@ namespace CryoDataLib.ImageLib.BitmapExport
                 throw new System.Exception("Cannot convert to bitmap. Dimensions and data don't match.");
             }
 
+            if (palette == null)
+            {
+                throw new CryoDataException($"I can only render to bitmap if there's a palette.");
+            }
+
             if (palette.Keys.ToArray().Length != 256)
             {
                 throw new System.Exception("Palette must have 256 colors.");
@@ -53,7 +58,12 @@ namespace CryoDataLib.ImageLib.BitmapExport
 
         public static Bitmap ToBitmap(Sprite sprite)
         {
-            return ToBitmap(sprite.Width, sprite.Height, sprite.Data, sprite.Palette);
+            if (sprite.Palette == null)
+            {
+                throw new CryoDataException($"I can only render to bitmap a sprite that was given a palette.");
+            }
+
+            return ToBitmap(sprite.Width, sprite.Height, sprite.Pixels, sprite.Palette);
         }
 
         public static Bitmap ScaleUpNearestNeighbour(Bitmap b, int scaleFactor)

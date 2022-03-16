@@ -79,6 +79,7 @@ namespace CryoDataLib.ImageLib
                 }
                 var output = new CryoImageData()
                 {
+                    DataType = "image",
                     SourceFile = file.SourceFile,
                     Palette = palette,
                     Addresses = offsetsArray

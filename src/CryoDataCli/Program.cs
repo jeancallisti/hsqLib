@@ -118,7 +118,7 @@ namespace CryoDataCli
                 return;
             }
 
-            var charSets = LoadCharSets();
+            var charSets = LoadCharSets(); //TODO: Load from file instead of hard-coded json
             var charSet = charSets.ToList().FirstOrDefault(set => set.Culture.ToUpperInvariant() == culture.ToUpperInvariant());
 
             if (charSet == null)
@@ -126,7 +126,7 @@ namespace CryoDataCli
                 throw new NotImplementedException($"Unknown charset '{culture}'. Available : {string.Join(", ", charSets.Select(cs => "-"+cs.Culture))}");
             }
 
-            var textInstructions = LoadTextInstructions();
+            var textInstructions = LoadTextInstructions(); //TODO: Load from file instead of hard-coded json
 
 
             using (var stream = File.OpenRead(filename))
@@ -141,15 +141,7 @@ namespace CryoDataCli
                 var task = Task.Run(async () =>
                 {
                     var cryoData = (CryoTextData)await textParser.InterpretData(hsqFile);
-
-                    //string outputFile = $"{filename}.text.json";
-                    string outputFile = $"{cryoData.SourceFile}.text.json";
-                    Console.WriteLine("Saving json file: " + outputFile);
-                    var jsonHsqFile = JsonConvert.SerializeObject(
-                                                        cryoData,
-                                                        //To save prettified json
-                                                        Formatting.Indented);
-                    File.WriteAllText(outputFile, jsonHsqFile);
+                    SaveJsonFile(cryoData);
                     return;
 
                 });
@@ -157,14 +149,21 @@ namespace CryoDataCli
             }
         }
 
-        private void SaveJsonFile(CryoImageData cryoData)
+        private string JsonSerializePrettified (object o)
         {
-            string outputFile = $"{cryoData.SourceFile}.image.json";
+            return JsonConvert.SerializeObject(
+                                    o,
+                                    //To save prettified json
+                                    Formatting.Indented);
+        }
+
+
+        // Due to polymorphism this can save CryoImageData and CryoTextData
+        private void SaveJsonFile(CryoData cryoData)
+        {
+            string outputFile = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
             Console.WriteLine("Saving json file: " + outputFile);
-            var jsonHsqFile = JsonConvert.SerializeObject(
-                                                cryoData,
-                                                //To save prettified json
-                                                Formatting.Indented);
+            var jsonHsqFile = JsonSerializePrettified(cryoData);
 
             File.WriteAllText(outputFile, jsonHsqFile);
         }

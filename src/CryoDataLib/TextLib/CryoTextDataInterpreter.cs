@@ -262,6 +262,7 @@ namespace CryoDataLib.TextLib
 
                 var output = new CryoTextData()
                 {
+                    DataType = "text",
                     SourceFile = file.SourceFile 
                 };
 

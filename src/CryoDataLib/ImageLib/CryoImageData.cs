@@ -6,7 +6,6 @@ namespace CryoDataLib.ImageLib
     public class CryoImageData : CryoData
     {
         public IEnumerable<SubPalette> SubPalettes { get; init; }
-        public IEnumerable<long> Addresses { get; init; }
-
+        public IEnumerable<Part> Parts { get; init; }
     }
 }

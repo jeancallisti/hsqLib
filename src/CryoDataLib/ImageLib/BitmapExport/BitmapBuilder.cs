@@ -10,10 +10,11 @@ namespace CryoDataLib.ImageLib.BitmapExport
 
         private static Color ConvertColor(int alpha, PaletteColor c)
         {
+            // alpha == 0 means transparent, alpha == 255 means opaque
             return Color.FromArgb(alpha, c.R, c.G, c.B);
         }
 
-        private static Dictionary<int, Color> ConvertPalette(Dictionary<int, PaletteColor> palette, int alpha)
+        private static Dictionary<int, Color> ToMicrosoftPalette(Dictionary<int, PaletteColor> palette, int alpha)
         {
             return new Dictionary<int, Color>(
                             Enumerable.Range(0, 256)
@@ -25,6 +26,7 @@ namespace CryoDataLib.ImageLib.BitmapExport
 
         public static Bitmap ToBitmap(int width, int height, byte[] data, Dictionary<int, PaletteColor> palette)
         {
+            // alpha == 0 means transparent, alpha == 255 means opaque
             int alpha = 255;
 
             if (data.Length != width * height)
@@ -42,7 +44,7 @@ namespace CryoDataLib.ImageLib.BitmapExport
                 throw new System.Exception("Palette must have 256 colors.");
             }
 
-            var bitmapPalette = ConvertPalette(palette, alpha);
+            var bitmapPalette = ToMicrosoftPalette(palette, alpha);
 
             Bitmap bmp = new Bitmap(width, height);
             for (int j = 0; j < height; j++)

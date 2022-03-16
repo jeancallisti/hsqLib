@@ -22,7 +22,7 @@ namespace CryoDataLib.ImageLib
         }
 
 
-        private static SubPalette DecodeSubPalette(BinaryReader paletteReader)
+        private static SubPalette DecodeSubPalette(BinaryReader paletteReader, int paletteIndex)
         {
             var locationInPalette = paletteReader.ReadByte();
             var colorsCount = paletteReader.ReadByte();
@@ -57,12 +57,13 @@ namespace CryoDataLib.ImageLib
 
             return new SubPalette()
             {
+                Name = $"subPalette{paletteIndex}",
                 Colors = colors,
                 LocationInPalette = locationInPalette,
             };
         }
 
-        public static IEnumerable<SubPalette> DecodePalette(byte[] paletteData)
+        public static IEnumerable<SubPalette> DecodePaletteArea(byte[] paletteData)
         {
             var result = new List<SubPalette>();
 
@@ -84,7 +85,7 @@ namespace CryoDataLib.ImageLib
                     Console.WriteLine($"Subpalette {count}...");
                     try
                     {
-                        result.Add(DecodeSubPalette(paletteReader));
+                        result.Add(DecodeSubPalette(paletteReader, count));
                     }
                     catch
                     {

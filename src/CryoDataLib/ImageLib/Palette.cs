@@ -4,16 +4,20 @@ using System.Linq;
 
 namespace CryoDataLib.ImageLib
 {
-    public static class Palette
+    public class Palette : Dictionary<int, PaletteColor>
     {
+        public Palette() : base() { }
+
+        public Palette(IEnumerable<KeyValuePair<int, PaletteColor>> keyValues) : base(keyValues) { }
+
         /// <summary>
         /// Takes a subpalette (on N colors) and builds a 256-color palette from it. 
         /// The subpalette is placed at the expected position within the palette.
         /// Every missing color is replaced with default color.
         /// </summary>
-        public static Dictionary<int, PaletteColor> BuildFromSubpalette(SubPalette subPalette, PaletteColor defaultColor)
+        public static Palette BuildFromSubpalette(SubPalette subPalette, PaletteColor defaultColor)
         {
-            var palette = new Dictionary<int, PaletteColor>();
+            var palette = new Palette();
 
             for (int i = 0; i < 256; i++)
             {
@@ -64,10 +68,52 @@ namespace CryoDataLib.ImageLib
 
             return spr;
         }
+
+        public static Palette MakeEmptyPalette(PaletteColor emptyColor)
+        {
+            return new Palette(Enumerable.Range(0, 256).Select(i => new KeyValuePair<int, PaletteColor>(key: i, value: emptyColor)));
+        }
+
+        /// <summary>
+        /// This is for a hypothetical scenario wjere we have somehow managed to unpack some sprite data
+        /// but we don't know what palette to apply. We create a grayscale palette that has roughly the same range 
+        /// and palette offset as this sprite.
+        /// </summary>
+        public static Palette CreateMockPaletteFor(SpriteWithPaletteOffset sprite)
+        {
+            var palette = MakeEmptyPalette(PaletteColor.GREEN);
+
+            //If this sprite is meant to be used with a subpalette that has, let's say,
+            //20 colors, then it will have colors ranging from 0 to 20.
+            var spriteColorMin = sprite.Pixels.OrderBy(b => b).First();
+            var spriteColorMax = sprite.Pixels.OrderBy(b => b).Last();
+
+            //We need to convert this local range to "real" colors in the absolute colors space.
+            byte paletteColorMin = (byte)(spriteColorMin + sprite.PaletteOffset);
+            byte paletteColorMax = (byte)(spriteColorMax + sprite.PaletteOffset);
+
+            var colorCount = spriteColorMax - spriteColorMin;
+
+            //Now we fill that range with a gradient.
+            for (int i=0; i<colorCount;i++)
+            {
+                byte grayscaleValue = (byte)(i * (colorCount / 255.0));
+                palette[i + paletteColorMin] = new PaletteColor() { Index = i+ paletteColorMin, R = grayscaleValue, G = grayscaleValue, B = grayscaleValue };
+            }
+
+            return palette;
+        }
+    }
+
+    public class NamedPalette
+    {
+        public string Name { get; init; }
+        public Palette Palette { get; init; }
     }
 
     public class SubPalette
     {
+        public string Name { get; init; }
         public int LocationInPalette { get; init; } = 0;
         public IEnumerable<PaletteColor> Colors { get; init; }
     }

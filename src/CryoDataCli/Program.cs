@@ -193,6 +193,24 @@ namespace CryoDataCli
             scaledUpBitmap.Save(fileName, ImageFormat.Png);
         }
 
+        //private Dictionary<string, Dictionary<int, PaletteColor>> GetNamedPalettes(IEnumerable<SubPalette> subPalettes)
+        //{
+        //    var allNamedPalettes = new List<KeyValuePair<string, Dictionary<int, PaletteColor>>>();
+
+        //    //TODO: Re-enable this.
+        //    /*
+        //    var realNamedPalettes = Enumerable.Range(0, subPalettes.Count()).Select(i => new KeyValuePair<string, Dictionary<int, PaletteColor>>
+        //    (
+        //        key: $"{i}",
+        //        value: Palette.BuildFromSubpalette(subPalettes.ToArray()[i], PaletteColor.GREEN)
+        //    ));
+
+        //    allNamedPalettes.AddRange(realNamedPalettes);
+        //    */
+
+        //    return new Dictionary<string, Dictionary<int, PaletteColor>>(allNamedPalettes);
+        //}
+
         private void SaveImageDataToDisk(CryoImageData cryoData)
         {
             string jsonFileName = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
@@ -216,17 +234,34 @@ namespace CryoDataCli
 
                 for (int i = 0; i < parts.Length; i++)
                 {
-                    //Since we don't know which subpalette to apply, we apply all of them!
-                    var subPalettes = cryoData.SubPalettes.ToArray();
-                    for (int j = 0; j < subPalettes.Length; j++)
+                    //No palette for now. 'Parts' sprites rely on palette offset
+                    var asSpriteWithPaletteOffset = parts[i].ToSpriteWithPaletteOffset();
+                    //+DEBUG
+                    asSpriteWithPaletteOffset.PaletteOffset = 0;
+                    //-DEBUG
+
+                    //var namedPalettes = GetNamedPalettes(cryoData.SubPalettes);
+                    var namedPalettes = cryoData.SubPalettes.Select(subp => new NamedPalette()
                     {
-                        var partFileName = $"{cryoData.SourceFile}.part{i}.subpalette{j}.png";
-                        var palette = Palette.BuildFromSubpalette(subPalettes[j], PaletteColor.GREEN);
+                        Name = subp.Name,
+                        Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
+                    }).ToList();
+
+                    namedPalettes.Add(new NamedPalette() {
+                        Name =  "mock",
+                        Palette = Palette.CreateMockPaletteFor(asSpriteWithPaletteOffset)
+                    });
+
+                    //TODO : fix this 
+                    for (int j = 0; j < namedPalettes.Count(); j++)
+                    {
+                        var paletteName = namedPalettes[j].Name;
+                        var palette = namedPalettes[j].Palette;
+
+                        var partFileName = $"{cryoData.SourceFile}.part{i}.subpalette.{paletteName}.png";
 
                         try
                         {
-                            //No palette for now. 'Parts' sprites rely on palette offset
-                            var asSpriteWithPaletteOffset = parts[i].ToSpriteWithPaletteOffset(); 
                             try
                             {
                                 var asSprite = asSpriteWithPaletteOffset.CombineWithPalette(palette);
@@ -234,15 +269,13 @@ namespace CryoDataCli
                             }
                             catch (CryoDataCannotApplyPaletteException ex)
                             {
-                                Console.WriteLine($"Subpalette {j} does not seem to be a good candidate for part {i}. Not saving as PNG.");
+                                Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {i}. Not saving as PNG.");
                             }
                         } catch (Exception ex)
                         {
                             Console.Error.WriteLine($"Could not export part {i}, subpalette {j} as PNG.");
                         }
                     }
-
-
                 }
             }
         }

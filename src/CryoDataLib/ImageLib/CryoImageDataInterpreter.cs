@@ -25,16 +25,28 @@ namespace CryoDataLib.ImageLib
             return reader.ReadBytes(nbBytes);
         }
 
-        public static byte[] ReadOffsetsArray(BinaryReader reader)
+        public static int[] ReadOffsetsArray(BinaryReader reader)
         {
-            var sizeInBytes = reader.ReadUInt16();
-            //Rewind the two bytes we've just read
-            reader.BaseStream.Position -= 2;
+            var offsetArrayStartsAt = reader.BaseStream.Position;
 
-            var data = new List<byte>();
-            for (int i = 0; i < sizeInBytes; i++)
+            var data = new List<int>();
+
+            //Read the first offset separately as we'll use the value for two different things
+            data.Add(reader.ReadUInt16());
+
+            var offsetArrayEndsAt = offsetArrayStartsAt + data[0];
+
+            var itemsCount = data[0] / 2;
+
+            for (int i = 1; i < itemsCount; i++) //Start at 1 because we've already read one.
             {
-                data.Add(reader.ReadByte());
+                data.Add(reader.ReadUInt16());
+            }
+
+            //For safety. Not needed if the program works as expected
+            if (reader.BaseStream.Position != offsetArrayEndsAt)
+            {
+                throw new CryoDataException("Offsets array was not read correctly.");
             }
 
             return data.ToArray();
@@ -52,8 +64,8 @@ namespace CryoDataLib.ImageLib
 
     public class Part
     {
-        public long AbsoluteStartAddress { get; init; }
-        public long AbsoluteEndAddress { get; init; }
+        public string Name { get; init; }
+
         public bool IsCompressed { get; init; }
         public int Width { get; init; }
         public int Height { get; init; }
@@ -65,11 +77,29 @@ namespace CryoDataLib.ImageLib
         {
             return new SpriteWithPaletteOffset()
             {
+                Name = Name,
                 Pixels = UncompressedPixels,
                 Width = Width,
                 Height = Height,
                 PaletteOffset = PaletteOffset
             };
+        }
+    }
+
+    //Only for export
+    public class JSonPart : Part
+    {
+        public long AbsoluteStartAddress { get; init; }
+        public long AbsoluteEndAddress { get; init; }
+
+        public JSonPart(Part part)
+        {
+            IsCompressed = part.IsCompressed;
+            Width = part.Width;
+            Height = part.Height;
+            PaletteOffset = part.PaletteOffset;
+            RawData = part.RawData;
+            UncompressedPixels = part.UncompressedPixels;
         }
     }
 
@@ -83,41 +113,27 @@ namespace CryoDataLib.ImageLib
         // See https://www.bigs.fr/dune_old/#ch4
         // See https://zwomp.com/index.php/2020/07/01/exploring-the-dune-files-the-image-files/
         // WARNING : This function returns the absolute addresses in the file, not the relative addresses as they are stored.
-        private IEnumerable<long> InterpretOffsetsArray(byte[] offsetsArrayData, long initialOffset)
+        private IEnumerable<long> InterpretOffsetsArray(int[] offsetsArray, long initialOffset)
         {
-            //The very first offset's value also happens to give us an indication on the size
-            var sizeInBytes = BitConverter.ToInt16( new byte[2] { offsetsArrayData[0], offsetsArrayData[1] }, 0);
-
-            //Control
-            if (sizeInBytes != offsetsArrayData.Length)
-            {
-                throw new CryoDataException("Invalid offsets array size.");
-            }
-
-            var addresses = new List<long>();
-            var partsCount = sizeInBytes / 2;
-
-            Console.WriteLine($"Offsets array contains {partsCount} parts...");
-
-            using (var stream = new MemoryStream(offsetsArrayData))
-            using (var reader = new BinaryReader(stream))
-            {
-                for (int i = 0; i < partsCount; i++)
-                {
-                    addresses.Add(initialOffset + reader.ReadUInt16());
-                }
-            }
-
-            return addresses;
+            return offsetsArray.Select(addr => initialOffset+addr);
         }
 
         private void InterpretCompressionAndWidth(int value16bits, out bool isCompressed, out int width)
         {
+            //TODO : Dunes.hsq, Dunes2.hsq and Dunes3.hsq work differently.
+            //       See the very end of https://zwomp.com/index.php/2021/09/01/exploring-the-dune-files-the-image-parts
+
             // 1000 0000 0000 X0X0 == compressed
             // 0000 0000 0000 X0X0 == not compressed
             isCompressed = (value16bits > 32767); //Checks if heaviest bit is '1'
 
             width = value16bits & 32767; // Keep only lower bits : 0111 1111 1111 1111
+
+            //Safety. Not needed if program works as expected
+            if (width == 0)
+            {
+                throw new CryoDataException("Width was zero!");
+            }
         }
 
         private byte[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
@@ -162,6 +178,12 @@ namespace CryoDataLib.ImageLib
 
             }
 
+            //Safety. Not needed
+            if (allPixels.Count() == 0)
+            {
+                throw new CryoDataException("Empty sprite???");
+            }
+
             //Safety. Not needed if program works as expected
             if (allPixels.Count() != width*height)
             {
@@ -171,11 +193,13 @@ namespace CryoDataLib.ImageLib
             return allPixels.ToArray();
         }
 
-        private Part InterpretPart(long absoluteStartAddress, long absoluteEndAddress, byte[] partData)
+        private Part InterpretPart(byte[] partData, int partIndex)
         {
             using (var stream = new MemoryStream(partData))
             using (var reader = new BinaryReader(stream))
             {
+                // 1. Read data
+                // 
                 //The first two bytes contain mixed info (image width AND compression flag) that we'll need to parse
                 var compressionAndWidth = reader.ReadUInt16();
                 var height = reader.ReadByte();
@@ -184,7 +208,7 @@ namespace CryoDataLib.ImageLib
                 var remainingBytesCount = (int)(partData.Length - reader.BaseStream.Position);
                 var rawPixelData = reader.ReadBytes(remainingBytesCount);
 
-                //Start interpreting data
+                //2. Interpret data
 
                 InterpretCompressionAndWidth(compressionAndWidth, out var isCompressed, out var width);
 
@@ -201,8 +225,7 @@ namespace CryoDataLib.ImageLib
 
                 return new Part
                 {
-                    AbsoluteStartAddress = absoluteStartAddress,
-                    AbsoluteEndAddress = absoluteEndAddress,
+                    Name = $"part{partIndex}",
                     IsCompressed = isCompressed,
                     Width = width,
                     Height = height,
@@ -222,32 +245,38 @@ namespace CryoDataLib.ImageLib
             using (var stream = new MemoryStream(file.UnCompressedData))
             using (var reader = new BinaryReader(stream))
             {
-                int initialOffset = CryoImageIndex.ReadInitialOffset(reader);
+                int offsetsArrayStartsAt = CryoImageIndex.ReadInitialOffset(reader);
 
-                var paletteDataSize = initialOffset - CryoImageIndex.InitialOffsetSize; //Subtract the two bytes we've just read.
+                var paletteDataSize = offsetsArrayStartsAt - CryoImageIndex.InitialOffsetSize; //Subtract the two bytes we've just read.
                 var paletteData = CryoImageIndex.ReadPalette(reader, paletteDataSize);  
-                var subPalettes = PaletteInterpreter.DecodePalette(paletteData);
+                var subPalettes = PaletteInterpreter.DecodePaletteArea(paletteData);
 
-                var offsetsArrayStartsAt = reader.BaseStream.Position;
+                //For control. This is not needed if the program works as expected
+                if (reader.BaseStream.Position != offsetsArrayStartsAt) {
+                    throw new CryoDataException("Palette was not read properly");
+                }
+
                 var offsetsArrayData = CryoImageIndex.ReadOffsetsArray(reader);
 
-                var offsetsArray = InterpretOffsetsArray(offsetsArrayData, offsetsArrayStartsAt).ToArray();
+                Console.WriteLine($"Offsets array contains {offsetsArrayData.Length} parts...");
+
+                var offsetsArrayAbsoluteAddresses = InterpretOffsetsArray(offsetsArrayData, offsetsArrayStartsAt).ToArray();
 
                 //Safety. Not needed if the code works as expected.
-                if (reader.BaseStream.Position != offsetsArray.First())
+                if (reader.BaseStream.Position != offsetsArrayAbsoluteAddresses.First())
                 {
                     throw new CryoDataException("Addresses don't match.");
                 }
 
-                var addressPairs = Enumerable.Range(0, offsetsArray.Length).Select(i => new
+                var addressPairs = Enumerable.Range(0, offsetsArrayAbsoluteAddresses.Length).Select(i => new
                 {
-                    AbsoluteStartAddress = offsetsArray[i],
-                    AbsoluteEndAddress = i < offsetsArray.Length -1 ? 
-                                                offsetsArray[i+1] 
+                    AbsoluteStartAddress = offsetsArrayAbsoluteAddresses[i],
+                    AbsoluteEndAddress = i < offsetsArrayAbsoluteAddresses.Length -1 ? 
+                                                offsetsArrayAbsoluteAddresses[i+1] 
                                                 : reader.BaseStream.Length //the very last address is implicit (end of file). We add it manually, lean and mean!
                 }).ToList();
 
-                var parts = new List<Part>(); 
+                var parts = new List<JSonPart>(); 
                 int partIndex = 0;
                 addressPairs.ForEach(addressesPair =>
                 {
@@ -259,12 +288,16 @@ namespace CryoDataLib.ImageLib
                         var partLengthInBytes = (int)(addressesPair.AbsoluteEndAddress - addressesPair.AbsoluteStartAddress);
 
                         var partData = CryoImagePartData.ReadData(reader, partLengthInBytes);
-
-                        parts.Add(InterpretPart(addressesPair.AbsoluteStartAddress, addressesPair.AbsoluteEndAddress, partData));
+                        var part = InterpretPart(partData, partIndex);
+                        parts.Add(new JSonPart(part)
+                        {
+                            AbsoluteEndAddress = addressesPair.AbsoluteEndAddress,
+                            AbsoluteStartAddress = addressesPair.AbsoluteStartAddress
+                        });
                     }
                     catch (Exception ex)
                     {
-                        Console.Error.WriteLine($"Could not process part {partIndex} of {offsetsArray.Count()}.");
+                        Console.Error.WriteLine($"Could not process part {partIndex} of {offsetsArrayAbsoluteAddresses.Count()}.");
                         Console.Error.WriteLine($"Details : {ex.StackTrace}");
                     }
                     partIndex++;

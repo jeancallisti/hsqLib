@@ -39,7 +39,7 @@ namespace CryoDataLib.ImageLib
             int colorsPerRow = 8;
             int rowsCount = 32;
 
-            var data = new byte[colorsPerRow * rowsCount];
+            var data = new byte?[colorsPerRow * rowsCount];
 
             for (int j=0; j< rowsCount; j++)
             {
@@ -83,22 +83,29 @@ namespace CryoDataLib.ImageLib
         {
             var palette = MakeEmptyPalette(PaletteColor.GREEN);
 
-            //If this sprite is meant to be used with a subpalette that has, let's say,
-            //20 colors, then it will have colors ranging from 0 to 20.
-            var spriteColorMin = sprite.Pixels.OrderBy(b => b).First();
-            var spriteColorMax = sprite.Pixels.OrderBy(b => b).Last();
+            //Null means transparent
+            var actualColorsOrdered = sprite.Pixels.Where(p => p != null).OrderBy(b => b).ToArray();
 
-            //We need to convert this local range to "real" colors in the absolute colors space.
-            byte paletteColorMin = (byte)(spriteColorMin + sprite.PaletteOffset);
-            byte paletteColorMax = (byte)(spriteColorMax + sprite.PaletteOffset);
-
-            var colorCount = spriteColorMax - spriteColorMin;
-
-            //Now we fill that range with a gradient.
-            for (int i=0; i<colorCount;i++)
+            //Sometimes the sprite is just a transparent rectangle... No colors to work with!
+            if (actualColorsOrdered.Any())
             {
-                byte grayscaleValue = (byte)(i * (colorCount / 255.0));
-                palette[i + paletteColorMin] = new PaletteColor() { Index = i+ paletteColorMin, R = grayscaleValue, G = grayscaleValue, B = grayscaleValue };
+                //If this sprite is meant to be used with a subpalette that has, let's say,
+                //20 colors, then it will have colors ranging from 0 to 20.
+                var spriteColorMin = actualColorsOrdered.First();
+                var spriteColorMax = actualColorsOrdered.Last();
+
+                //We need to convert this local range to "real" colors in the absolute colors space.
+                byte paletteColorMin = (byte)(spriteColorMin + sprite.PaletteOffset);
+                byte paletteColorMax = (byte)(spriteColorMax + sprite.PaletteOffset);
+
+                var colorCount = spriteColorMax - spriteColorMin;
+
+                //Now we fill that range with a gradient.
+                for (int i = 0; i < colorCount; i++)
+                {
+                    byte grayscaleValue = (byte)((i * (colorCount / 200.0)) + 35); //We don't want too close to black.
+                    palette[i + paletteColorMin] = new PaletteColor() { Index = i + paletteColorMin, R = grayscaleValue, G = grayscaleValue, B = grayscaleValue };
+                }
             }
 
             return palette;

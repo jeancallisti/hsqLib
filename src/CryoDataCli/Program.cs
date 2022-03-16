@@ -225,11 +225,16 @@ namespace CryoDataCli
                     asSpriteWithPaletteOffset.PaletteOffset = 0;
                     //-DEBUG
 
-                    var namedPalettes = cryoData.SubPalettes.Select(subp => new NamedPalette()
+                    var namedPalettes = new List<NamedPalette>();
+                    
+                    //TODO : restore this.
+                    /*
+                    namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
                     {
                         Name = subp.Name,
                         Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
-                    }).ToList();
+                    }));
+                    */
 
                     namedPalettes.Add(new NamedPalette()
                     {

@@ -76,7 +76,7 @@ namespace CryoDataLib.ImageLib
         public int Width { get; init; }
         public int Height { get; init; }
         public int PaletteOffset { get; init; }
-        public byte[] UncompressedPixels { get; init; } //An actual pixels array of size width*length
+        public byte?[] UncompressedPixels { get; init; } //An actual pixels array of size width*length. Null means transparent
 
         public SpriteWithPaletteOffset ToSpriteWithPaletteOffset()
         {
@@ -160,9 +160,9 @@ namespace CryoDataLib.ImageLib
             return true;
         }
 
-        private byte[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
+        private byte?[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
         {
-            var allPixels = new List<byte>();
+            var allPixels = new List<byte?>();
 
             using (var stream = new MemoryStream(rawPixelData))
             using (var reader = new BinaryReader(stream))
@@ -170,7 +170,7 @@ namespace CryoDataLib.ImageLib
                 for (int j = 0; j < height; j++) {
 
                     int pixelCount = 0;
-                    var pixelsRow = new List<byte>();
+                    var pixelsRow = new List<byte?>();
 
                     for (int i = 0; i < width; i++)
                     {
@@ -181,14 +181,28 @@ namespace CryoDataLib.ImageLib
                             var b = reader.ReadByte(); //Each byte is actually two pixels.
 
                             var pixel1 = (byte)(b & 240); // b & 1111 0000
-                            pixelsRow.Add(pixel1);
+                            if (pixel1 == 0)
+                            {
+                                pixelsRow.Add(null);
+                            } else
+                            {
+                                pixelsRow.Add(pixel1);
+                            }
+                            
                             pixelCount++;
 
                             var pixel2 = (byte)(b & 15);  // b & 0000 1111
 
                             if (pixelCount < width)
                             {
-                                pixelsRow.Add(pixel1);
+                                if (pixel2 == 0)
+                                {
+                                    pixelsRow.Add(null);
+                                }
+                                else
+                                {
+                                    pixelsRow.Add(pixel2);
+                                }
                                 pixelCount++;
                             } else
                             {
@@ -245,7 +259,7 @@ namespace CryoDataLib.ImageLib
                     };
                 }
 
-                byte[] uncompressedPixels = null;
+                byte?[] uncompressedPixels = null;
                 //Extra processing required to interpret RLE compression
                 if (isCompressed)
                 {

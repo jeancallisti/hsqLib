@@ -8,7 +8,9 @@ namespace CryoDataLib.ImageLib
         public string Name { get; init; }
         public int Width { get; init; }
         public int Height { get; init; }
-        public byte[] Pixels { get; set; } //public set is not very clean. Ideally we'd like init+private set
+
+        //Null means transparent
+        public byte?[] Pixels { get; set; } //public set is not very clean. Ideally we'd like init+private set
 
         public Dictionary<int, PaletteColor> Palette { get; set; } //public set is not very clean. Ideally we'd like init+private set
     }
@@ -20,12 +22,17 @@ namespace CryoDataLib.ImageLib
         public string Name { get; init; }
         public int Width { get; init; }
         public int Height { get; init; }
-        public byte[] Pixels { get; init; }
+        public byte?[] Pixels { get; init; } //Null means transparant
 
         public int PaletteOffset { get; set; /* TODO revert to 'init' */ }
 
-        private byte ApplyOffset(byte pixel)
+        private byte? ApplyOffset(byte? pixel)
         {
+            if (pixel == null)
+            {
+                return null;
+            }
+
             var pixelWithOffset = pixel + PaletteOffset; 
 
             if (pixelWithOffset >= 256)

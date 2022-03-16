@@ -62,25 +62,21 @@ namespace CryoDataLib.ImageLib
             };
         }
 
-        public static Palette DecodePalette(byte[] paletteData)
+        public static IEnumerable<SubPalette> DecodePalette(byte[] paletteData)
         {
+            var result = new List<SubPalette>();
+
             using (var stream = new MemoryStream(paletteData))
             using (var paletteReader = new BinaryReader(stream))
             {
                 if (paletteData.Length == 0)
                 {
                     Console.WriteLine($"No palette.");
-                    return new Palette
-                    {
-                        SubPalettes = new List<SubPalette>()
-                    };
+                    return result;
                 } else
                 {
                     Console.WriteLine($"There is subpalette(s).");
                 }
-
-
-                var subPalettes = new List<SubPalette>();
 
                 int count = 0;
                 while (!IsEndOfPalette(paletteReader))
@@ -88,7 +84,7 @@ namespace CryoDataLib.ImageLib
                     Console.WriteLine($"Subpalette {count}...");
                     try
                     {
-                        subPalettes.Add(DecodeSubPalette(paletteReader));
+                        result.Add(DecodeSubPalette(paletteReader));
                     }
                     catch
                     {
@@ -110,10 +106,7 @@ namespace CryoDataLib.ImageLib
                     Console.WriteLine($"[{string.Join(",", junkBytes.Select(b => HexHelper.ByteToHexString(b)))}]");
                 }
 
-                return new Palette
-                {
-                    SubPalettes = subPalettes
-                };
+                return result;
             }
         }
 

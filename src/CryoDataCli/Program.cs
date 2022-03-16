@@ -141,7 +141,8 @@ namespace CryoDataCli
                 var task = Task.Run(async () =>
                 {
                     var cryoData = (CryoTextData)await textParser.InterpretData(hsqFile);
-                    SaveJsonFile(cryoData);
+                    string fileName = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
+                    SaveJsonFile(cryoData, fileName);
                     return;
 
                 });
@@ -159,40 +160,40 @@ namespace CryoDataCli
 
 
         // Due to polymorphism this can save CryoImageData and CryoTextData
-        private void SaveJsonFile(CryoData cryoData)
+        private void SaveJsonFile(CryoData cryoData, string fileName)
         {
-            string outputFile = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
-            Console.WriteLine("Saving json file: " + outputFile);
+            Console.WriteLine("Saving json file: " + fileName);
             var jsonHsqFile = JsonSerializePrettified(cryoData);
 
-            File.WriteAllText(outputFile, jsonHsqFile);
+            File.WriteAllText(fileName, jsonHsqFile);
         }
 
-        private void SavePaletteFileAsPng(CryoImageData cryoData, int subpaletteIndex)
+        private void SavePaletteFileAsPng(SubPalette palette, string fileName)
         {
             int scaleUpFactor = 20;
 
-            var subPaletteAsSprite = cryoData.Palette.ToSprite(subpaletteIndex);
-            var asBitmap = BitmapBuilder.ToBitmap(subPaletteAsSprite);
+            var asSprite = Palette.ToSprite(palette);
+            var asBitmap = BitmapBuilder.ToBitmap(asSprite);
 
             var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, scaleUpFactor);
 
-            var outputPaletteFile = $"{cryoData.SourceFile}.palette{subpaletteIndex}.png";
-            Console.WriteLine($"Saving palette file {outputPaletteFile}...");
-            scaledUpBitmap.Save(outputPaletteFile, ImageFormat.Png);
+            Console.WriteLine($"Saving palette file {fileName}...");
+            scaledUpBitmap.Save(fileName, ImageFormat.Png);
         }
 
 
-        private void SaveToDisk(CryoImageData cryoData)
+        private void SaveImageDataToDisk(CryoImageData cryoData)
         {
+            string jsonFileName = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
+            SaveJsonFile(cryoData, jsonFileName);
 
-            SaveJsonFile(cryoData);
-
-            if (true)
+            if (true) // TODO : make it optional?
             {
-                for (int i = 0; i < cryoData.Palette.SubPalettes.Count(); i++)
+                var subPalettes = cryoData.SubPalettes.ToArray();
+                for (int i = 0; i < subPalettes.Length; i++)
                 {
-                    SavePaletteFileAsPng(cryoData, i);
+                    var paletteFileName = $"{cryoData.SourceFile}.palette{i}.png";
+                    SavePaletteFileAsPng(subPalettes[i], paletteFileName);
                 }
             }
         }
@@ -224,7 +225,7 @@ namespace CryoDataCli
                 {
                     var cryoData = (CryoImageData)await imageInterpreter.InterpretData(hsqFile);
 
-                    SaveToDisk(cryoData);
+                    SaveImageDataToDisk(cryoData);
 
                     return;
 

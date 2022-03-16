@@ -64,10 +64,8 @@ namespace CryoDataLib.ImageLib
                 int initialOffset = CryoImageIndex.ReadInitialOffset(reader);
 
                 var paletteDataSize = initialOffset - CryoImageIndex.InitialOffsetSize; //Subtract the two bytes we've just read.
-
                 var paletteData = CryoImageIndex.ReadPalette(reader, paletteDataSize);  
-                
-                var palette = PaletteInterpreter.DecodePalette(paletteData);
+                var subPalettes = PaletteInterpreter.DecodePalette(paletteData);
 
                 long arrayStartsAt = reader.BaseStream.Position;
 
@@ -81,7 +79,7 @@ namespace CryoDataLib.ImageLib
                 {
                     DataType = "image",
                     SourceFile = file.SourceFile,
-                    Palette = palette,
+                    SubPalettes = subPalettes,
                     Addresses = offsetsArray
                 };
 

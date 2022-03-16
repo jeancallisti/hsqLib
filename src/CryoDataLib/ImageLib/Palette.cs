@@ -4,12 +4,8 @@ using System.Linq;
 
 namespace CryoDataLib.ImageLib
 {
-    public class Palette
+    public static class Palette
     {
-        public static PaletteColor GREEN { get; } = new PaletteColor() { R = 0, G = 255, B = 0 };
-
-        public IEnumerable<SubPalette> SubPalettes { get; init; }
-
         /// <summary>
         /// Takes a subpalette (on N colors) and builds a 256-color palette from it. 
         /// The subpalette is placed at the expected position within the palette.
@@ -32,16 +28,9 @@ namespace CryoDataLib.ImageLib
             return palette;
         }
 
-        public Sprite ToSprite(int whichSubPalette)
+        public static Sprite ToSprite(SubPalette subPalette)
         {
-            if (whichSubPalette < 0 || whichSubPalette >= SubPalettes.Count())
-            {
-                throw new CryoDataException($"Invalid subpalette: {whichSubPalette}. Valid : [{string.Join(",", Enumerable.Range(0, SubPalettes.Count()))}]");
-            }
-
-            var subPalette = SubPalettes.ToArray()[whichSubPalette];
-
-            var palette = BuildFromSubpalette(subPalette, Palette.GREEN);
+            var palette = BuildFromSubpalette(subPalette, PaletteColor.GREEN);
 
             int colorsPerRow = 8;
             int rowsCount = 32;
@@ -85,6 +74,8 @@ namespace CryoDataLib.ImageLib
 
     public class PaletteColor
     {
+        public static PaletteColor GREEN { get; } = new PaletteColor() { R = 0, G = 255, B = 0 };
+
         public int Index { get; init; }
         public byte R { get; init; }
         public byte G { get; init; }

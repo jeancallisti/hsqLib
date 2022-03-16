@@ -62,15 +62,20 @@ namespace CryoDataLib.ImageLib
         }
     }
 
-    public class Part
+    public abstract class AbstractPart
     {
         public string Name { get; init; }
+        public int Index { get; init; }
 
+        public byte[] RawData { get; init; }
+    }
+
+    public class ImagePart : AbstractPart
+    {
         public bool IsCompressed { get; init; }
         public int Width { get; init; }
         public int Height { get; init; }
         public int PaletteOffset { get; init; }
-        public byte[] RawData { get; init; } // Where each byte is two pixels or has RLE encoding
         public byte[] UncompressedPixels { get; init; } //An actual pixels array of size width*length
 
         public SpriteWithPaletteOffset ToSpriteWithPaletteOffset()
@@ -86,21 +91,29 @@ namespace CryoDataLib.ImageLib
         }
     }
 
+    public class UnknownPart: AbstractPart
+    {
+    }
+
     //Only for export
-    public class JSonPart : Part
+    public abstract class JSonAbstractPart
     {
         public long AbsoluteStartAddress { get; init; }
         public long AbsoluteEndAddress { get; init; }
+    }
 
-        public JSonPart(Part part)
-        {
-            IsCompressed = part.IsCompressed;
-            Width = part.Width;
-            Height = part.Height;
-            PaletteOffset = part.PaletteOffset;
-            RawData = part.RawData;
-            UncompressedPixels = part.UncompressedPixels;
-        }
+
+    //Only for export
+    public class JSonImagePart : JSonAbstractPart
+    {
+        public ImagePart ImagePart { get; init; }
+    }
+
+    //Only for export
+    public class JSonUnknownPart : JSonAbstractPart
+    {
+        public UnknownPart UnknownPart { get; init; }
+
     }
 
 
@@ -118,8 +131,17 @@ namespace CryoDataLib.ImageLib
             return offsetsArray.Select(addr => initialOffset+addr);
         }
 
-        private void InterpretCompressionAndWidth(int value16bits, out bool isCompressed, out int width)
+        private bool InterpretCompressionAndWidth(int value16bits, out bool isCompressed, out int width)
         {
+            // See https://zwomp.com/index.php/2021/09/01/exploring-the-dune-files-the-image-parts
+            // "If the first two bytes are both zero, you are not looking at an image part"
+            if (value16bits == 0)
+            {
+                isCompressed = false;
+                width = 0;
+                return false;
+            }
+
             //TODO : Dunes.hsq, Dunes2.hsq and Dunes3.hsq work differently.
             //       See the very end of https://zwomp.com/index.php/2021/09/01/exploring-the-dune-files-the-image-parts
 
@@ -134,6 +156,8 @@ namespace CryoDataLib.ImageLib
             {
                 throw new CryoDataException("Width was zero!");
             }
+
+            return true;
         }
 
         private byte[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
@@ -193,7 +217,7 @@ namespace CryoDataLib.ImageLib
             return allPixels.ToArray();
         }
 
-        private Part InterpretPart(byte[] partData, int partIndex)
+        private AbstractPart InterpretPart(byte[] partData, int partIndex)
         {
             using (var stream = new MemoryStream(partData))
             using (var reader = new BinaryReader(stream))
@@ -210,7 +234,16 @@ namespace CryoDataLib.ImageLib
 
                 //2. Interpret data
 
-                InterpretCompressionAndWidth(compressionAndWidth, out var isCompressed, out var width);
+                if (!InterpretCompressionAndWidth(compressionAndWidth, out var isCompressed, out var width))
+                {
+                    Console.WriteLine($"Part {partIndex} does not seem to be an image part.");
+                    return new UnknownPart
+                    {
+                        Index = partIndex,
+                        Name = $"part{partIndex}",
+                        RawData = rawPixelData,
+                    };
+                }
 
                 byte[] uncompressedPixels = null;
                 //Extra processing required to interpret RLE compression
@@ -223,8 +256,9 @@ namespace CryoDataLib.ImageLib
                     uncompressedPixels = InterpretPartNotCompressed(width, height, rawPixelData);
                 }
 
-                return new Part
+                return new ImagePart
                 {
+                    Index = partIndex,
                     Name = $"part{partIndex}",
                     IsCompressed = isCompressed,
                     Width = width,
@@ -276,7 +310,9 @@ namespace CryoDataLib.ImageLib
                                                 : reader.BaseStream.Length //the very last address is implicit (end of file). We add it manually, lean and mean!
                 }).ToList();
 
-                var parts = new List<JSonPart>(); 
+                var imageParts = new List<JSonImagePart>(); 
+                var unknownParts = new List<JSonUnknownPart>();
+                
                 int partIndex = 0;
                 addressPairs.ForEach(addressesPair =>
                 {
@@ -289,11 +325,23 @@ namespace CryoDataLib.ImageLib
 
                         var partData = CryoImagePartData.ReadData(reader, partLengthInBytes);
                         var part = InterpretPart(partData, partIndex);
-                        parts.Add(new JSonPart(part)
+                        if (part is ImagePart)
                         {
-                            AbsoluteEndAddress = addressesPair.AbsoluteEndAddress,
-                            AbsoluteStartAddress = addressesPair.AbsoluteStartAddress
-                        });
+                            imageParts.Add(new JSonImagePart()
+                            {
+                                ImagePart = (ImagePart)part,
+                                AbsoluteEndAddress = addressesPair.AbsoluteEndAddress,
+                                AbsoluteStartAddress = addressesPair.AbsoluteStartAddress
+                            });
+                        } else if (part is UnknownPart)
+                        {
+                            unknownParts.Add(new JSonUnknownPart()
+                            {
+                                UnknownPart = (UnknownPart)part,
+                                AbsoluteEndAddress = addressesPair.AbsoluteEndAddress,
+                                AbsoluteStartAddress = addressesPair.AbsoluteStartAddress
+                            });
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -308,7 +356,8 @@ namespace CryoDataLib.ImageLib
                     DataType = "image",
                     SourceFile = file.SourceFile,
                     SubPalettes = subPalettes,
-                    Parts = parts
+                    ImageParts = imageParts,
+                    UnknownParts = unknownParts,
                 };
 
                 return output;

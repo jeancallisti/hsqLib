@@ -228,9 +228,11 @@ namespace CryoDataCli
 
             if (true) // TODO : make it optional?
             {
-                var parts = cryoData.Parts
-                                        .Where(p => !p.IsCompressed) //TODO : for now, only non-compressed parts
-                                        .ToArray();
+                var imageParts = cryoData.ImageParts.Select(p => p.ImagePart);
+
+                var parts = imageParts
+                                .Where(p => !p.IsCompressed) //TODO : for now, only non-compressed parts
+                                .ToArray();
 
                 for (int i = 0; i < parts.Length; i++)
                 {

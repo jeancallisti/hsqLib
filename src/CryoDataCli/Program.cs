@@ -221,20 +221,17 @@ namespace CryoDataCli
 
                     //No palette for now. 'Parts' sprites rely on palette offset
                     var asSpriteWithPaletteOffset = p.ToSpriteWithPaletteOffset();
-                    //+DEBUG
-                    asSpriteWithPaletteOffset.PaletteOffset = 0;
-                    //-DEBUG
+                    ////+DEBUG
+                    //asSpriteWithPaletteOffset.PaletteOffset = 0;
+                    ////-DEBUG
 
                     var namedPalettes = new List<NamedPalette>();
                     
-                    //TODO : restore this.
-                    /*
                     namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
                     {
                         Name = subp.Name,
                         Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
                     }));
-                    */
 
                     namedPalettes.Add(new NamedPalette()
                     {

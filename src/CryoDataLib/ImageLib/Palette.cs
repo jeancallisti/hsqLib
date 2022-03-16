@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -91,14 +92,24 @@ namespace CryoDataLib.ImageLib
             {
                 //If this sprite is meant to be used with a subpalette that has, let's say,
                 //20 colors, then it will have colors ranging from 0 to 20.
-                var spriteColorMin = actualColorsOrdered.First();
-                var spriteColorMax = actualColorsOrdered.Last();
+                var spriteColorMin = (byte)actualColorsOrdered.First();
+                var spriteColorMax = (byte)actualColorsOrdered.Last();
 
                 //We need to convert this local range to "real" colors in the absolute colors space.
-                byte paletteColorMin = (byte)(spriteColorMin + sprite.PaletteOffset);
-                byte paletteColorMax = (byte)(spriteColorMax + sprite.PaletteOffset);
+                int realColorMin = spriteColorMin + sprite.PaletteOffset;
+                int realColorMax = spriteColorMax + sprite.PaletteOffset;
 
-                var colorCount = spriteColorMax - spriteColorMin;
+                if (realColorMin > 255 || realColorMax > 255)
+                {
+                    Console.Error.WriteLine($"Some colors of sprite '{sprite.Name}' have forbidden value after applying the palette offset: {realColorMin}, {realColorMax}");
+                }
+
+                //Safety
+                byte paletteColorMin = (byte)Math.Min((int)255, realColorMin);
+                byte paletteColorMax = (byte)Math.Min((int)255, realColorMax);
+
+                //Safety
+                var colorCount = Math.Min(paletteColorMax - paletteColorMin, 255);
 
                 //Now we fill that range with a gradient.
                 for (int i = 0; i < colorCount; i++)
@@ -106,6 +117,11 @@ namespace CryoDataLib.ImageLib
                     byte grayscaleValue = (byte)((i * (colorCount / 200.0)) + 35); //We don't want too close to black.
                     palette[i + paletteColorMin] = new PaletteColor() { Index = i + paletteColorMin, R = grayscaleValue, G = grayscaleValue, B = grayscaleValue };
                 }
+            }
+
+            if (palette.Count() != 256)
+            {
+                throw new CryoDataException($"There was a problem creating the mock palette. It has {palette.Count()} colors instead of 256!");
             }
 
             return palette;

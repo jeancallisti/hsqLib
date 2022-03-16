@@ -193,24 +193,6 @@ namespace CryoDataCli
             scaledUpBitmap.Save(fileName, ImageFormat.Png);
         }
 
-        //private Dictionary<string, Dictionary<int, PaletteColor>> GetNamedPalettes(IEnumerable<SubPalette> subPalettes)
-        //{
-        //    var allNamedPalettes = new List<KeyValuePair<string, Dictionary<int, PaletteColor>>>();
-
-        //    //TODO: Re-enable this.
-        //    /*
-        //    var realNamedPalettes = Enumerable.Range(0, subPalettes.Count()).Select(i => new KeyValuePair<string, Dictionary<int, PaletteColor>>
-        //    (
-        //        key: $"{i}",
-        //        value: Palette.BuildFromSubpalette(subPalettes.ToArray()[i], PaletteColor.GREEN)
-        //    ));
-
-        //    allNamedPalettes.AddRange(realNamedPalettes);
-        //    */
-
-        //    return new Dictionary<string, Dictionary<int, PaletteColor>>(allNamedPalettes);
-        //}
-
         private void SaveImageDataToDisk(CryoImageData cryoData)
         {
             string jsonFileName = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
@@ -242,7 +224,6 @@ namespace CryoDataCli
                     asSpriteWithPaletteOffset.PaletteOffset = 0;
                     //-DEBUG
 
-                    //var namedPalettes = GetNamedPalettes(cryoData.SubPalettes);
                     var namedPalettes = cryoData.SubPalettes.Select(subp => new NamedPalette()
                     {
                         Name = subp.Name,
@@ -279,6 +260,11 @@ namespace CryoDataCli
                         }
                     }
                 }
+            }
+
+            if (cryoData.UnknownParts.Count() > 0)
+            {
+                Console.WriteLine($"There were {cryoData.UnknownParts.Count()} unknown parts.");
             }
         }
 

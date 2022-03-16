@@ -33,12 +33,25 @@ namespace CryoDataLib.ImageLib
 
             for(var i = 0; i < colorsCount; i++)
             {
+                // *4 because the colors are stored on 6 bits for whatever reason and
+                // by design we need to do 2 bitshifts to the left (*4) to get the real value.
+                // See https://www.bigs.fr/dune_old/#ch4
+                int boostedR = paletteReader.ReadByte() * 4;
+                int boostedG = paletteReader.ReadByte() * 4;
+                int boostedB = paletteReader.ReadByte() * 4;
+
+                //Safety (not needed if the program works as expected)
+                if (boostedR >= 256 || boostedG >= 256 || boostedB >= 256)
+                {
+                    throw new CryoDataException($"Invalid color value. Original RGB bytes : '{boostedR/4}', '{boostedG/4}', '{boostedB/4}'");
+                }
+
                 colors.Add(new PaletteColor()
                 {
                     Index = i,
-                    R = paletteReader.ReadByte(),
-                    G = paletteReader.ReadByte(),
-                    B = paletteReader.ReadByte(),
+                    R = (byte)boostedR,
+                    G = (byte)boostedG,
+                    B = (byte)boostedB,
                 });
             }
 

@@ -63,6 +63,7 @@ namespace CryoDataCli
             return DeserializeTextInstructions(jsonData);
         }
 
+        //TODO: Use ArgumentsParsing instead, as in UnpackCli2
         private bool ParseTextParams(string[] args, out string culture, out string fileName)
         {
             culture = "";
@@ -88,6 +89,8 @@ namespace CryoDataCli
             return true;
         }
 
+
+        //TODO: Use ArgumentsParsing instead, as in UnpackCli2
         private bool ParseImageParams(string[] args, out string fileName)
         {
             fileName = "";

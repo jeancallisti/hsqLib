@@ -160,6 +160,41 @@ namespace CryoDataLib.ImageLib
             return true;
         }
 
+        private class PixelsReader
+        {
+            private BinaryReader _reader;
+            private Stack<byte?> pixelsFIFO = new Stack<byte?>();
+
+            public PixelsReader(BinaryReader reader)
+            {
+                _reader = reader;
+            }
+
+            //End of data
+            public bool HasMore { get { return _reader.BaseStream.Position < _reader.BaseStream.Length; } }
+
+            public byte? GetPixel()
+            {
+                if (!HasMore)
+                {
+                    return null;
+                }
+
+                //We've used up the pixels, let's reader more.
+                if (pixelsFIFO.Count() == 0)
+                {
+                    var newByte = _reader.ReadByte();
+                    var pixel1 = (byte)(newByte & 240); // b & 1111 0000
+                    var pixel2 = (byte)(newByte & 15);  // b & 0000 1111
+
+                    pixelsFIFO.Push(pixel2 != 0 ? pixel2 : null); //0 means transparent. we represent that as null.
+                    pixelsFIFO.Push(pixel1 != 0 ? pixel1 : null);
+                }
+
+                return pixelsFIFO.Pop();
+            }
+        }
+
         private byte?[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
         {
             var allPixels = new List<byte?>();
@@ -167,59 +202,39 @@ namespace CryoDataLib.ImageLib
             using (var stream = new MemoryStream(rawPixelData))
             using (var reader = new BinaryReader(stream))
             {
-                for (int j = 0; j < height; j++) {
+                var pixelsReader = new PixelsReader(reader);
 
-                    int pixelCount = 0;
-                    var pixelsRow = new List<byte?>();
-
-                    for (int i = 0; i < width; i++)
-                    {
-                        //Subtle! there can be garbage at the end of a row.
-                        //we need to keep track of how many actual pixels we've decoded!
-                        if (pixelCount < width)
-                        {
-                            var b = reader.ReadByte(); //Each byte is actually two pixels.
-
-                            var pixel1 = (byte)(b & 240); // b & 1111 0000
-                            if (pixel1 == 0)
-                            {
-                                pixelsRow.Add(null);
-                            } else
-                            {
-                                pixelsRow.Add(pixel1);
-                            }
-                            
-                            pixelCount++;
-
-                            var pixel2 = (byte)(b & 15);  // b & 0000 1111
-
-                            if (pixelCount < width)
-                            {
-                                if (pixel2 == 0)
-                                {
-                                    pixelsRow.Add(null);
-                                }
-                                else
-                                {
-                                    pixelsRow.Add(pixel2);
-                                }
-                                pixelCount++;
-                            } else
-                            {
-                                Console.WriteLine($"row {j} : Garbage pixel '{HexHelper.ByteToHexString(pixel2)}'.");
-                            }
-
-                        }
-                    }
-                    allPixels.AddRange(pixelsRow);
+                if (!pixelsReader.HasMore)
+                {
+                    return allPixels.ToArray();
                 }
 
-            }
+                var pixel = pixelsReader.GetPixel();
+                
+                int currentRow = 0;
+                while (currentRow < height) {
 
-            //Safety. Not needed
-            if (allPixels.Count() == 0)
-            {
-                throw new CryoDataException("Empty sprite???");
+                    int pixelRowCount = 0;
+
+                    while (pixelRowCount < width) {
+
+                        allPixels.Add(pixel);
+                        pixel = pixelsReader.GetPixel();
+                        pixelRowCount++;
+
+                    }
+
+                    currentRow++;
+                }
+
+                //Garbage pixels at the very end
+                while (pixelsReader.HasMore)
+                {
+                    var garbage = pixelsReader.GetPixel();
+                    var strGarbage = garbage.HasValue ? HexHelper.ByteToHexString(garbage.Value) : "null";
+                    Console.WriteLine($"Garbage pixel '{strGarbage}'.");
+                }
+
             }
 
             //Safety. Not needed if program works as expected

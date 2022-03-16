@@ -212,14 +212,15 @@ namespace CryoDataCli
             {
                 var imageParts = cryoData.ImageParts.Select(p => p.ImagePart);
 
-                var parts = imageParts
+                var uncompressedParts = imageParts
                                 .Where(p => !p.IsCompressed) //TODO : for now, only non-compressed parts
-                                .ToArray();
+                                .ToList();
 
-                for (int i = 0; i < parts.Length; i++)
+                uncompressedParts.ForEach(p =>
                 {
+
                     //No palette for now. 'Parts' sprites rely on palette offset
-                    var asSpriteWithPaletteOffset = parts[i].ToSpriteWithPaletteOffset();
+                    var asSpriteWithPaletteOffset = p.ToSpriteWithPaletteOffset();
                     //+DEBUG
                     asSpriteWithPaletteOffset.PaletteOffset = 0;
                     //-DEBUG
@@ -230,8 +231,9 @@ namespace CryoDataCli
                         Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
                     }).ToList();
 
-                    namedPalettes.Add(new NamedPalette() {
-                        Name =  "mock",
+                    namedPalettes.Add(new NamedPalette()
+                    {
+                        Name = "subpaletteMock",
                         Palette = Palette.CreateMockPaletteFor(asSpriteWithPaletteOffset)
                     });
 
@@ -241,7 +243,7 @@ namespace CryoDataCli
                         var paletteName = namedPalettes[j].Name;
                         var palette = namedPalettes[j].Palette;
 
-                        var partFileName = $"{cryoData.SourceFile}.part{i}.subpalette.{paletteName}.png";
+                        var partFileName = $"{cryoData.SourceFile}.{p.Name}.{paletteName}.png";
 
                         try
                         {
@@ -252,14 +254,15 @@ namespace CryoDataCli
                             }
                             catch (CryoDataCannotApplyPaletteException ex)
                             {
-                                Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {i}. Not saving as PNG.");
+                                Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {p.Name}. Not saving as PNG.");
                             }
-                        } catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
-                            Console.Error.WriteLine($"Could not export part {i}, subpalette {j} as PNG.");
+                            Console.Error.WriteLine($"Could not export part {p.Name}, subpalette {j} as PNG.");
                         }
                     }
-                }
+                });
             }
 
             if (cryoData.UnknownParts.Count() > 0)

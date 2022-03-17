@@ -45,7 +45,7 @@ namespace CryoImageRenderCli
         {
             Console.WriteLine($"Part {p.Name}...");
 
-            if (!p.UncompressedPixels.Any())
+            if (p.UncompressedPixels == null || !p.UncompressedPixels.Any())
             {
                 Console.WriteLine($"Skipping (empty).");
                 return;

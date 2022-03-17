@@ -17,7 +17,7 @@ namespace CryoImageRenderCli
     {
         private static List<SwitchSetting> availableSwitches = new List<SwitchSetting>()
         {
-            new SwitchSetting() { Key = "PALETTE", AcceptedValues = new List<string>() { "palette"}, IsFollowedByValue = true, IsOptional = true, FallbackValue = "-GENERATE"},
+            new SwitchSetting() { Key = "PALETTE", AcceptedValues = new List<string>() { "palette"}, IsFollowedByValue = true, IsOptional = true, FallbackValue = "GENERATE"},
             new SwitchSetting() { Key = "SOURCE", AcceptedValues = new List<string>() { "source"}, IsFollowedByValue = true, IsOptional = false, FallbackValue = ""},
             new SwitchSetting() { Key = "DESTFOLDER", AcceptedValues = new List<string>() { "dest"}, IsFollowedByValue = true, IsOptional = true, FallbackValue = ""}
         };
@@ -42,11 +42,11 @@ namespace CryoImageRenderCli
 
         private PaletteModes ParsePaletteMode(string paletteMode)
         {
-            switch (paletteMode)
+            switch (paletteMode.ToUpperInvariant())
             {
-                case "-GENERATE": return PaletteModes.eGenerate;
-                case "-GUESSINTERNALONLY": return PaletteModes.eguessInternalOnly;
-                case "-GUESSALL": return PaletteModes.eGuessAll;
+                case "GENERATE": return PaletteModes.eGenerate;
+                case "GUESSINTERNALONLY": return PaletteModes.eguessInternalOnly;
+                case "GUESSALL": return PaletteModes.eGuessAll;
             }
 
             throw new NotImplementedException($"Not implemented : {paletteMode}");
@@ -123,10 +123,22 @@ namespace CryoImageRenderCli
                     //Depending on the palette mode it could be the file's palettes, other files' palettes, or no palette at all.
                     var subPalettes = GetSubPalettes(cryoImage, sourceFolder, paletteMode);
 
-                    Console.WriteLine($"Saving this file's subpalettes...");
+                    if (paletteMode == PaletteModes.eguessInternalOnly && !subPalettes.Any())
+                    {
+                        Console.WriteLine($"WARNING! This file as no subpalettes! Reverting palette mode to 'generate'.");
+                        Console.WriteLine($"         You may use -palette guessAll to try and use subpalettes from other files in the same folder.");
 
-                    //Regardless of the palette mode, we save the palettes present in the file
-                    renderer.SaveSubpalettesToDisk();
+                        paletteMode = PaletteModes.eGenerate;
+                    }
+
+                    if (subPalettes.Any())
+                    {
+                        Console.WriteLine($"Saving subpalettes as PNG files...");
+
+                        //Regardless of the palette mode, we save the palettes present in the file
+                        renderer.SaveSubpalettesToDisk();
+                    }
+
 
                     renderer.SaveImagePartsToDisk(paletteMode, subPalettes);
 

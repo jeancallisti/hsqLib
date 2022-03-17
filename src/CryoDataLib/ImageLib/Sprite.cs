@@ -13,6 +13,7 @@ namespace CryoDataLib.ImageLib
         public byte?[] Pixels { get; set; } //public set is not very clean. Ideally we'd like init+private set
 
         public Dictionary<int, PaletteColor> Palette { get; set; } //public set is not very clean. Ideally we'd like init+private set
+
     }
 
     //Same as sprite, except the color values in 'Pixels' should not be used as-is.
@@ -26,36 +27,54 @@ namespace CryoDataLib.ImageLib
 
         public int PaletteOffset { get; set; /* TODO revert to 'init' */ }
 
-        private byte? ApplyOffset(byte? pixel)
+        //Try to apply the palette offset to all colors, or revert to an offset of zero if for some reason that causes 
+        //some colors to become out of bounds ( >= 256 )
+        public bool TryApplyPaletteOffset(out SpriteWithPaletteOffset correctedSprite, out byte min, out byte max)
         {
-            if (pixel == null)
+            Palette.FindColorRange(Pixels, out min, out max);
+
+            if (max + PaletteOffset > 255)
             {
-                return null;
+                //Return unmodified copy
+                correctedSprite = new SpriteWithPaletteOffset
+                {
+                    Name = Name,
+                    Width = Width,
+                    Height = Height,
+                    Pixels = Pixels.Select(b => b).ToArray(), //Terrible cloning of array
+                    PaletteOffset = PaletteOffset,
+                };
+                return false;
             }
 
-            var pixelWithOffset = pixel + PaletteOffset; 
+            min = (byte)(min + PaletteOffset);
+            max = (byte)(max + PaletteOffset);
 
-            if (pixelWithOffset >= 256)
+            byte?[] colorCorrectedPixels = Pixels.Select(p => (byte?)(p != null ? (byte)(p + PaletteOffset) : null)).ToArray();
+
+            correctedSprite = new SpriteWithPaletteOffset
             {
-                //TODO: Restore.
-                //throw new CryoDataCannotApplyPaletteException("There seems to be a mistake. Applying this palette onto a sprite with this palette offset makes the pixel values too high.");
-                return 0;
-            }
-
-            return (byte)pixelWithOffset;
-
+                Name = Name,
+                Width = Width,
+                Height = Height,
+                Pixels = colorCorrectedPixels,
+                PaletteOffset = 0, //important
+            };
+            return true;
         }
+
         public Sprite CombineWithPalette(Dictionary<int, PaletteColor> palette)
         {
+            TryApplyPaletteOffset(out var correctedSprite, out var min, out var max);
+
             return new Sprite()
             {
                 Name = Name,
                 Width = Width,
                 Height = Height,
                 Palette = palette,
-                Pixels = Pixels.Select(p => ApplyOffset(p)).ToArray()
+                Pixels = correctedSprite.Pixels
             };
-
         }
     }
 }

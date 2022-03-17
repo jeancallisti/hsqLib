@@ -2,7 +2,7 @@
   "profiles": {
     "CryoDataCli": {
       "commandName": "Project",
-      "commandLineArgs": "-image .\\Data\\CryoImage\\SAMPLE_IMAGE2.HSQ.uncompressed.json"
+      "commandLineArgs": "-image C:\\Users\\ma-beg\\Documents\\_PERSO\\prog\\DuneRevivalGodot\\assets\\dune\\ONMAP.HSQ.uncompressed.json"
     }
   }
 }

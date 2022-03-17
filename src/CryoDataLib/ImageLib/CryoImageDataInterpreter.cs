@@ -160,90 +160,100 @@ namespace CryoDataLib.ImageLib
             return true;
         }
 
-        private class PixelsReader
+        //The size of a line of pixels (in bytes) is not bytesCount or even bytesCount/2.
+        //It's more subtle. Lines that have an odd number of pixels can leave garbage byte(s) at the end.
+        //This is not very well documented neither on ZWomp website nor on bigs.fr website.
+        private int CalculateBytesPerLine(int width)
         {
-            private BinaryReader _reader;
-            private Stack<byte?> pixelsFIFO = new Stack<byte?>();
+            //Add 1 before dividing by two to avoid rounding error if width is an odd number
+            var result = (width + 1) / 2; 
 
-            public PixelsReader(BinaryReader reader)
+            //Re-add 1 to transform an odd number of pixels to read into an even number of pixels to read.
+            if (result % 2 == 1)
             {
-                _reader = reader;
+                result++;
             }
 
-            //End of data
-            public bool HasMore { get { return _reader.BaseStream.Position < _reader.BaseStream.Length; } }
-
-            public byte? GetPixel()
+            if (result == 0)
             {
-                if (!HasMore)
-                {
-                    return null;
-                }
-
-                //We've used up the pixels, let's reader more.
-                if (pixelsFIFO.Count() == 0)
-                {
-                    var newByte = _reader.ReadByte();
-                    var pixel1 = (byte)(newByte & 240); // b & 1111 0000
-                    var pixel2 = (byte)(newByte & 15);  // b & 0000 1111
-
-                    pixelsFIFO.Push(pixel2 != 0 ? pixel2 : null); //0 means transparent. we represent that as null.
-                    pixelsFIFO.Push(pixel1 != 0 ? pixel1 : null);
-                }
-
-                return pixelsFIFO.Pop();
+                throw new CryoDataException("Unexpected : bytes per line == 0.");
             }
+
+            return result;
         }
 
         private byte?[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
         {
-            var allPixels = new List<byte?>();
-
-            using (var stream = new MemoryStream(rawPixelData))
-            using (var reader = new BinaryReader(stream))
+            try
             {
-                var pixelsReader = new PixelsReader(reader);
 
-                if (!pixelsReader.HasMore)
+
+                var allPixels = new List<byte?>();
+
+                if (!rawPixelData.Any())
                 {
-                    return allPixels.ToArray();
+                    throw new CryoDataException("Unexpected : no pixel data for uncompressed sprite.");
                 }
 
-                var pixel = pixelsReader.GetPixel();
-                
-                int currentRow = 0;
-                while (currentRow < height) {
+                var bytesPerLine = CalculateBytesPerLine(width);
 
-                    int pixelRowCount = 0;
+                using (var stream = new MemoryStream(rawPixelData))
+                using (var reader = new BinaryReader(stream))
+                {
+                    for (int j = 0; j < height; j++)
+                    {
 
-                    while (pixelRowCount < width) {
+                        var lineData = reader.ReadBytes(bytesPerLine);
+                        var currentByte = 0;
 
-                        allPixels.Add(pixel);
-                        pixel = pixelsReader.GetPixel();
-                        pixelRowCount++;
+                        var twoPixels = new byte?[2];
 
+                        for (int i = 0; i < width; i++)
+                        {
+                            //Read a new byte every EVEN pixel (i.e. once out of two pixels), as one byte contains 2 pixels.
+                            var timeToReadNewByte = i % 2 == 0;
+
+                            if (timeToReadNewByte)
+                            {
+                                //warning! The 4 leftmost bits are for the pixel that will be rendered second (i.e. pixels #1 and #2 are reversed).
+                                twoPixels[1] = (byte)(lineData[currentByte] & 240); // b & 1111 0000
+                                twoPixels[0] = (byte)((lineData[currentByte] & 15) << 4);  // b & 0000 1111 << 4. the <<4 is to bring the value back in the same range as the other pixel.
+
+                                //In our interpreter, we store transparent as null instead of 0
+                                if (twoPixels[0] == 0) { twoPixels[0] = null; }
+                                if (twoPixels[1] == 0) { twoPixels[1] = null; }
+
+                                currentByte++;
+                            }
+
+                            //we alternate between the two pixels in our little buffer
+                            var currentPixel = twoPixels[i % 2]; 
+
+                            allPixels.Add(currentPixel);
+                        }
+
+                        //Garbage byte(s) at the very end
+                        if (currentByte < lineData.Length)
+                        {
+                            var garbage = lineData.Skip(currentByte).Take(lineData.Length);
+                            Console.WriteLine($"Line garbage bytes :{string.Join(",", garbage.Select(b => $"'{HexHelper.ByteToHexString(b)}'"))}.");
+                        }
                     }
-
-                    currentRow++;
                 }
 
-                //Garbage pixels at the very end
-                while (pixelsReader.HasMore)
+                //Safety. Not needed if program works as expected
+                if (allPixels.Count() != width * height)
                 {
-                    var garbage = pixelsReader.GetPixel();
-                    var strGarbage = garbage.HasValue ? HexHelper.ByteToHexString(garbage.Value) : "null";
-                    Console.WriteLine($"Garbage pixel '{strGarbage}'.");
+                    throw new CryoDataException("Image not properly decoded. Dimension don't match");
                 }
 
+                return allPixels.ToArray();
             }
-
-            //Safety. Not needed if program works as expected
-            if (allPixels.Count() != width*height)
+            catch (Exception ex)
             {
-                throw new CryoDataException("Image not properly decoded. Dimension don't match");
+                Console.Error.WriteLine($"Error while trying to read uncompressed sprite.");
+                throw;
             }
-
-            return allPixels.ToArray();
         }
 
         private AbstractPart InterpretPart(byte[] partData, int partIndex)
@@ -252,13 +262,18 @@ namespace CryoDataLib.ImageLib
             using (var reader = new BinaryReader(stream))
             {
                 // 1. Read data
-                // 
+
                 //The first two bytes contain mixed info (image width AND compression flag) that we'll need to parse
                 var compressionAndWidth = reader.ReadUInt16();
+
+                //Other metadata
                 var height = reader.ReadByte();
                 var paletteOffset = reader.ReadByte();
+
                 //long --> int because sprites are small enough.
                 var remainingBytesCount = (int)(partData.Length - reader.BaseStream.Position);
+
+                //Actual sprite data
                 var rawPixelData = reader.ReadBytes(remainingBytesCount);
 
                 //2. Interpret data
@@ -353,7 +368,22 @@ namespace CryoDataLib.ImageLib
                         var partLengthInBytes = (int)(addressesPair.AbsoluteEndAddress - addressesPair.AbsoluteStartAddress);
 
                         var partData = CryoImagePartData.ReadData(reader, partLengthInBytes);
+
+                        //+DEBUG
+                        if (file.SourceFile == "ICONES.HSQ" && partIndex != 26)
+                        {
+                            throw new Exception("DEBUG: Skip part");
+                        }
+                        //if (file.SourceFile == "ONMAP.HSQ" && partIndex != 122)
+                        //{
+                        //    throw new Exception("DEBUG: Skip part");
+                        //}
+
+                        
+                        //-DEBUG
+
                         var part = InterpretPart(partData, partIndex);
+
                         if (part is ImagePart)
                         {
                             imageParts.Add(new JSonImagePart()

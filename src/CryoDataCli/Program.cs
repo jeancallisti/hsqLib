@@ -218,46 +218,63 @@ namespace CryoDataCli
 
                 uncompressedParts.ForEach(p =>
                 {
+                    //+DEBUG
+                    //This should be one of the sprites representing the small animated head in Dune's UI Panel
+                    if (cryoData.SourceFile == "ICONES.HSQ" && p.Index != 26)
+                    {
+                        return;
+                    }
+                    //if (cryoData.SourceFile == "ONMAP.HSQ" && p.Index != 122)
+                    //{
+                    //    return;
+                    //}
+                    //-DEBUG
 
                     //No palette for now. 'Parts' sprites rely on palette offset
                     var asSpriteWithPaletteOffset = p.ToSpriteWithPaletteOffset();
-                    ////+DEBUG
-                    //asSpriteWithPaletteOffset.PaletteOffset = 0;
-                    ////-DEBUG
+
+                    if (!asSpriteWithPaletteOffset.TryApplyPaletteOffset(out var correctedSprite, out var min, out var max))
+                    {
+                        Console.Error.WriteLine($"Some colors of sprite '{asSpriteWithPaletteOffset.Name}' would have forbidden values if we applied the palette offset (highest pixel value : {max}, offset : {asSpriteWithPaletteOffset.PaletteOffset}).");
+                    }
+
+                    //Update min and max for this sprite
+                    Palette.FindColorRange(correctedSprite.Pixels, out min, out max);
 
                     var namedPalettes = new List<NamedPalette>();
-                    
-                    namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
-                    {
-                        Name = subp.Name,
-                        Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
-                    }));
+
+                    //namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
+                    //{
+                    //    Name = subp.Name,
+                    //    Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
+                    //}));
 
                     namedPalettes.Add(new NamedPalette()
                     {
                         Name = "subpaletteMock",
-                        Palette = Palette.CreateMockPaletteFor(asSpriteWithPaletteOffset)
+                        Palette = Palette.CreateMockPaletteFor(correctedSprite)
                     });
 
                     //TODO : fix this 
                     for (int j = 0; j < namedPalettes.Count(); j++)
                     {
+
                         var paletteName = namedPalettes[j].Name;
                         var palette = namedPalettes[j].Palette;
 
                         var partFileName = $"{cryoData.SourceFile}.{p.Name}.{paletteName}.png";
 
+                        //Does any of the sprite's colors seem to be outside of the subpalette?
+                        if (palette[min] == PaletteColor.GREEN || palette[max] == PaletteColor.GREEN)
+                        {
+                            //Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {p.Name}. Not saving as PNG.");
+                            return;
+                        }
+
                         try
                         {
-                            try
-                            {
-                                var asSprite = asSpriteWithPaletteOffset.CombineWithPalette(palette);
-                                SavePartSpriteAsPng(asSprite, partFileName);
-                            }
-                            catch (CryoDataCannotApplyPaletteException ex)
-                            {
-                                Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {p.Name}. Not saving as PNG.");
-                            }
+                            var asSprite = asSpriteWithPaletteOffset.CombineWithPalette(palette);
+                            SavePartSpriteAsPng(asSprite, partFileName);
                         }
                         catch (Exception ex)
                         {

@@ -73,20 +73,25 @@ namespace CryoDataLib.ImageLib.BitmapExport
             return ToBitmap(sprite.Width, sprite.Height, sprite.Pixels, sprite.Palette);
         }
 
-        public static Bitmap ScaleUpNearestNeighbour(Bitmap b, int scaleFactor)
+        public static Bitmap ScaleUpNearestNeighbour(Bitmap source, int scaleFactor)
         {
-            Graphics g = Graphics.FromImage(b);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            var dest = new Bitmap(source.Width * scaleFactor, source.Height * scaleFactor);
 
-            var dest = new Bitmap(b.Width * scaleFactor, b.Height * scaleFactor);
-            Graphics g2 = Graphics.FromImage(dest);
-            g2.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            //using (Graphics gSource = Graphics.FromImage(source))
+            using (Graphics gDest = Graphics.FromImage(dest))
+            {
+                //gSource.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                gDest.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
-            g2.DrawImage(b, 0, 0, b.Width * scaleFactor, b.Height * scaleFactor);
-            //g.Set
-            //gBmp.DrawEverything(); //this is your code for drawing
-            g.Dispose();
-            g2.Dispose();
+                //So that the first row of pixels is not only half-visible
+                //https://stackoverflow.com/questions/20776605/missing-half-of-first-pixel-column-after-a-graphics-transform-scale
+                //gSource.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+                gDest.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+
+                gDest.DrawImage(source, 0, 0, source.Width * scaleFactor, source.Height * scaleFactor);
+                //gSource.Set
+                //gBmp.DrawEverything(); //this is your code for drawing
+            }
 
             return dest;
         }

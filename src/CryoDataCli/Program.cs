@@ -220,34 +220,40 @@ namespace CryoDataCli
                 {
                     //+DEBUG
                     //This should be one of the sprites representing the small animated head in Dune's UI Panel
-                    if (cryoData.SourceFile == "ICONES.HSQ" && p.Index != 26)
+                    //if (cryoData.SourceFile == "ICONES.HSQ" && p.Index != 26)
+                    //{
+                    //    return;
+                    //}
+                    if (cryoData.SourceFile == "ONMAP.HSQ" && p.Index != 122)
                     {
                         return;
                     }
-                    //if (cryoData.SourceFile == "ONMAP.HSQ" && p.Index != 122)
+                    //if (cryoData.SourceFile == "ATTACK.HSQ" && p.Index != 30)
                     //{
                     //    return;
                     //}
                     //-DEBUG
 
+                    Console.WriteLine($"Part {p.Name}...");
+
                     //No palette for now. 'Parts' sprites rely on palette offset
                     var asSpriteWithPaletteOffset = p.ToSpriteWithPaletteOffset();
 
-                    if (!asSpriteWithPaletteOffset.TryApplyPaletteOffset(out var correctedSprite, out var min, out var max))
+                    if (!asSpriteWithPaletteOffset.TryApplyPaletteOffset(out var correctedSprite, out var newMin, out var newMax))
                     {
-                        Console.Error.WriteLine($"Some colors of sprite '{asSpriteWithPaletteOffset.Name}' would have forbidden values if we applied the palette offset (highest pixel value : {max}, offset : {asSpriteWithPaletteOffset.PaletteOffset}).");
+                        Console.Error.WriteLine($"Some colors of sprite '{asSpriteWithPaletteOffset.Name}' would have forbidden values if we applied the palette offset (highest pixel value : {newMax}, offset : {asSpriteWithPaletteOffset.PaletteOffset}).");
                     }
 
                     //Update min and max for this sprite
-                    var hasColorRange = Palette.TryFindColorRange(correctedSprite.Pixels, out min, out max);
+                    var hasColorRange = newMin != newMax;
 
                     var namedPalettes = new List<NamedPalette>();
 
-                    //namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
-                    //{
-                    //    Name = subp.Name,
-                    //    Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
-                    //}));
+                    namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
+                    {
+                        Name = subp.Name,
+                        Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
+                    }));
 
                     namedPalettes.Add(new NamedPalette()
                     {
@@ -260,16 +266,21 @@ namespace CryoDataCli
                     {
 
                         var paletteName = namedPalettes[j].Name;
+
+                        Console.Write($"   Trying subpalette '{paletteName}'...");
+
                         var palette = namedPalettes[j].Palette;
 
                         var partFileName = $"{cryoData.SourceFile}.{p.Name}.{paletteName}.png";
 
                         //Does any of the sprite's colors seem to be outside of the subpalette?
-                        if (hasColorRange && (palette[min] == PaletteColor.GREEN || palette[max] == PaletteColor.GREEN))
+                        if (hasColorRange && (palette[newMin] == PaletteColor.GREEN || palette[newMax] == PaletteColor.GREEN))
                         {
-                            //Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {p.Name}. Not saving as PNG.");
-                            return;
+                            Console.WriteLine($"  No.");
+                            continue;
                         }
+
+                        Console.WriteLine($"  YES.");
 
                         try
                         {

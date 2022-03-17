@@ -214,8 +214,8 @@ namespace CryoDataLib.ImageLib
                             if (timeToReadNewByte)
                             {
                                 //warning! The 4 leftmost bits are for the pixel that will be rendered second (i.e. pixels #1 and #2 are reversed).
-                                twoPixels[1] = (byte)(lineData[currentByte] & 240); // b & 1111 0000
-                                twoPixels[0] = (byte)((lineData[currentByte] & 15) << 4);  // b & 0000 1111 << 4. the <<4 is to bring the value back in the same range as the other pixel.
+                                twoPixels[1] = (byte)((lineData[currentByte] & 240) >> 4); // b & 1111 0000
+                                twoPixels[0] = (byte)((lineData[currentByte] & 15));  // b & 0000 1111 << 4. the <<4 is to bring the value back in the same range as the other pixel.
 
                                 //In our interpreter, we store transparent as null instead of 0
                                 if (twoPixels[0] == 0) { twoPixels[0] = null; }
@@ -287,21 +287,24 @@ namespace CryoDataLib.ImageLib
                     };
                 }
 
+                if (width == 0 && height == 0)
+                {
+                    throw new CryoDataException("Unexpected : Sprite of dimensions 0x0.");
+                }
+
                 byte?[] uncompressedPixels = null;
                 //Extra processing required to interpret RLE compression
                 if (isCompressed)
                 {
                     Console.WriteLine($"Sprite is compressed. TODO.");
                     //TODO
+                    uncompressedPixels = new List<byte?>().ToArray(); //temporary
                 } else
                 {
                     uncompressedPixels = InterpretPartNotCompressed(width, height, rawPixelData);
                 }
 
-                if (!uncompressedPixels.Any())
-                {
-                    throw new CryoDataException($"No pixels found in part {partIndex} !");
-                }
+
 
                 return new ImagePart
                 {
@@ -373,16 +376,21 @@ namespace CryoDataLib.ImageLib
                         var partData = CryoImagePartData.ReadData(reader, partLengthInBytes);
 
                         //+DEBUG
-                        if (file.SourceFile == "ICONES.HSQ" && partIndex != 26)
-                        {
-                            throw new Exception("DEBUG: Skip part");
-                        }
-                        //if (file.SourceFile == "ONMAP.HSQ" && partIndex != 122)
+                        //if (file.SourceFile == "ICONES.HSQ" && partIndex != 26)
                         //{
-                        //    throw new Exception("DEBUG: Skip part");
+                        //    partIndex++;
+                        //    return;
                         //}
-
-                        
+                        if (file.SourceFile == "ONMAP.HSQ" && partIndex != 122)
+                        {
+                            partIndex++;
+                            return;
+                        }
+                        //if (file.SourceFile == "ATTACK.HSQ" && partIndex != 30)
+                        //{
+                        //    partIndex++;
+                        //    return;
+                        //}
                         //-DEBUG
 
                         var part = InterpretPart(partData, partIndex);

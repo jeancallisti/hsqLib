@@ -186,8 +186,6 @@ namespace CryoDataLib.ImageLib
         {
             try
             {
-
-
                 var allPixels = new List<byte?>();
 
                 if (!rawPixelData.Any())
@@ -298,6 +296,11 @@ namespace CryoDataLib.ImageLib
                 } else
                 {
                     uncompressedPixels = InterpretPartNotCompressed(width, height, rawPixelData);
+                }
+
+                if (!uncompressedPixels.Any())
+                {
+                    throw new CryoDataException($"No pixels found in part {partIndex} !");
                 }
 
                 return new ImagePart

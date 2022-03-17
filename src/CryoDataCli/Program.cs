@@ -239,7 +239,7 @@ namespace CryoDataCli
                     }
 
                     //Update min and max for this sprite
-                    Palette.FindColorRange(correctedSprite.Pixels, out min, out max);
+                    var hasColorRange = Palette.TryFindColorRange(correctedSprite.Pixels, out min, out max);
 
                     var namedPalettes = new List<NamedPalette>();
 
@@ -265,7 +265,7 @@ namespace CryoDataCli
                         var partFileName = $"{cryoData.SourceFile}.{p.Name}.{paletteName}.png";
 
                         //Does any of the sprite's colors seem to be outside of the subpalette?
-                        if (palette[min] == PaletteColor.GREEN || palette[max] == PaletteColor.GREEN)
+                        if (hasColorRange && (palette[min] == PaletteColor.GREEN || palette[max] == PaletteColor.GREEN))
                         {
                             //Console.WriteLine($"Subpalette '{paletteName}' does not seem to be a good candidate for part {p.Name}. Not saving as PNG.");
                             return;

@@ -27,23 +27,33 @@ namespace CryoDataLib.ImageLib
 
         public int PaletteOffset { get; set; /* TODO revert to 'init' */ }
 
+        public SpriteWithPaletteOffset Clone()
+        {
+            return new SpriteWithPaletteOffset
+            {
+                Name = Name,
+                Width = Width,
+                Height = Height,
+                Pixels = Pixels.Select(b => b).ToArray(), //Terrible cloning of array
+                PaletteOffset = PaletteOffset,
+            };
+        }
+
         //Try to apply the palette offset to all colors, or revert to an offset of zero if for some reason that causes 
         //some colors to become out of bounds ( >= 256 )
         public bool TryApplyPaletteOffset(out SpriteWithPaletteOffset correctedSprite, out byte min, out byte max)
         {
-            Palette.FindColorRange(Pixels, out min, out max);
+            if (!Palette.TryFindColorRange(Pixels, out min, out max))
+            {
+                //Return unmodified copy
+                correctedSprite = Clone();
+                return false;
+            }
 
             if (max + PaletteOffset > 255)
             {
                 //Return unmodified copy
-                correctedSprite = new SpriteWithPaletteOffset
-                {
-                    Name = Name,
-                    Width = Width,
-                    Height = Height,
-                    Pixels = Pixels.Select(b => b).ToArray(), //Terrible cloning of array
-                    PaletteOffset = PaletteOffset,
-                };
+                correctedSprite = Clone();
                 return false;
             }
 

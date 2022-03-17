@@ -76,20 +76,24 @@ namespace CryoDataLib.ImageLib
         }
 
         //Find the color with the lowest palette index value and the one with the highest value within a set of pixels.
-        public static void FindColorRange(byte?[] pixels, out byte min, out byte max)
+        //Note : If 'pixels' is empty (empty sprites) then we return [0,0]
+        public static bool TryFindColorRange(byte?[] pixels, out byte min, out byte max)
         {
             //Null means transparent
             var actualColorsOrdered = pixels.Where(p => p != null).OrderBy(b => b).ToArray();
 
+            //Maybe all pixels were transparent. There's no color range!
             if (!actualColorsOrdered.Any())
             {
-                throw new CryoDataException($"Could not compute color range. No pixels!");
+                min = 0; max = 0;
+                return false;
             }
 
             //If this sprite is meant to be used with a subpalette that has, let's say,
             //20 colors, then it will have colors ranging from 0 to 20.
             min = (byte)actualColorsOrdered.First();
             max = (byte)actualColorsOrdered.Last();
+            return true;
         }
 
         //A gradient that goes from dark to bright in 'colorCount' steps.
@@ -132,7 +136,10 @@ namespace CryoDataLib.ImageLib
         {
             var palette = MakeEmptyPalette(PaletteColor.GREEN);
 
-            FindColorRange(sprite.Pixels, out var min, out var max);
+            if (!TryFindColorRange(sprite.Pixels, out var min, out var max))
+            {
+                return palette;
+            }
 
             var spriteColorCount = max+1 - min;
 

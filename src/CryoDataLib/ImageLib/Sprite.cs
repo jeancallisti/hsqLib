@@ -73,13 +73,13 @@ namespace CryoDataLib.ImageLib
             return true;
         }
 
-        public Sprite CombineWithPalette(Dictionary<int, PaletteColor> palette)
+        public Sprite CombineWithPalette(Palette palette)
         {
             TryApplyPaletteOffset(out var correctedSprite, out var min, out var max);
 
             return new Sprite()
             {
-                Name = Name,
+                Name = $"{Name}.{palette.Name}",
                 Width = Width,
                 Height = Height,
                 Palette = palette,

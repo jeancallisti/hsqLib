@@ -1,9 +1,10 @@
 ﻿
+using CryoDataLib.ImageLib;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace CryoDataLib.ImageLib.BitmapExport
+namespace CryoImageRenderCli.BitmapExport
 {
     public class BitmapBuilder
     {
@@ -36,7 +37,7 @@ namespace CryoDataLib.ImageLib.BitmapExport
 
             if (palette == null)
             {
-                throw new CryoDataException($"I can only render to bitmap if there's a palette.");
+                throw new CryoRenderException($"I can only render to bitmap if there's a palette.");
             }
 
             if (palette.Keys.ToArray().Length != 256)
@@ -67,7 +68,7 @@ namespace CryoDataLib.ImageLib.BitmapExport
         {
             if (sprite.Palette == null)
             {
-                throw new CryoDataException($"I can only render to bitmap a sprite that was given a palette.");
+                throw new CryoRenderException($"I can only render to bitmap a sprite that was given a palette.");
             }
 
             return ToBitmap(sprite.Width, sprite.Height, sprite.Pixels, sprite.Palette);

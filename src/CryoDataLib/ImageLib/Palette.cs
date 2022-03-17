@@ -7,9 +7,15 @@ namespace CryoDataLib.ImageLib
 {
     public class Palette : Dictionary<int, PaletteColor>
     {
-        public Palette() : base() { }
+        public string Name { get; private set; }
 
-        public Palette(IEnumerable<KeyValuePair<int, PaletteColor>> keyValues) : base(keyValues) { }
+        public Palette(string name) : base() {
+            Name = name;
+        }
+
+        public Palette(string name, IEnumerable<KeyValuePair<int, PaletteColor>> keyValues) : base(keyValues) { 
+            Name = name;
+        }
 
         /// <summary>
         /// Takes a subpalette (on N colors) and builds a 256-color palette from it. 
@@ -18,7 +24,7 @@ namespace CryoDataLib.ImageLib
         /// </summary>
         public static Palette BuildFromSubpalette(SubPalette subPalette, PaletteColor defaultColor)
         {
-            var palette = new Palette();
+            var palette = new Palette(subPalette.Name);
 
             for (int i = 0; i < 256; i++)
             {
@@ -70,9 +76,9 @@ namespace CryoDataLib.ImageLib
             return spr;
         }
 
-        public static Palette MakeEmptyPalette(PaletteColor emptyColor)
+        public static Palette MakeEmptyPalette(string name, PaletteColor emptyColor)
         {
-            return new Palette(Enumerable.Range(0, 256).Select(i => new KeyValuePair<int, PaletteColor>(key: i, value: emptyColor)));
+            return new Palette(name, Enumerable.Range(0, 256).Select(i => new KeyValuePair<int, PaletteColor>(key: i, value: emptyColor)));
         }
 
         //Find the color with the lowest palette index value and the one with the highest value within a set of pixels.
@@ -132,9 +138,9 @@ namespace CryoDataLib.ImageLib
         /// but we don't know what palette to apply. We create a grayscale palette that has roughly the same range 
         /// and palette offset as this sprite.
         /// </summary>
-        public static Palette CreateMockPaletteFor(SpriteWithPaletteOffset sprite)
+        public static Palette CreateMockPaletteFor(string name, SpriteWithPaletteOffset sprite)
         {
-            var palette = MakeEmptyPalette(PaletteColor.GREEN);
+            var palette = MakeEmptyPalette(name, PaletteColor.GREEN);
 
             if (!TryFindColorRange(sprite.Pixels, out var min, out var max))
             {
@@ -174,6 +180,7 @@ namespace CryoDataLib.ImageLib
     public class PaletteColor
     {
         public static PaletteColor GREEN { get; } = new PaletteColor() { R = 0, G = 255, B = 0 };
+        public static PaletteColor PINK { get; } = new PaletteColor() { R = 255, G = 0, B = 255 };
 
         public int Index { get; set; }
         public byte R { get; init; }

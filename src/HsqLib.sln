@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryoDataCli", "CryoDataCli\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineUtil", "CommandLineUtil\CommandLineUtil.csproj", "{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryoImageRenderCli", "CryoImageRenderCli\CryoImageRenderCli.csproj", "{D1D9109F-F701-41BC-AADE-019AF75BD857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF0DCBBE-F381-4ECF-A750-4C9F6B804900}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D9109F-F701-41BC-AADE-019AF75BD857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D9109F-F701-41BC-AADE-019AF75BD857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D9109F-F701-41BC-AADE-019AF75BD857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D9109F-F701-41BC-AADE-019AF75BD857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

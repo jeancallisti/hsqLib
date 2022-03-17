@@ -1,12 +1,10 @@
 ﻿using CryoDataLib;
 using CryoDataLib.ImageLib;
-using CryoDataLib.ImageLib.BitmapExport;
 using CryoDataLib.TextLib;
 using HsqLib2;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -168,140 +166,6 @@ namespace CryoDataCli
             File.WriteAllText(fileName, jsonHsqFile);
         }
 
-        private void SavePaletteFileAsPng(SubPalette palette, string fileName)
-        {
-            int scaleUpFactor = 20;
-
-            var asSprite = Palette.ToSprite(palette);
-            var asBitmap = BitmapBuilder.ToBitmap(asSprite);
-
-            var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, scaleUpFactor);
-
-            Console.WriteLine($"Saving palette file {fileName}...");
-            scaledUpBitmap.Save(fileName, ImageFormat.Png);
-        }
-
-        private void SavePartSpriteAsPng(Sprite sprite, string fileName)
-        {
-            int scaleUpFactor = 20;
-
-            var asBitmap = BitmapBuilder.ToBitmap(sprite);
-
-            var scaledUpBitmap = BitmapBuilder.ScaleUpNearestNeighbour(asBitmap, scaleUpFactor);
-
-            Console.WriteLine($"Saving part file {fileName}...");
-            scaledUpBitmap.Save(fileName, ImageFormat.Png);
-        }
-
-        private void SaveImageDataToDisk(CryoImageData cryoData)
-        {
-            string jsonFileName = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
-            SaveJsonFile(cryoData, jsonFileName);
-
-            if (true) // TODO : make it optional?
-            {
-                var subPalettes = cryoData.SubPalettes.ToArray();
-                for (int i = 0; i < subPalettes.Length; i++)
-                {
-                    var paletteFileName = $"{cryoData.SourceFile}.palette{i}.png";
-                    SavePaletteFileAsPng(subPalettes[i], paletteFileName);
-                }
-            }
-
-            if (true) // TODO : make it optional?
-            {
-                var imageParts = cryoData.ImageParts.Select(p => p.ImagePart);
-
-                var uncompressedParts = imageParts
-                                .Where(p => !p.IsCompressed) //TODO : for now, only non-compressed parts
-                                .ToList();
-
-                uncompressedParts.ForEach(p =>
-                {
-                    //+DEBUG
-                    //This should be one of the sprites representing the small animated head in Dune's UI Panel
-                    //if (cryoData.SourceFile == "ICONES.HSQ" && p.Index != 26)
-                    //{
-                    //    return;
-                    //}
-                    if (cryoData.SourceFile == "ONMAP.HSQ" && p.Index != 122)
-                    {
-                        return;
-                    }
-                    //if (cryoData.SourceFile == "ATTACK.HSQ" && p.Index != 30)
-                    //{
-                    //    return;
-                    //}
-                    //-DEBUG
-
-                    Console.WriteLine($"Part {p.Name}...");
-
-                    //No palette for now. 'Parts' sprites rely on palette offset
-                    var asSpriteWithPaletteOffset = p.ToSpriteWithPaletteOffset();
-
-                    if (!asSpriteWithPaletteOffset.TryApplyPaletteOffset(out var correctedSprite, out var newMin, out var newMax))
-                    {
-                        Console.Error.WriteLine($"Some colors of sprite '{asSpriteWithPaletteOffset.Name}' would have forbidden values if we applied the palette offset (highest pixel value : {newMax}, offset : {asSpriteWithPaletteOffset.PaletteOffset}).");
-                    }
-
-                    //Update min and max for this sprite
-                    var hasColorRange = newMin != newMax;
-
-                    var namedPalettes = new List<NamedPalette>();
-
-                    namedPalettes.AddRange(cryoData.SubPalettes.Select(subp => new NamedPalette()
-                    {
-                        Name = subp.Name,
-                        Palette = Palette.BuildFromSubpalette(subp, PaletteColor.GREEN)
-                    }));
-
-                    namedPalettes.Add(new NamedPalette()
-                    {
-                        Name = "subpaletteMock",
-                        Palette = Palette.CreateMockPaletteFor(correctedSprite)
-                    });
-
-                    //TODO : fix this 
-                    for (int j = 0; j < namedPalettes.Count(); j++)
-                    {
-
-                        var paletteName = namedPalettes[j].Name;
-
-                        Console.Write($"   Trying subpalette '{paletteName}'...");
-
-                        var palette = namedPalettes[j].Palette;
-
-                        var partFileName = $"{cryoData.SourceFile}.{p.Name}.{paletteName}.png";
-
-                        //Does any of the sprite's colors seem to be outside of the subpalette?
-                        if (hasColorRange && (palette[newMin] == PaletteColor.GREEN || palette[newMax] == PaletteColor.GREEN))
-                        {
-                            Console.WriteLine($"  No.");
-                            continue;
-                        }
-
-                        Console.WriteLine($"  YES.");
-
-                        try
-                        {
-                            var asSprite = asSpriteWithPaletteOffset.CombineWithPalette(palette);
-                            SavePartSpriteAsPng(asSprite, partFileName);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.Error.WriteLine($"Could not export part {p.Name}, subpalette {j} as PNG.");
-                        }
-                    }
-                });
-            }
-
-            if (cryoData.UnknownParts.Count() > 0)
-            {
-                Console.WriteLine($"There were {cryoData.UnknownParts.Count()} unknown parts.");
-            }
-        }
-
-
         private void DoImage(string[] args)
         {
             if (!ParseImageParams(args, out var filename))
@@ -328,10 +192,9 @@ namespace CryoDataCli
                 {
                     var cryoData = (CryoImageData)await imageInterpreter.InterpretData(hsqFile);
 
-                    SaveImageDataToDisk(cryoData);
-
+                    string jsonFileName = $"{cryoData.SourceFile}.{cryoData.DataType}.json";
+                    SaveJsonFile(cryoData, jsonFileName);
                     return;
-
                 });
                 task.Wait();
             }

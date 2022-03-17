@@ -430,6 +430,11 @@ namespace CryoDataLib.ImageLib
                     UnknownParts = unknownParts,
                 };
 
+                if (output.UnknownParts.Count() > 0)
+                {
+                    Console.WriteLine($"There were {output.UnknownParts.Count()} unknown parts.");
+                }
+
                 return output;
             }
         }

@@ -25,7 +25,7 @@ namespace CryoImageRenderCli.BitmapExport
                             ));
         }
 
-        public static Bitmap ToBitmap(int width, int height, byte?[] data, Dictionary<int, PaletteColor> palette)
+        public static Bitmap ToBitmap(int width, int height, byte[] data, Dictionary<int, PaletteColor> palette)
         {
             // alpha == 0 means transparent, alpha == 255 means opaque
             int alpha = 255;
@@ -52,12 +52,12 @@ namespace CryoImageRenderCli.BitmapExport
             {
                 for (int i = 0; i < width; i++)
                 {
-                    byte? colorIndex = data[j * width + i];
+                    byte colorIndex = data[j * width + i];
 
-                    //Null means transparent
-                    if (colorIndex.HasValue)
+                    //0 means transparent
+                    if (colorIndex != 0)
                     {
-                        bmp.SetPixel(i, j, bitmapPalette[colorIndex.Value]);
+                        bmp.SetPixel(i, j, bitmapPalette[colorIndex]);
                     }
                 }
             }

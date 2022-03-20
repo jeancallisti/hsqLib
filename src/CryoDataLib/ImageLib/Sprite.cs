@@ -10,7 +10,7 @@ namespace CryoDataLib.ImageLib
         public int Height { get; init; }
 
         //Null means transparent
-        public byte?[] Pixels { get; set; } //public set is not very clean. Ideally we'd like init+private set
+        public byte[] Pixels { get; set; } //public set is not very clean. Ideally we'd like init+private set
 
         public Dictionary<int, PaletteColor> Palette { get; set; } //public set is not very clean. Ideally we'd like init+private set
 
@@ -23,7 +23,7 @@ namespace CryoDataLib.ImageLib
         public string Name { get; init; }
         public int Width { get; init; }
         public int Height { get; init; }
-        public byte?[] Pixels { get; init; } //Null means transparant
+        public byte[] Pixels { get; init; } //Null means transparant
 
         public int PaletteOffset { get; set; /* TODO revert to 'init' */ }
 
@@ -60,7 +60,8 @@ namespace CryoDataLib.ImageLib
             min = (byte)(min + PaletteOffset);
             max = (byte)(max + PaletteOffset);
 
-            byte?[] colorCorrectedPixels = Pixels.Select(p => (byte?)(p != null ? (byte)(p + PaletteOffset) : null)).ToArray();
+            //We leave zero as it is because it has a special meaning (transparent)
+            byte[] colorCorrectedPixels = Pixels.Select(p => (byte)(p != 0 ? (byte)(p + PaletteOffset) : 0)).ToArray();
 
             correctedSprite = new SpriteWithPaletteOffset
             {

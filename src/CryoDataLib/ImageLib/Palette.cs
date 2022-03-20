@@ -46,7 +46,7 @@ namespace CryoDataLib.ImageLib
             int colorsPerRow = 8;
             int rowsCount = 32;
 
-            var data = new byte?[colorsPerRow * rowsCount];
+            var data = new byte[colorsPerRow * rowsCount];
 
             for (int j=0; j< rowsCount; j++)
             {
@@ -83,10 +83,10 @@ namespace CryoDataLib.ImageLib
 
         //Find the color with the lowest palette index value and the one with the highest value within a set of pixels.
         //Note : If 'pixels' is empty (empty sprites) then we return [0,0]
-        public static bool TryFindColorRange(byte?[] pixels, out byte min, out byte max)
+        public static bool TryFindColorRange(byte[] pixels, out byte min, out byte max)
         {
             //Null means transparent
-            var actualColorsOrdered = pixels.Where(p => p != null).OrderBy(b => b).ToArray();
+            var actualColorsOrdered = pixels.Where(p => p != 0).OrderBy(b => b).ToArray();
 
             //Maybe all pixels were transparent. There's no color range!
             if (!actualColorsOrdered.Any())

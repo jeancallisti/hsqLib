@@ -76,7 +76,7 @@ namespace CryoDataLib.ImageLib
         public int Width { get; init; }
         public int Height { get; init; }
         public int PaletteOffset { get; init; }
-        public byte?[] UncompressedPixels { get; init; } //An actual pixels array of size width*length. Null means transparent
+        public byte[] UncompressedPixels { get; init; } //An actual pixels array of size width*length. Null means transparent
 
         public SpriteWithPaletteOffset ToSpriteWithPaletteOffset()
         {
@@ -182,11 +182,24 @@ namespace CryoDataLib.ImageLib
             return result;
         }
 
-        private byte?[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
+        private byte[] ByteToTwoPixels(byte b)
+        {
+            var twoPixels = new byte[2];
+
+            //warning! The 4 leftmost bits are for the pixel that will be rendered second (i.e. pixels #1 and #2 are reversed).
+            twoPixels[1] = (byte)((b & 240) >> 4); // b & 1111 0000
+            twoPixels[0] = (byte)((b & 15));  // b & 0000 1111 << 4. the <<4 is to bring the value back in the same range as the other pixel.
+
+            //Reminder : 0 means transparent
+
+            return twoPixels;
+        }
+
+        private byte[] InterpretPartNotCompressed(int width, int height, byte[] rawPixelData)
         {
             try
             {
-                var allPixels = new List<byte?>();
+                var allPixels = new List<byte>();
 
                 if (!rawPixelData.Any())
                 {
@@ -204,7 +217,7 @@ namespace CryoDataLib.ImageLib
                         var lineData = reader.ReadBytes(bytesPerLine);
                         var currentByte = 0;
 
-                        var twoPixels = new byte?[2];
+                        byte[] twoPixels = new byte[2];
 
                         for (int i = 0; i < width; i++)
                         {
@@ -213,14 +226,7 @@ namespace CryoDataLib.ImageLib
 
                             if (timeToReadNewByte)
                             {
-                                //warning! The 4 leftmost bits are for the pixel that will be rendered second (i.e. pixels #1 and #2 are reversed).
-                                twoPixels[1] = (byte)((lineData[currentByte] & 240) >> 4); // b & 1111 0000
-                                twoPixels[0] = (byte)((lineData[currentByte] & 15));  // b & 0000 1111 << 4. the <<4 is to bring the value back in the same range as the other pixel.
-
-                                //In our interpreter, we store transparent as null instead of 0
-                                if (twoPixels[0] == 0) { twoPixels[0] = null; }
-                                if (twoPixels[1] == 0) { twoPixels[1] = null; }
-
+                                twoPixels = ByteToTwoPixels(lineData[currentByte]);
                                 currentByte++;
                             }
 
@@ -242,7 +248,7 @@ namespace CryoDataLib.ImageLib
                 //Safety. Not needed if program works as expected
                 if (allPixels.Count() != width * height)
                 {
-                    throw new CryoDataException("Image not properly decoded. Dimension don't match");
+                    throw new CryoDataException("Image not properly decoded. Dimensions don't match");
                 }
 
                 return allPixels.ToArray();
@@ -250,6 +256,79 @@ namespace CryoDataLib.ImageLib
             catch (Exception ex)
             {
                 Console.Error.WriteLine($"Error while trying to read uncompressed sprite.");
+                throw;
+            }
+        }
+
+        private bool ReadRLEIndicator(BinaryReader reader, out int sequenceLength)
+        {
+            var signedByte = reader.ReadSByte(); //Watch out! Here, unlike other places, we want SIGNED values from -128 to +127 (i.e. not 0 to 255).
+
+            //DEBUG
+            reader.BaseStream.Position--;
+            var asUint = reader.ReadByte();
+            //-DEBUG
+
+            if (signedByte >= 0)
+            {
+                sequenceLength = signedByte +1; // +1 is by design
+                return false; //Not RLE - just copy
+            }
+
+            // <0
+            sequenceLength = -signedByte +1;  // +1 is by design
+            return true; // RLE - repeat
+        }
+
+        private byte[] InterpretRLECompressed(int width, int height, byte[] rawPixelData)
+        {
+            try
+            {
+                var allPixels = new List<byte>();
+
+                if (!rawPixelData.Any())
+                {
+                    throw new CryoDataException("Unexpected : no pixel data for RLE-compressed sprite.");
+                }
+
+                //var bytesPerLine = CalculateBytesPerLine(width);
+
+                using (var stream = new MemoryStream(rawPixelData))
+                using (var reader = new BinaryReader(stream))
+                {
+                    while (allPixels.Count < width*height)
+                    {
+                        var isRLEsequence = ReadRLEIndicator(reader, out var sequenceLength);
+
+                        //RLE-compressed : repeat the same two pixels N times
+                        if (isRLEsequence)
+                        {
+                            var byteToRepeat = reader.ReadByte();
+                            var pixelsToRepeat = ByteToTwoPixels(byteToRepeat);
+                            var repeatedPixels = Enumerable.Range(0, sequenceLength).SelectMany(i => pixelsToRepeat);
+                            allPixels.AddRange(repeatedPixels);
+                        }
+                        //Not compressed : Copy next N pixels as-is
+                        else
+                        {
+                            var sequenceBytes = reader.ReadBytes(sequenceLength);
+                            var sequencePixels = sequenceBytes.SelectMany(b => ByteToTwoPixels(b)).ToArray();
+                            allPixels.AddRange(sequencePixels);
+                        }
+                    }
+                }
+
+                //Safety. Not needed if program works as expected
+                if (allPixels.Count() != width * height)
+                {
+                    throw new CryoDataException("RLE-compressed sprite not properly decoded. Dimensions don't match");
+                }
+
+                return allPixels.ToArray();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error while trying to read RLE-compressed sprite.");
                 throw;
             }
         }
@@ -292,13 +371,23 @@ namespace CryoDataLib.ImageLib
                     throw new CryoDataException("Unexpected : Sprite of dimensions 0x0.");
                 }
 
-                byte?[] uncompressedPixels = null;
+                byte[] uncompressedPixels = null;
                 //Extra processing required to interpret RLE compression
                 if (isCompressed)
                 {
-                    Console.WriteLine($"Sprite is compressed. TODO.");
-                    //TODO
-                    uncompressedPixels = new List<byte?>().ToArray(); //temporary
+                    Console.WriteLine($"RLE-Compressed.");
+
+                    if (true)
+                    {
+                        uncompressedPixels = InterpretRLECompressed(width, height, rawPixelData);
+                    }
+                    else
+                    {
+                        //+DEBUG
+                        var alternative = new CryoImageAlternativeImplementation();
+                        uncompressedPixels = alternative.interpretRLE(rawPixelData, width, height);
+                    }
+                    //-DEBUG
                 } else
                 {
                     uncompressedPixels = InterpretPartNotCompressed(width, height, rawPixelData);
@@ -416,7 +505,8 @@ namespace CryoDataLib.ImageLib
                     catch (Exception ex)
                     {
                         Console.Error.WriteLine($"Could not process part {partIndex} of {offsetsArrayAbsoluteAddresses.Count()}.");
-                        Console.Error.WriteLine($"Details : {ex.StackTrace}");
+                        Console.Error.WriteLine($"Details : {ex.Message}");
+                        Console.Error.WriteLine($"{ex.StackTrace}");
                     }
                     partIndex++;
                 });

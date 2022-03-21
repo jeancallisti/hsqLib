@@ -1,8 +1,7 @@
 
 A code base in **C#** for unpacking the "HSQ" file format used by Cryo in games like Dune, KGB, Lost Eden ,etc.
 Unlike other code bases for Cryo games data, this one chooses **brute force** over elegant code.
-It's meant to be extremly maintainable, understandable and tweakable. No pointer arhithmetics, only Readers and Linq arrays filtering.
-
+It's meant to be extremly maintainable, understandable and tweakable. No pointer arithmetics, only Readers and Linq arrays filtering.
 
 # hsqLib2 and UnpackCli2
 
@@ -12,7 +11,10 @@ It's meant to be extremly maintainable, understandable and tweakable. No pointer
 
 # CryoDataLib and CryoDataCli
 
-- CryoDataLib : A library to interpret the content of an unpacked HSQ file (obtained with UnpackCli2). Either text (files "PHRASEX.HSQ") or images (e.g. FRM3.HSQ, ICONEs.HSQ...)
+- CryoDataLib : A library to interpret the content of an unpacked HSQ file (obtained with UnpackCli2). That includes : 
+   - Text data files (files "PHRASEX.HSQ"),
+   - Images data files (e.g. FRM3.HSQ, ICONES.HSQ, etc.)
+   We ignore scene files or animations (not the goal of this project)
 - CryoDataCli : A console app using CryoDataLib to be able to export files using the command line. The files are exported as **json**
 
 # CryoImageRenderCli

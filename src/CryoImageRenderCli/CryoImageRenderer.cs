@@ -1,5 +1,6 @@
 ﻿
 using CryoDataLib.ImageLib;
+using CryoDataLib.ImageLib.Part;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +42,7 @@ namespace CryoImageRenderCli
             return sprWithPaletteOffset.CombineWithPalette(palette);
         }
 
-        private void SaveImagePartToDisk(PaletteModes paletteMode, ImagePart p, string folder, IEnumerable<SubPalette> availableSubpalettes)
+        private void SaveImagePartToDisk(PaletteModes paletteMode, ImagePart p, IEnumerable<SubPalette> availableSubpalettes)
         {
             Console.WriteLine($"Part {p.Name}...");
 
@@ -51,21 +52,6 @@ namespace CryoImageRenderCli
                 return;
             }
 
-            //+DEBUG
-            //This should be one of the sprites representing the small animated head in Dune's UI Panel
-            //if (cryoData.SourceFile == "ICONES.HSQ" && p.Index != 26)
-            //{
-            //    return;
-            //}
-            if (CryoImage.SourceFile == "ONMAP.HSQ" && p.Index != 122)
-            {
-                return;
-            }
-            //if (cryoData.SourceFile == "ATTACK.HSQ" && p.Index != 30)
-            //{
-            //    return;
-            //}
-            //-DEBUG
 
             try
             {
@@ -147,7 +133,7 @@ namespace CryoImageRenderCli
         {
             this.CryoImage.ImageParts.ToList().ForEach(p =>
             {
-                SaveImagePartToDisk(paletteMode, p.ImagePart, this.DestFolder, availableSubpalettes);
+                SaveImagePartToDisk(paletteMode, p.ImagePart, availableSubpalettes);
             });
         }
     }

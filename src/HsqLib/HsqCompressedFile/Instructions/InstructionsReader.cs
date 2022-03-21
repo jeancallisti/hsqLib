@@ -41,10 +41,6 @@ namespace HsqLib.HsqCompressedFile.Instructions
 
             var result = (_raw_instructions & (int)(Math.Pow(2, _instruction_step))) > 0;
             _instruction_step++;
-
-            //+DEBUG
-            Console.WriteLine($"Bit: {result}");
-            //-DEBUG
             return result;
         }
     }

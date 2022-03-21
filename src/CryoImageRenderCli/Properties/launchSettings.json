@@ -2,7 +2,7 @@
   "profiles": {
     "CryoImageRenderCli": {
       "commandName": "Project",
-      "commandLineArgs": "-source ./Data/ICONES.HSQ.image.json -dest ./Output -palette guessInternalOnly"
+      "commandLineArgs": "-source ./Data/SAMPLE0.HSQ.image.json -dest ./Output -palette guessInternalOnly"
     }
   }
 }

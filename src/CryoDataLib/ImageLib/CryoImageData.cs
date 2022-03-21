@@ -1,4 +1,5 @@
 ﻿
+using CryoDataLib.ImageLib.Part;
 using System.Collections.Generic;
 
 namespace CryoDataLib.ImageLib

@@ -95,7 +95,7 @@ namespace CommandLineUtil
             }
 
             //+DEBUG
-            result.Keys.ToList().ForEach(s => Console.WriteLine($"{s} : {result[s]}"));
+            //result.Keys.ToList().ForEach(s => Console.WriteLine($"{s} : {result[s]}"));
             //-DEBUG
 
             switches = result;

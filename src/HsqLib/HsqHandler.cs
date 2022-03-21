@@ -18,10 +18,6 @@ namespace HsqLib
             {
                 var step = instructions.GetNextStep();
 
-                //+DEBUG
-                Console.WriteLine($"Step: {step.GetType().ToString()}");
-                //-DEBUG
-
                 if (step is CopyByte)
                 {
                     destination_file.Add(source_file.GetNextByte());

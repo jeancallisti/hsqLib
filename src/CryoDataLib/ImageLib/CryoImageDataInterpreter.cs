@@ -1,4 +1,5 @@
-﻿using HsqLib2;
+﻿using CryoDataLib.ImageLib.Part;
+using HsqLib2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -62,59 +63,6 @@ namespace CryoDataLib.ImageLib
         }
     }
 
-    public abstract class AbstractPart
-    {
-        public string Name { get; init; }
-        public int Index { get; init; }
-
-        public byte[] RawData { get; init; }
-    }
-
-    public class ImagePart : AbstractPart
-    {
-        public bool IsCompressed { get; init; }
-        public int Width { get; init; }
-        public int Height { get; init; }
-        public int PaletteOffset { get; init; }
-        public byte[] UncompressedPixels { get; init; } //An actual pixels array of size width*length. Null means transparent
-
-        public SpriteWithPaletteOffset ToSpriteWithPaletteOffset()
-        {
-            return new SpriteWithPaletteOffset()
-            {
-                Name = Name,
-                Pixels = UncompressedPixels,
-                Width = Width,
-                Height = Height,
-                PaletteOffset = PaletteOffset
-            };
-        }
-    }
-
-    public class UnknownPart: AbstractPart
-    {
-    }
-
-    //Only for export
-    public abstract class JSonAbstractPart
-    {
-        public long AbsoluteStartAddress { get; init; }
-        public long AbsoluteEndAddress { get; init; }
-    }
-
-
-    //Only for export
-    public class JSonImagePart : JSonAbstractPart
-    {
-        public ImagePart ImagePart { get; init; }
-    }
-
-    //Only for export
-    public class JSonUnknownPart : JSonAbstractPart
-    {
-        public UnknownPart UnknownPart { get; init; }
-
-    }
 
 
     public class CryoImageDataInterpreter : ICryoDataInterpreter
@@ -264,11 +212,6 @@ namespace CryoDataLib.ImageLib
         {
             var signedByte = reader.ReadSByte(); //Watch out! Here, unlike other places, we want SIGNED values from -128 to +127 (i.e. not 0 to 255).
 
-            //DEBUG
-            reader.BaseStream.Position--;
-            var asUint = reader.ReadByte();
-            //-DEBUG
-
             if (signedByte >= 0)
             {
                 sequenceLength = signedByte +1; // +1 is by design
@@ -280,53 +223,78 @@ namespace CryoDataLib.ImageLib
             return true; // RLE - repeat
         }
 
+        /// <summary>
+        /// Implementation by ... ???? (there were so many different repos and implementations that I couldn't find where I took this from!)
+        /// If you recognize your implementation then please drop me a message.
+        /// </summary>
         private byte[] InterpretRLECompressed(int width, int height, byte[] rawPixelData)
         {
             try
             {
-                var allPixels = new List<byte>();
+                var result = new byte[width * height];
+                var inputPos = 0;
 
-                if (!rawPixelData.Any())
+                for (int y = 0; y != height; ++y)
                 {
-                    throw new CryoDataException("Unexpected : no pixel data for RLE-compressed sprite.");
-                }
+                    int dst = 0;
+                    int line_remain = 4 * ((width + 3) / 4);
 
-                //var bytesPerLine = CalculateBytesPerLine(width);
-
-                using (var stream = new MemoryStream(rawPixelData))
-                using (var reader = new BinaryReader(stream))
-                {
-                    while (allPixels.Count < width*height)
+                    do
                     {
-                        var isRLEsequence = ReadRLEIndicator(reader, out var sequenceLength);
+                        byte cmd = rawPixelData[inputPos++];
 
-                        //RLE-compressed : repeat the same two pixels N times
-                        if (isRLEsequence)
-                        {
-                            var byteToRepeat = reader.ReadByte();
-                            var pixelsToRepeat = ByteToTwoPixels(byteToRepeat);
-                            var repeatedPixels = Enumerable.Range(0, sequenceLength).SelectMany(i => pixelsToRepeat);
-                            allPixels.AddRange(repeatedPixels);
+                        if ((cmd & 0x80) != 0)
+                        { // 1000 0000 <=> < 0
+                            int count = 257 - cmd;
+                            byte value = rawPixelData[inputPos++];
+
+                            byte p1 = (byte)(value & 0x0f);
+                            byte p2 = (byte)(value >> 4);
+
+                            for (int i = 0; i != count; ++i)
+                            {
+                                if (p1 != 0)
+                                {
+                                    result[y * width + dst] = p1;
+                                }
+                                dst++;
+                                if (p2 != 0)
+                                {
+                                    result[y * width + dst] = p2;
+                                }
+                                dst++;
+                            }
+                            line_remain -= 2 * count;
                         }
-                        //Not compressed : Copy next N pixels as-is
                         else
-                        {
-                            var sequenceBytes = reader.ReadBytes(sequenceLength);
-                            var sequencePixels = sequenceBytes.SelectMany(b => ByteToTwoPixels(b)).ToArray();
-                            allPixels.AddRange(sequencePixels);
+                        { // >= 0
+                            int count = cmd + 1;
+                            for (int i = 0; i != count; ++i)
+                            {
+                                byte value = rawPixelData[inputPos++];
+
+                                byte p1 = (byte)(value & 0x0f);
+                                byte p2 = (byte)(value >> 4);
+
+                                if (p1 != 0)
+                                {
+                                    result[y * width + dst] = p1;
+                                }
+                                dst++;
+                                if (p2 != 0)
+                                {
+                                    result[y * width + dst] = p2;
+                                }
+                                dst++;
+                            }
+                            line_remain -= 2 * count;
                         }
-                    }
+                    } while (line_remain > 0);
                 }
 
-                //Safety. Not needed if program works as expected
-                if (allPixels.Count() != width * height)
-                {
-                    throw new CryoDataException("RLE-compressed sprite not properly decoded. Dimensions don't match");
-                }
-
-                return allPixels.ToArray();
+                return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.Error.WriteLine($"Error while trying to read RLE-compressed sprite.");
                 throw;
@@ -363,6 +331,7 @@ namespace CryoDataLib.ImageLib
                         Index = partIndex,
                         Name = $"part{partIndex}",
                         RawData = rawPixelData,
+                        RawDataHexString = string.Join(" ", rawPixelData.Select(b => HexHelper.ByteToHexString(b))),
                     };
                 }
 
@@ -376,19 +345,9 @@ namespace CryoDataLib.ImageLib
                 if (isCompressed)
                 {
                     Console.WriteLine($"RLE-Compressed.");
-
-                    if (true)
-                    {
-                        uncompressedPixels = InterpretRLECompressed(width, height, rawPixelData);
-                    }
-                    else
-                    {
-                        //+DEBUG
-                        var alternative = new CryoImageAlternativeImplementation();
-                        uncompressedPixels = alternative.interpretRLE(rawPixelData, width, height);
-                    }
-                    //-DEBUG
-                } else
+                    uncompressedPixels = InterpretRLECompressed(width, height, rawPixelData);
+                }
+                else
                 {
                     uncompressedPixels = InterpretPartNotCompressed(width, height, rawPixelData);
                 }
@@ -404,7 +363,9 @@ namespace CryoDataLib.ImageLib
                     Height = height,
                     PaletteOffset = paletteOffset,
                     RawData = rawPixelData,
-                    UncompressedPixels = uncompressedPixels
+                    RawDataHexString = string.Join(" ", rawPixelData.Select(b => HexHelper.ByteToHexString(b))),
+                    UncompressedPixels = uncompressedPixels,
+                    UncompressedPixelsHexString = string.Join(" ", uncompressedPixels.Select(p => HexHelper.ByteToHexString(p))),
                 };
             }
         }
@@ -463,24 +424,6 @@ namespace CryoDataLib.ImageLib
                         var partLengthInBytes = (int)(addressesPair.AbsoluteEndAddress - addressesPair.AbsoluteStartAddress);
 
                         var partData = CryoImagePartData.ReadData(reader, partLengthInBytes);
-
-                        //+DEBUG
-                        //if (file.SourceFile == "ICONES.HSQ" && partIndex != 26)
-                        //{
-                        //    partIndex++;
-                        //    return;
-                        //}
-                        if (file.SourceFile == "ONMAP.HSQ" && partIndex != 122)
-                        {
-                            partIndex++;
-                            return;
-                        }
-                        //if (file.SourceFile == "ATTACK.HSQ" && partIndex != 30)
-                        //{
-                        //    partIndex++;
-                        //    return;
-                        //}
-                        //-DEBUG
 
                         var part = InterpretPart(partData, partIndex);
 

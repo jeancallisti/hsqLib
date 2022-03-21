@@ -53,14 +53,6 @@ namespace CryoDataLib.ImageLib
                 for (int i=0; i< colorsPerRow; i++)
                 {
                     var colorIndex = j * colorsPerRow + i;
-
-                    //DEBUG
-                    if (colorIndex < 0 || colorIndex >= 256)
-                    {
-                        throw new CryoDataException("Invalid color index.");
-                    }
-                    //-DEBUG
-
                     data[j*colorsPerRow+i] = (byte)colorIndex;
                 }
             }

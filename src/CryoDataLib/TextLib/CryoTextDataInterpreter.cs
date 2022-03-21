@@ -76,12 +76,6 @@ namespace CryoDataLib.TextLib
 
         private byte[] ProcessInstruction(byte[] input, int instructionPosition, TextInstruction instruction)
         {
-            //+DEBUG
-            //if (instruction.TriggerByte == 134)
-            //{
-            //    int a = 1;
-            //}
-            //-DEBUG
             var instructionStart = instructionPosition;
 
             var strParams = new List<string>();
@@ -94,7 +88,6 @@ namespace CryoDataLib.TextLib
             {
                 var paramName = param.Name;
                 //Console.WriteLine($"Reading param {param.Name}.");
-
 
                 switch (param.Mode)
                 {

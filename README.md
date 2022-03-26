@@ -23,7 +23,7 @@ A console app allowing you to export the json output of CryoDataCli as **PNG fil
 It has one interesting feature : You can choose between 3 palette resolution modes : 
 - **generate** : The files' palettes are automatically generated to roughly match the content of the sprites, in gray scale. It helps you see if the files are correct or what they contain.
 - **guessInternalOnly** : The exporter looks in the file's subpalettes (internal palettes) and tries to guess which one applies to the sprite.
-- **guessAll** : the exporter looks in ALL the subpalettes of ALL the files in the same folder as the exported file. that's for sprites which palette are not present in the same file but in some other "master" file. For example ICONES.HSQ has many sprites but the palette comes from somehwre else.
+- **guessAll** [NOT IMPLEMENTED] : the exporter looks in ALL the subpalettes of ALL the files in the same folder as the exported file. that's for sprites which palette are not present in the same file but in some other "master" file. For example ICONES.HSQ has many sprites but the palette comes from somehwre else.
 
 
 

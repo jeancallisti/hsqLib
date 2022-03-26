@@ -1,7 +1,7 @@
 
 A code base in **C#** for unpacking the "HSQ" file format used by Cryo in games like Dune, KGB, Lost Eden ,etc.
-Unlike other code bases for Cryo games data, this one chooses **brute force** over elegant code.
-It's meant to be extremly maintainable, understandable and tweakable. No pointer arithmetics, only Readers and Linq arrays filtering.
+Unlike other code bases for Cryo games data, this one chooses **brute force** over old-school optimized code : 
+It's meant to be extremly maintainable, understandable and tweakable. No C pointer arithmetics and very little binary data here, only Readers as well as Linq arrays filtering, producing easily-loadable json files and PNG files.
 
 # hsqLib2 and UnpackCli2
 
